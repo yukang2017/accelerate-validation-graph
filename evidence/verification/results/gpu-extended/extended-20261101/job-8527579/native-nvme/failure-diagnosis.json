@@ -1,0 +1,108 @@
+{
+  "status": "partial_shared_dependency_failure",
+  "deepspeed_version": "0.18.2",
+  "sub_group_size": 4194304,
+  "verified": [
+    "Real CUDA forward/backward with finite nonzero gradients and CPUAdam updates",
+    "Real node-local NVMe swap files for both parameters and optimizer states",
+    "Training and checkpoint saving on candidate and reference",
+    "Fresh-process exact restoration of every full model tensor on both variants/ranks"
+  ],
+  "not_verified": [
+    "Optimizer parameter-group LR restoration: equality assertion failed on both variants",
+    "Other optimizer non-tensor state such as Adam step count: not directly observed after restoration",
+    "Post-restore continuation: strict LR precondition stopped execution before any remaining training batch"
+  ],
+  "diagnosis": "The third-party DeepSpeed NVMe load path copies swap tensor files and skips ordinary ZeRO optimizer-state loading. After combining all master parameters into a swappable group, full model weights restore exactly; optimizer scalar metadata still fails restoration. No LR checks were removed and no tolerance was enlarged.",
+  "prior_boundary_failure": "job-8527341/native-nvme/failure-diagnosis.json retains the additional non-swappable small-tail subgroup restoration failure. Fully swappable grouping must not be generalized to all NVMe configurations.",
+  "observations": [
+    {
+      "variant": "candidate",
+      "rank": 0,
+      "save_status": "checkpoint_written",
+      "resume_status": "failed",
+      "nvme_mount": {
+        "fstype": "ext4",
+        "source": "/dev/nvme0n1p2",
+        "target": "/"
+      },
+      "parameter_swap_bytes": 4194304,
+      "optimizer_swap_bytes": 25184256,
+      "optimizer_partition_numels": [
+        0
+      ],
+      "optimizer_updates_during_save_run": 3,
+      "restored_full_model_max_weight_error": 0.0,
+      "expected_checkpoint_lr": 0.0025,
+      "lr_equality_check_passed": false,
+      "continuation_executed": false,
+      "error": "Traceback (most recent call last):\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 254, in main\n    run(args, report)\n    ~~~^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 148, in run\n    assert optimizer.param_groups[0][\"lr\"] == reference[\"checkpoint_lr\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "variant": "candidate",
+      "rank": 1,
+      "save_status": "checkpoint_written",
+      "resume_status": "failed",
+      "nvme_mount": {
+        "fstype": "ext4",
+        "source": "/dev/nvme0n1p2",
+        "target": "/"
+      },
+      "parameter_swap_bytes": 4194304,
+      "optimizer_swap_bytes": 25184256,
+      "optimizer_partition_numels": [
+        0
+      ],
+      "optimizer_updates_during_save_run": 3,
+      "restored_full_model_max_weight_error": 0.0,
+      "expected_checkpoint_lr": 0.0025,
+      "lr_equality_check_passed": false,
+      "continuation_executed": false,
+      "error": "Traceback (most recent call last):\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 254, in main\n    run(args, report)\n    ~~~^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 148, in run\n    assert optimizer.param_groups[0][\"lr\"] == reference[\"checkpoint_lr\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "variant": "reference",
+      "rank": 0,
+      "save_status": "checkpoint_written",
+      "resume_status": "failed",
+      "nvme_mount": {
+        "fstype": "ext4",
+        "source": "/dev/nvme0n1p2",
+        "target": "/"
+      },
+      "parameter_swap_bytes": 4194304,
+      "optimizer_swap_bytes": 25184256,
+      "optimizer_partition_numels": [
+        0
+      ],
+      "optimizer_updates_during_save_run": 3,
+      "restored_full_model_max_weight_error": 0.0,
+      "expected_checkpoint_lr": 0.0025,
+      "lr_equality_check_passed": false,
+      "continuation_executed": false,
+      "error": "Traceback (most recent call last):\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 254, in main\n    run(args, report)\n    ~~~^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 148, in run\n    assert optimizer.param_groups[0][\"lr\"] == reference[\"checkpoint_lr\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "variant": "reference",
+      "rank": 1,
+      "save_status": "checkpoint_written",
+      "resume_status": "failed",
+      "nvme_mount": {
+        "fstype": "ext4",
+        "source": "/dev/nvme0n1p2",
+        "target": "/"
+      },
+      "parameter_swap_bytes": 4194304,
+      "optimizer_swap_bytes": 25184256,
+      "optimizer_partition_numels": [
+        0
+      ],
+      "optimizer_updates_during_save_run": 3,
+      "restored_full_model_max_weight_error": 0.0,
+      "expected_checkpoint_lr": 0.0025,
+      "lr_equality_check_passed": false,
+      "continuation_executed": false,
+      "error": "Traceback (most recent call last):\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 254, in main\n    run(args, report)\n    ~~~^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 148, in run\n    assert optimizer.param_groups[0][\"lr\"] == reference[\"checkpoint_lr\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    }
+  ]
+}

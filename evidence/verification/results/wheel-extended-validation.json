@@ -1,0 +1,320 @@
+{
+  "status": "pass",
+  "wheel": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/artifacts/accelerate-1.16.0.dev0+graph.3-py3-none-any.whl",
+  "wheel_sha256": "2d3899a59651c27145025d9b440d0b90c3a3fab28e6491694b1eaba15cb4ec17",
+  "package_python_files": 55,
+  "fresh_environment": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment",
+  "dependency_site": "[TMPDIR]/accelerate-graph-rewrite-env/lib/python3.13/site-packages",
+  "source_checkout_imported": false,
+  "results": {
+    "module_imports": {
+      "origin": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/__init__.py",
+      "modules": [
+        "accelerate._backends",
+        "accelerate._selftest",
+        "accelerate.accelerator",
+        "accelerate.big_modeling",
+        "accelerate.checkpointing",
+        "accelerate.commands",
+        "accelerate.commands.accelerate_cli",
+        "accelerate.commands.config",
+        "accelerate.commands.config.config",
+        "accelerate.commands.config.config_args",
+        "accelerate.commands.config.default",
+        "accelerate.commands.config.update",
+        "accelerate.commands.env",
+        "accelerate.commands.estimate",
+        "accelerate.commands.launch",
+        "accelerate.commands.merge",
+        "accelerate.commands.test",
+        "accelerate.commands.to_fsdp2",
+        "accelerate.data_loader",
+        "accelerate.hooks",
+        "accelerate.launchers",
+        "accelerate.local_sgd",
+        "accelerate.logging",
+        "accelerate.memory_utils",
+        "accelerate.optimizer",
+        "accelerate.parallelism_config",
+        "accelerate.scheduler",
+        "accelerate.state",
+        "accelerate.test_utils",
+        "accelerate.test_utils.testing",
+        "accelerate.tracking",
+        "accelerate.utils",
+        "accelerate.utils.ao",
+        "accelerate.utils.bnb",
+        "accelerate.utils.constants",
+        "accelerate.utils.dataclasses",
+        "accelerate.utils.deepspeed",
+        "accelerate.utils.environment",
+        "accelerate.utils.fsdp_utils",
+        "accelerate.utils.imports",
+        "accelerate.utils.launch",
+        "accelerate.utils.megatron_lm",
+        "accelerate.utils.memory",
+        "accelerate.utils.modeling",
+        "accelerate.utils.offload",
+        "accelerate.utils.operations",
+        "accelerate.utils.other",
+        "accelerate.utils.random",
+        "accelerate.utils.rich",
+        "accelerate.utils.torch_xla",
+        "accelerate.utils.tqdm",
+        "accelerate.utils.transformer_engine",
+        "accelerate.utils.versions"
+      ]
+    },
+    "train": {
+      "case": "train",
+      "accelerate_source": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/__init__.py",
+      "version": "1.16.0.dev0+graph.3",
+      "python": "3.13.11 | packaged by Anaconda, Inc. | (main, Dec 10 2025, 21:29:12) [GCC 14.3.0]",
+      "torch": "2.8.0+cpu",
+      "status": "pass",
+      "result": {
+        "weights": [
+          [
+            [
+              0.07248710840940475,
+              0.17049793899059296,
+              0.26850879192352295
+            ],
+            [
+              -0.22583599388599396,
+              0.37255117297172546,
+              0.4709382951259613
+            ]
+          ],
+          [
+            0.010216663591563702,
+            -0.1322571039199829
+          ]
+        ],
+        "losses": [
+          0.011756249703466892,
+          0.07729102671146393,
+          0.20429949462413788,
+          0.3821032643318176,
+          0.5646679997444153
+        ],
+        "sync": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "lr": [
+          0.0075
+        ],
+        "step_skipped": false
+      },
+      "module_origins": {
+        "accelerate": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/__init__.py",
+        "accelerate.accelerator": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/accelerator.py",
+        "accelerate.data_loader": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/data_loader.py",
+        "accelerate.optimizer": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/optimizer.py",
+        "accelerate.scheduler": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/scheduler.py",
+        "accelerate.state": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/state.py",
+        "accelerate.utils": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/__init__.py",
+        "accelerate.utils.constants": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/constants.py",
+        "accelerate.utils.dataclasses": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/dataclasses.py",
+        "accelerate.utils.environment": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/environment.py",
+        "accelerate.utils.imports": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/imports.py",
+        "accelerate.utils.memory": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/memory.py",
+        "accelerate.utils.operations": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/operations.py",
+        "accelerate.utils.other": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/other.py",
+        "accelerate.utils.random": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/random.py",
+        "accelerate.utils.tqdm": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/tqdm.py",
+        "accelerate.utils.versions": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/versions.py"
+      }
+    },
+    "checkpoint": {
+      "case": "checkpoint",
+      "accelerate_source": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/__init__.py",
+      "version": "1.16.0.dev0+graph.3",
+      "python": "3.13.11 | packaged by Anaconda, Inc. | (main, Dec 10 2025, 21:29:12) [GCC 14.3.0]",
+      "torch": "2.8.0+cpu",
+      "status": "pass",
+      "result": {
+        "weights": [
+          [
+            [
+              0.08000262826681137,
+              0.17998261749744415,
+              0.2799626290798187
+            ],
+            [
+              -0.21993505954742432,
+              0.37994495034217834,
+              0.4799249470233917
+            ]
+          ],
+          [
+            0.030012618750333786,
+            -0.11995504796504974
+          ]
+        ],
+        "random": [
+          0.6394267984578837,
+          0.3745401188473625,
+          0.9407714605331421
+        ],
+        "counter": 7,
+        "lr": [
+          0.001
+        ]
+      },
+      "module_origins": {
+        "accelerate": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/__init__.py",
+        "accelerate.accelerator": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/accelerator.py",
+        "accelerate.checkpointing": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/checkpointing.py",
+        "accelerate.data_loader": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/data_loader.py",
+        "accelerate.optimizer": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/optimizer.py",
+        "accelerate.scheduler": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/scheduler.py",
+        "accelerate.state": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/state.py",
+        "accelerate.utils": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/__init__.py",
+        "accelerate.utils.constants": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/constants.py",
+        "accelerate.utils.dataclasses": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/dataclasses.py",
+        "accelerate.utils.environment": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/environment.py",
+        "accelerate.utils.imports": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/imports.py",
+        "accelerate.utils.memory": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/memory.py",
+        "accelerate.utils.operations": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/operations.py",
+        "accelerate.utils.other": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/other.py",
+        "accelerate.utils.random": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/random.py",
+        "accelerate.utils.tqdm": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/tqdm.py",
+        "accelerate.utils.versions": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/versions.py"
+      }
+    },
+    "safe_shards": {
+      "case": "safe_shards",
+      "accelerate_source": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/__init__.py",
+      "version": "1.16.0.dev0+graph.3",
+      "python": "3.13.11 | packaged by Anaconda, Inc. | (main, Dec 10 2025, 21:29:12) [GCC 14.3.0]",
+      "torch": "2.8.0+cpu",
+      "status": "pass",
+      "result": {
+        "output": [
+          [
+            0.6500000357627869,
+            0.6000000238418579
+          ],
+          [
+            0.6500000357627869,
+            0.6000000238418579
+          ]
+        ],
+        "weights": [
+          [
+            [
+              0.10000000149011612,
+              0.20000000298023224,
+              0.30000001192092896
+            ],
+            [
+              -0.20000000298023224,
+              0.4000000059604645,
+              0.5
+            ]
+          ],
+          [
+            0.05000000074505806,
+            -0.10000000149011612
+          ]
+        ],
+        "sharded": true
+      },
+      "module_origins": {
+        "accelerate": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/__init__.py",
+        "accelerate.accelerator": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/accelerator.py",
+        "accelerate.big_modeling": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/big_modeling.py",
+        "accelerate.checkpointing": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/checkpointing.py",
+        "accelerate.data_loader": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/data_loader.py",
+        "accelerate.hooks": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/hooks.py",
+        "accelerate.optimizer": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/optimizer.py",
+        "accelerate.scheduler": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/scheduler.py",
+        "accelerate.state": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/state.py",
+        "accelerate.utils": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/__init__.py",
+        "accelerate.utils.constants": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/constants.py",
+        "accelerate.utils.dataclasses": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/dataclasses.py",
+        "accelerate.utils.environment": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/environment.py",
+        "accelerate.utils.imports": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/imports.py",
+        "accelerate.utils.memory": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/memory.py",
+        "accelerate.utils.modeling": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/modeling.py",
+        "accelerate.utils.offload": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/offload.py",
+        "accelerate.utils.operations": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/operations.py",
+        "accelerate.utils.other": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/other.py",
+        "accelerate.utils.random": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/random.py",
+        "accelerate.utils.tqdm": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/tqdm.py",
+        "accelerate.utils.versions": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/versions.py"
+      }
+    },
+    "disk_offload": {
+      "case": "disk_offload",
+      "accelerate_source": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/__init__.py",
+      "version": "1.16.0.dev0+graph.3",
+      "python": "3.13.11 | packaged by Anaconda, Inc. | (main, Dec 10 2025, 21:29:12) [GCC 14.3.0]",
+      "torch": "2.8.0+cpu",
+      "status": "pass",
+      "result": {
+        "before": [
+          "meta",
+          "meta"
+        ],
+        "after": [
+          "meta",
+          "meta"
+        ],
+        "output": [
+          [
+            0.6500000357627869,
+            0.6000000238418579
+          ],
+          [
+            0.6500000357627869,
+            0.6000000238418579
+          ]
+        ],
+        "restored": [
+          [
+            0.6500000357627869,
+            0.6000000238418579
+          ],
+          [
+            0.6500000357627869,
+            0.6000000238418579
+          ]
+        ]
+      },
+      "module_origins": {
+        "accelerate": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/__init__.py",
+        "accelerate.accelerator": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/accelerator.py",
+        "accelerate.big_modeling": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/big_modeling.py",
+        "accelerate.data_loader": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/data_loader.py",
+        "accelerate.hooks": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/hooks.py",
+        "accelerate.optimizer": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/optimizer.py",
+        "accelerate.scheduler": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/scheduler.py",
+        "accelerate.state": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/state.py",
+        "accelerate.utils": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/__init__.py",
+        "accelerate.utils.constants": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/constants.py",
+        "accelerate.utils.dataclasses": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/dataclasses.py",
+        "accelerate.utils.environment": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/environment.py",
+        "accelerate.utils.imports": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/imports.py",
+        "accelerate.utils.memory": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/memory.py",
+        "accelerate.utils.modeling": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/modeling.py",
+        "accelerate.utils.offload": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/offload.py",
+        "accelerate.utils.operations": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/operations.py",
+        "accelerate.utils.other": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/other.py",
+        "accelerate.utils.random": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/random.py",
+        "accelerate.utils.tqdm": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/tqdm.py",
+        "accelerate.utils.versions": "[TMPDIR]/accelerate-wheel-verification-ursgy7mo/environment/lib/python3.13/site-packages/accelerate/utils/versions.py"
+      }
+    },
+    "cli": {
+      "exit_code": 0,
+      "stdout": "{\"status\": \"passed\", \"device\": \"cpu\", \"processes\": 1, \"training_steps\": 6}\n",
+      "stderr": ""
+    }
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "status": "passed",
+  "reviewed_at": "2026-11-01T10:28:33.003902+00:00",
+  "job_id": "8527048",
+  "suite": "pretrained",
+  "case": "single",
+  "world_size": 1,
+  "method": "Recursive exact value and type equality over the entire comparison objects; no ignored comparison keys",
+  "rtol": 0,
+  "atol": 0,
+  "top_level_field_count": 12,
+  "compared_leaf_count": 28,
+  "compared_leaf_paths": [
+    "comparison.parameter_count",
+    "comparison.sequence_length",
+    "comparison.initial_weights_sha256",
+    "comparison.trained_weights_sha256",
+    "comparison.continued_weights_sha256",
+    "comparison.warmup_loss",
+    "comparison.measured_losses[0]",
+    "comparison.measured_losses[1]",
+    "comparison.measured_losses[2]",
+    "comparison.continuation_loss",
+    "comparison.continuation_lr",
+    "comparison.inference_top8_ids[0][0]",
+    "comparison.inference_top8_ids[0][1]",
+    "comparison.inference_top8_ids[0][2]",
+    "comparison.inference_top8_ids[0][3]",
+    "comparison.inference_top8_ids[0][4]",
+    "comparison.inference_top8_ids[0][5]",
+    "comparison.inference_top8_ids[0][6]",
+    "comparison.inference_top8_ids[0][7]",
+    "comparison.inference_top8_logits[0][0]",
+    "comparison.inference_top8_logits[0][1]",
+    "comparison.inference_top8_logits[0][2]",
+    "comparison.inference_top8_logits[0][3]",
+    "comparison.inference_top8_logits[0][4]",
+    "comparison.inference_top8_logits[0][5]",
+    "comparison.inference_top8_logits[0][6]",
+    "comparison.inference_top8_logits[0][7]",
+    "comparison.checkpoint_resume_exact"
+  ],
+  "inputs": {
+    "candidate": {
+      "report": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527048/pretrained/single/world-1/candidate/rank-0.json",
+      "report_sha256": "68bc3d66955d8b4e0a3533dffaf1f38224584a2f0a719592805c2aed3f28c342",
+      "source_snapshot": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527048/pretrained/single/world-1/candidate/source-snapshot-run.json",
+      "source_snapshot_sha256": "48f6dc0be10df2f7e086d9b294a95b472f233f3a0868c70b9c4aea51d1df2047",
+      "execution": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527048/pretrained/single/world-1/candidate/execution-run.json",
+      "execution_sha256": "e85c3b0a9fbb060f771b60238efc3984db34e4f2451a22370c11110db19e8cda",
+      "all_loaded_accelerate_modules_within_selected_root": true,
+      "source_snapshot_workflow_sha256": "13dc27f7e6707fc1066638b032b014cb1ae9882f0b7471506aa9146f540f1e79"
+    },
+    "reference": {
+      "report": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527048/pretrained/single/world-1/reference/rank-0.json",
+      "report_sha256": "9865a0c0f198b3ce770b198b043f2d6d6af78a485d18909e6b97b1c43c270cb9",
+      "source_snapshot": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527048/pretrained/single/world-1/reference/source-snapshot-run.json",
+      "source_snapshot_sha256": "8ec7034c4e71fbb9e864b25667262ec53fe5f7c5cd43b85a07cc5f280e770d00",
+      "execution": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527048/pretrained/single/world-1/reference/execution-run.json",
+      "execution_sha256": "7f5ec32c3cde8af1f800b479f62f9e604f133b079276ba6665b16c2f478b166b",
+      "all_loaded_accelerate_modules_within_selected_root": true,
+      "source_snapshot_workflow_sha256": "13dc27f7e6707fc1066638b032b014cb1ae9882f0b7471506aa9146f540f1e79"
+    }
+  },
+  "reviewed_workflow": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_pretrained_workflows.py",
+  "reviewed_workflow_sha256": "13dc27f7e6707fc1066638b032b014cb1ae9882f0b7471506aa9146f540f1e79",
+  "comparison": {
+    "parameter_count": 1543714304,
+    "sequence_length": 128,
+    "initial_weights_sha256": "0bc117a0f3bf9f7c0f8c1a634266a3a4112fe5f0e5ddec5ca0e0059d4c8d628b",
+    "trained_weights_sha256": "953f3f24ff9a9a21ab27d0ce71e220983e19c4649f6c249e2e1c30d0960546fa",
+    "continued_weights_sha256": "caca11d59d56a9c15a0290bc3b62b2effae7805079de00454928dbc1f4f1c600",
+    "warmup_loss": 1.035229206085205,
+    "measured_losses": [
+      0.8178908228874207,
+      0.5140235424041748,
+      0.39765089750289917
+    ],
+    "continuation_loss": 0.11442345380783081,
+    "continuation_lr": 5.904900000000001e-06,
+    "inference_top8_ids": [
+      [
+        4862,
+        151643,
+        7497,
+        53071,
+        271,
+        198,
+        30654,
+        16151
+      ]
+    ],
+    "inference_top8_logits": [
+      [
+        34.75,
+        22.125,
+        19.75,
+        19.375,
+        19.125,
+        18.5,
+        18.25,
+        18.125
+      ]
+    ],
+    "checkpoint_resume_exact": true
+  },
+  "performance_observations": {
+    "candidate": {
+      "runtime": {
+        "hostname": "GPU_NODE_08",
+        "rank": 0,
+        "world_size": 1,
+        "device": "cuda:0",
+        "gpu": "NVIDIA GB200",
+        "torch": "2.8.0+cu129",
+        "cuda": "12.9",
+        "parameter_count": 1543714304,
+        "sequence_length": 128,
+        "batch_size_per_rank": 1,
+        "model_type": "Qwen2ForCausalLM",
+        "load_prepare_seconds": 4.338290818035603,
+        "model_directory": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/model-cache/Qwen2.5-1.5B",
+        "optimizer": "AdamW FP32 state",
+        "precision": "BF16 autocast",
+        "deterministic_algorithms": true
+      },
+      "performance": {
+        "warmup_steps": 1,
+        "measured_steps": 3,
+        "step_seconds": [
+          0.16803293582051992,
+          0.1667541479691863,
+          0.16717626247555017
+        ],
+        "mean_step_seconds": 0.16732111542175213,
+        "tokens_per_second": 764.9960955457491,
+        "training_peak_allocated_cuda_bytes": 26753789952,
+        "training_peak_reserved_cuda_bytes": 29712449536,
+        "workflow_peak_allocated_cuda_bytes": 39121765376,
+        "checkpoint_save_seconds": 7.5101143922656775,
+        "scope": "One short sampled run at the recorded model/sequence/batch; not a convergence or scaling guarantee"
+      },
+      "training_peak_allocated_GiB": 24.91640853881836,
+      "training_peak_reserved_GiB": 27.671875,
+      "workflow_peak_allocated_GiB": 36.434983253479004
+    },
+    "reference": {
+      "runtime": {
+        "hostname": "GPU_NODE_08",
+        "rank": 0,
+        "world_size": 1,
+        "device": "cuda",
+        "gpu": "NVIDIA GB200",
+        "torch": "2.8.0+cu129",
+        "cuda": "12.9",
+        "parameter_count": 1543714304,
+        "sequence_length": 128,
+        "batch_size_per_rank": 1,
+        "model_type": "Qwen2ForCausalLM",
+        "load_prepare_seconds": 1.9064485859125853,
+        "model_directory": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/model-cache/Qwen2.5-1.5B",
+        "optimizer": "AdamW FP32 state",
+        "precision": "BF16 autocast",
+        "deterministic_algorithms": true
+      },
+      "performance": {
+        "warmup_steps": 1,
+        "measured_steps": 3,
+        "step_seconds": [
+          0.16974935680627823,
+          0.1696841735392809,
+          0.1682778326794505
+        ],
+        "mean_step_seconds": 0.16923712100833654,
+        "tokens_per_second": 756.3352486579748,
+        "training_peak_allocated_cuda_bytes": 26753789952,
+        "training_peak_reserved_cuda_bytes": 29712449536,
+        "workflow_peak_allocated_cuda_bytes": 39121592320,
+        "checkpoint_save_seconds": 6.765246231108904,
+        "scope": "One short sampled run at the recorded model/sequence/batch; not a convergence or scaling guarantee"
+      },
+      "training_peak_allocated_GiB": 24.91640853881836,
+      "training_peak_reserved_GiB": 27.671875,
+      "workflow_peak_allocated_GiB": 36.43482208251953
+    }
+  },
+  "performance_scope": {
+    "samples_per_variant": 3,
+    "warmup_steps_per_variant": 1,
+    "variant_order": [
+      "candidate",
+      "reference"
+    ],
+    "same_host": true,
+    "same_model_batch_sequence": true,
+    "timed_region": "Synchronized forward/backward/optimizer/scheduler/zero_grad training step, including workflow checks; excludes load, fingerprint, checkpoint save and restore. Distributed code uses the maximum rank time, but this job is single rank.",
+    "throughput_definition": "Processed sequence positions / measured training step time; fixed repeated text, batch 1, sequence 128.",
+    "memory_definition": "PyTorch CUDA allocated/reserved peaks after the warmup reset, not device-wide utilization; workflow peak additionally includes fingerprint/checkpoint/replay operations after reset.",
+    "valid_claim": "On this single-GB200, single-rank Qwen2.5-1.5B BF16 short workflow, complete model weight hashes, losses, LR, top-8 inference logits/IDs and checkpoint continuation match exactly.",
+    "limitations": [
+      "One short run per variant; three measured steps; no statistical speedup conclusion.",
+      "Same repeated text for all steps; not convergence, quality, long-context, generation or data-pipeline coverage.",
+      "Performance excludes model load, save/restore, hash collection and distributed setup; checkpoint save time is reported separately.",
+      "No multi-node, multi-GPU or scaling performance conclusion from this job.",
+      "Full model state tensors are hashed, but optimizer/RNG state are not separately hashed; their tested checkpoint behavior is supported by one exact continuation step.",
+      "CUDA memory peaks are per-process allocator measurements, not total GPU or system memory."
+    ]
+  }
+}

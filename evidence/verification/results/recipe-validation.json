@@ -1,0 +1,337 @@
+{
+  "generated_at": "2026-11-01T08:14:13.120659+00:00",
+  "all_passed": true,
+  "passed_checks": 11,
+  "checks": {
+    "two_rank_offline_request_sharding": {
+      "passed": true,
+      "evidence": "recipe-sharded-inference.log",
+      "details": {
+        "requests": 5,
+        "ranks": [
+          0,
+          1
+        ],
+        "duplicates": 0
+      }
+    },
+    "local_gpt2_text_pipeline": {
+      "passed": true,
+      "evidence": "recipe-local-text.log",
+      "details": {
+        "requests": 2,
+        "per_request_generation_options": true,
+        "checkpoint": "locally initialized GPT2 and WordLevel tokenizer",
+        "model_downloads": false
+      }
+    },
+    "local_diffusers_ddpm_image_generation": {
+      "passed": true,
+      "evidence": "recipe-local-image.log",
+      "details": {
+        "artifact": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/recipe-local-image/request-00000-0.png",
+        "size": [
+          8,
+          8
+        ],
+        "inference_steps": 2,
+        "checkpoint": "locally initialized UNet2DModel and DDPMScheduler",
+        "model_downloads": false
+      }
+    },
+    "local_vits_speech_pipeline": {
+      "passed": true,
+      "evidence": "recipe-local-audio.log",
+      "details": {
+        "artifact": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/recipe-local-audio/request-00000.wav",
+        "samples": 8,
+        "sampling_rate": 16000,
+        "checkpoint": "locally initialized VitsModel and WordLevel tokenizer",
+        "model_downloads": false
+      }
+    },
+    "video_artifact_roundtrip": {
+      "passed": true,
+      "evidence": "recipe-video-export/sample-0.mp4",
+      "details": {
+        "frames": 4,
+        "size": [
+          16,
+          16
+        ],
+        "fps": 4,
+        "scope": "synthetic-frame MP4 serialization and decoding only; no video generation model was run"
+      }
+    },
+    "offline_training_benchmark": {
+      "passed": true,
+      "evidence": "recipe-offline-training-benchmark.json",
+      "details": {
+        "mode": "training",
+        "model": "offline-tiny-mlp",
+        "precision": "no",
+        "device": "cpu",
+        "peak_device_bytes": null,
+        "processes": 1,
+        "steps": 3,
+        "seconds": 0.003194076009094715,
+        "load_seconds": 0.8786317678168416,
+        "examples_per_second": 7513.910104726102,
+        "generated_tokens_per_second": 0.0,
+        "latency_ms": {
+          "mean": 1.0606121892730396,
+          "p50": 0.9946981444954872,
+          "p95": 1.2405251152813435
+        },
+        "ranks": [
+          {
+            "rank": 0,
+            "device": "cpu",
+            "device_map": {
+              "": "cpu"
+            },
+            "load_seconds": 0.8786317678168416,
+            "seconds": 0.003194076009094715,
+            "latency_ms": [
+              1.2678392231464386,
+              0.9946981444954872,
+              0.9192992001771927
+            ],
+            "generated_tokens": 0,
+            "loading_peak_device_bytes": {
+              "cpu": null
+            },
+            "peak_device_bytes": null,
+            "peak_device_bytes_by_device": {
+              "cpu": null
+            },
+            "peak_host_rss_bytes": 298844160
+          }
+        ]
+      }
+    },
+    "offline_inference_benchmark": {
+      "passed": true,
+      "evidence": "recipe-offline-inference-benchmark.json",
+      "details": {
+        "mode": "inference",
+        "model": "offline-tiny-mlp",
+        "precision": "no",
+        "device": "cpu",
+        "peak_device_bytes": null,
+        "processes": 1,
+        "steps": 3,
+        "seconds": 0.00033560022711753845,
+        "load_seconds": 0.003563094884157181,
+        "examples_per_second": 71513.65839688301,
+        "generated_tokens_per_second": 0.0,
+        "latency_ms": {
+          "mean": 0.10942636678616206,
+          "p50": 0.09019952267408371,
+          "p95": 0.15381146222352982
+        },
+        "ranks": [
+          {
+            "rank": 0,
+            "device": "cpu",
+            "device_map": {
+              "": "cpu"
+            },
+            "load_seconds": 0.003563094884157181,
+            "seconds": 0.00033560022711753845,
+            "latency_ms": [
+              0.1608794555068016,
+              0.09019952267408371,
+              0.07720012217760086
+            ],
+            "generated_tokens": 0,
+            "loading_peak_device_bytes": {
+              "cpu": null
+            },
+            "peak_device_bytes": null,
+            "peak_device_bytes_by_device": {
+              "cpu": null
+            },
+            "peak_host_rss_bytes": 231735296
+          }
+        ]
+      }
+    },
+    "two_rank_inference_benchmark": {
+      "passed": true,
+      "evidence": "recipe-distributed-inference-benchmark.json",
+      "details": {
+        "mode": "inference",
+        "model": "offline-tiny-mlp",
+        "precision": "no",
+        "device": "cpu",
+        "peak_device_bytes": null,
+        "processes": 2,
+        "steps": 3,
+        "seconds": 0.00047862064093351364,
+        "load_seconds": 0.004503293894231319,
+        "examples_per_second": 25072.048661743673,
+        "generated_tokens_per_second": 0.0,
+        "latency_ms": {
+          "mean": 0.15369321530063948,
+          "p50": 0.11413963511586189,
+          "p95": 0.2594802062958479
+        },
+        "ranks": [
+          {
+            "rank": 0,
+            "device": "cpu",
+            "device_map": {
+              "": "cpu"
+            },
+            "load_seconds": 0.004503293894231319,
+            "seconds": 0.0004611797630786896,
+            "latency_ms": [
+              0.2597002312541008,
+              0.10563991963863373,
+              0.0871000811457634
+            ],
+            "generated_tokens": 0,
+            "loading_peak_device_bytes": {
+              "cpu": null
+            },
+            "peak_device_bytes": null,
+            "peak_device_bytes_by_device": {
+              "cpu": null
+            },
+            "peak_host_rss_bytes": 231735296
+          },
+          {
+            "rank": 1,
+            "device": "cpu",
+            "device_map": {
+              "": "cpu"
+            },
+            "load_seconds": 0.004501353949308395,
+            "seconds": 0.00047862064093351364,
+            "latency_ms": [
+              0.2588201314210892,
+              0.12263935059309006,
+              0.08825957775115967
+            ],
+            "generated_tokens": 0,
+            "loading_peak_device_bytes": {
+              "cpu": null
+            },
+            "peak_device_bytes": null,
+            "peak_device_bytes_by_device": {
+              "cpu": null
+            },
+            "peak_host_rss_bytes": 232783872
+          }
+        ]
+      }
+    },
+    "local_hf_device_map_inference_benchmark": {
+      "passed": true,
+      "evidence": "recipe-local-inference-benchmark.json",
+      "details": {
+        "mode": "inference",
+        "model": "../evidence/recipe-local-models/text",
+        "precision": "no",
+        "device": "cpu",
+        "peak_device_bytes": null,
+        "processes": 1,
+        "steps": 3,
+        "seconds": 0.012542543932795525,
+        "load_seconds": 2.3167731715366244,
+        "examples_per_second": 478.3718543980176,
+        "generated_tokens_per_second": 956.7437087960352,
+        "latency_ms": {
+          "mean": 4.176841427882512,
+          "p50": 4.168534651398659,
+          "p95": 4.257345944643021
+        },
+        "ranks": [
+          {
+            "rank": 0,
+            "device": "cpu",
+            "device_map": {
+              "": "cpu"
+            },
+            "load_seconds": 2.3167731715366244,
+            "seconds": 0.012542543932795525,
+            "latency_ms": [
+              4.267213866114616,
+              4.094775766134262,
+              4.168534651398659
+            ],
+            "generated_tokens": 12,
+            "loading_peak_device_bytes": {
+              "cpu": null
+            },
+            "peak_device_bytes": null,
+            "peak_device_bytes_by_device": {
+              "cpu": null
+            },
+            "peak_host_rss_bytes": 364904448
+          }
+        ]
+      }
+    },
+    "existing_two_rank_text_training_recipe": {
+      "passed": true,
+      "evidence": "example-training.log",
+      "details": {
+        "epoch": 0,
+        "accuracy": 0.625,
+        "examples": 16
+      }
+    },
+    "existing_cpu_training_benchmark": {
+      "passed": true,
+      "evidence": "example-benchmark.log",
+      "details": {
+        "device": "cpu",
+        "precision": "no",
+        "processes": 1,
+        "steps": 3,
+        "seconds": 0.0030038561671972275,
+        "examples_per_second": 7989.730088306257,
+        "peak_device_bytes": null
+      }
+    }
+  },
+  "environment": {
+    "torch": "2.8.0+cpu",
+    "transformers": "4.57.1",
+    "diffusers": "0.35.2",
+    "cuda_available": false,
+    "python": "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+    "dependency_paths": [
+      "[TMPDIR]/accelerate-graph-backend-deps",
+      "[TMPDIR]/accelerate-recipe-deps"
+    ]
+  },
+  "implementation": {
+    "inference": "Shared PartialState splitting and gather for Transformers text/speech pipelines and Diffusers image/video pipelines; JSON request/options input, actual PNG/WAV/MP4 output with gathered metadata.",
+    "benchmark": "Retains training mode and adds offline or local/Hub causal-LM inference, device_map/max_memory/offload options, load time, synchronized latency p50/p95, examples and generated-token throughput, per-device memory and host peak RSS."
+  },
+  "source_sha256": {
+    "examples/inference.py": "37a176dc45206dd2e59bd68d3515f94553faa634b2f7905ebd367ddf5dab7692",
+    "benchmarks/run.py": "532af5b4f365f960c452e0b4653683a1a9f4b22252cc38e2a23f155c2fbdc7fa"
+  },
+  "limitations": [
+    "All generated model fixtures use tiny random local weights and verify execution/artifact production, not useful model quality.",
+    "No video-generation model was executed; only the shared pipeline dispatch implementation and real MP4 serialization/decoding are covered.",
+    "GPU image/video/speech generation, multi-accelerator device maps, accelerator peak-memory counters and large-model performance remain unverified in this CPU environment.",
+    "Speech coverage is text-to-audio via Vits; automatic speech recognition is wired through the official Transformers pipeline but was not separately exercised.",
+    "Host memory is process peak RSS; model load time includes construction/import/placement overhead. Tiny-model timings are workflow checks, not performance claims."
+  ],
+  "primary_references": [
+    "https://huggingface.co/docs/transformers/main_classes/pipelines",
+    "https://huggingface.co/docs/transformers/main/big_models",
+    "https://huggingface.co/docs/diffusers/v0.32.2/en/api/pipelines/text_to_video"
+  ],
+  "reproduction": {
+    "commands": "recipe-commands.sh",
+    "local_fixture_builder": "recipe-fixtures.py",
+    "usage": "Run bash verification/recipe-commands.sh [TMPDIR]/accelerate-recipes from the repository root after installing recipe dependencies. No Hub model downloads are needed.",
+    "note": "Exact workflows above were run individually; the newly saved consolidated command script was syntax checked, not rerun to avoid duplicating completed checks."
+  }
+}

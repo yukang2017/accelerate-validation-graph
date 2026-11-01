@@ -1,0 +1,3275 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-01T12:52:32.154033+00:00",
+  "title": "Accelerate 功能验证图",
+  "language": "zh-CN",
+  "source": {
+    "graph": "verification/graph-coverage.json",
+    "reference_commit": "3008af926ffe3e04ffe6fbe3d87494193fc85041",
+    "package_version": "1.16.0.dev0+graph.3",
+    "extended_status": "completed_with_known_failures",
+    "graph_sha256": "755e0c5868e11b25fd4da14da40a1dd171692bb3a8748d5437fe62d42703f8bd"
+  },
+  "status_legend": {
+    "sample_pass": {
+      "label": "样例通过",
+      "meaning": "已运行的当前所列样例通过；不代表该功能全部API、配置或硬件验证完毕。"
+    },
+    "partial": {
+      "label": "部分通过",
+      "meaning": "该节点同时存在成功样例和仍直接涉及候选的已测失败；仅原版失败或已被替代的旧依赖失败不会自动改变节点颜色。"
+    },
+    "not_run": {
+      "label": "未运行",
+      "meaning": "没有该功能原生执行证据；代码、配置或适配入口存在不算运行通过。"
+    }
+  },
+  "counts": {
+    "nodes": 37,
+    "domains": 10,
+    "by_status": {
+      "sample_pass": 31,
+      "partial": 4,
+      "not_run": 2
+    },
+    "interpretation": "节点计数不是独立测试用例或通过率；一个节点可关联多份重叠证据。"
+  },
+  "common_methodology": {
+    "code_commit": "abec29c",
+    "evidence_freshness": "最终GPU源快照与最后交付源码仅__version__不同；CPU和较早GPU记录是各阶段累计证据，不等于所有CPU工作流都在最终提交重新运行。",
+    "approach": "独立编写端到端工作流、执行原版黑盒行为对照，并在部分并行路径使用独立dense模型作oracle。",
+    "upstream_unit_tests_executed": false,
+    "upstream_unit_tests_note": "未运行、未复制上游unit tests；没有据此宣称上游测试套件兼容。",
+    "reference_policy": "原版在隔离进程执行，记录模块来源；未读取原实现源码来构建这些验证工作流。",
+    "acceptance": [
+      "保存成功不等于恢复成功；后端保存／恢复分别启动独立进程。",
+      "完整模型权重与全部optimizer／RNG字节是不同证据层次。",
+      "跨实现精确比较与BF16／量化容差通过分别记录。",
+      "历史失败不会因后续成功而删除；当前失败、仅原版失败、旧依赖失败与已修复问题分别标识。"
+    ],
+    "test_type_labels": {
+      "self_e2e": "自建端到端工作流",
+      "black_box_comparison": "原版黑盒对照",
+      "independent_dense_oracle": "独立dense基线",
+      "recipe_smoke": "示例冒烟",
+      "isolated_package_install": "隔离安装验证"
+    },
+    "failure_classification_labels": {
+      "shared_dependency_failure": "双方共享依赖失败",
+      "reference_only_failure": "仅原版失败",
+      "old_dependency_failure": "旧依赖版本失败",
+      "historical_fixed": "历史失败，已修复重跑"
+    },
+    "not_claimed": [
+      "所有公共API或所有模型等价。",
+      "所有并行拓扑、硬件厂商或依赖版本支持。",
+      "通用加速、显存改善、收敛或模型质量提升。",
+      "跨机架或RDMA网络传输。"
+    ],
+    "evidence": [
+      {
+        "href": "evidence/verification/graph-coverage.json",
+        "label": "逐流程原始覆盖矩阵"
+      },
+      {
+        "href": "evidence/verification/results/gpu-validation.json",
+        "label": "首轮GPU报告"
+      },
+      {
+        "href": "evidence/verification/results/gpu-extended-validation.json",
+        "label": "最终扩展GPU报告"
+      }
+    ]
+  },
+  "device_profiles": {
+    "cpu_gloo": {
+      "name": "CPU／Gloo",
+      "devices": "单进程／双rank CPU",
+      "software": "Python3.13、PyTorch2.8 CPU；部分构建和安装检查另有独立环境"
+    },
+    "gb200_native": {
+      "name": "单节点 NVIDIA GB200",
+      "devices": "1／2／4 GPU 工作流",
+      "software": "aarch64、PyTorch2.8.0+cu129、CUDA12.9、NCCL"
+    },
+    "gb200_two_nodes": {
+      "name": "两节点 NVIDIA GB200",
+      "devices": "最多2节点×4GPU，共8rank；FSDP1鉴别也运行跨两节点4rank",
+      "software": "PyTorch2.8.0+cu129、NCCL；主机拓扑已审计"
+    },
+    "te_ngc": {
+      "name": "Transformer Engine 环境",
+      "devices": "单节点2×GB200",
+      "software": "NGC PyTorch25.08、Torch2.8.0a0、TE2.5.0+f05f12c"
+    },
+    "megatron_ngc": {
+      "name": "Megatron 原生环境",
+      "devices": "两节点8×GB200，TP2×PP2×DP2＋SP",
+      "software": "NGC CUDA13环境，完整版本与源码固定值见扩展报告；PP跨节点、TP／DP节点内"
+    }
+  },
+  "dependency_profiles": {
+    "deepspeed_standard_cpu": "0.17.6",
+    "deepspeed_nvme": "0.18.2，恢复有已知失败",
+    "deepspeed_ulysses": "0.19.9，通过所列SP4／SP2×DP2；0.18.2恢复失败",
+    "bitsandbytes": "0.48.2"
+  },
+  "qwen_case": {
+    "name": "Qwen2.5-1.5B真实模型专项",
+    "status": "sample_pass",
+    "parameters": 1543714304,
+    "precision": "BF16 autocast，FP32 AdamW状态",
+    "batch_per_rank": 1,
+    "sequence_length": 128,
+    "verified": [
+      "单卡及两节点FSDP2：初始／训练后／续训后完整模型状态字节哈希一致。",
+      "已记录loss／LR、top8推理输出与一次恢复后续训一致。"
+    ],
+    "single_gpu": {
+      "nodes": 1,
+      "world_size": 1,
+      "warmup_steps": 1,
+      "measured_steps": 3,
+      "exact_comparison_leaves": 28,
+      "candidate_mean_step_seconds": 0.16732111542175213,
+      "reference_mean_step_seconds": 0.16923712100833654,
+      "candidate_peak_allocated_GiB": 24.91640853881836,
+      "reference_peak_allocated_GiB": 24.91640853881836,
+      "candidate_peak_reserved_GiB": 27.671875,
+      "reference_peak_reserved_GiB": 27.671875
+    },
+    "fsdp2": {
+      "nodes": 2,
+      "world_size": 8,
+      "warmup_steps": 1,
+      "measured_steps": 20,
+      "exact_comparison_leaves": 360,
+      "candidate_mean_step_seconds": 0.34611548548564314,
+      "reference_mean_step_seconds": 0.35359252281486986,
+      "candidate_tokens_per_second": 2958.5500878794846,
+      "reference_tokens_per_second": 2895.988840058518,
+      "candidate_max_rank_peak_allocated_GiB": 4.749058246612549,
+      "reference_max_rank_peak_allocated_GiB": 4.709751605987549,
+      "candidate_max_rank_peak_reserved_GiB": 9.458984375,
+      "reference_max_rank_peak_reserved_GiB": 6.193359375
+    },
+    "limits": [
+      "单卡1warmup＋3测量步；八卡1warmup＋20测量步；固定文本重复、每版仅一轮。",
+      "未独立完整哈希optimizer／RNG；续训证据范围是一续训步。",
+      "allocated／reserved是每进程分配器观察；reserved含此前权重哈希和预热缓存，不是隔离稳态需求。",
+      "不同全局batch与步数，不能计算通用加速比、扩展效率、显存节省，也不证明收敛／质量。"
+    ],
+    "evidence": [
+      {
+        "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527048/pretrained-single-parity-review.json",
+        "label": "Qwen单卡审阅"
+      },
+      {
+        "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527499/pretrained-fsdp2-strict-parity.json",
+        "label": "Qwen两节点审阅"
+      }
+    ]
+  },
+  "historical_runtime_fixes": {
+    "first_gpu_round": [
+      {
+        "problem": "Optimizer wrapper retained stale param_groups/state/defaults after distributed checkpoint restoration.",
+        "change": "Delegate current state to the underlying optimizer instead of caching dictionary references.",
+        "files": [
+          "src/accelerate/optimizer.py"
+        ],
+        "verified_by": [
+          "core",
+          "parallel"
+        ]
+      },
+      {
+        "problem": "FSDP2 context-parallel ranks did not reduce gradients across the CP dimension.",
+        "change": "Use the joint dp_shard x cp mesh for FSDP gradient reduction, retaining the replication dimension.",
+        "files": [
+          "src/accelerate/utils/fsdp_utils.py"
+        ],
+        "verified_by": [
+          "parallel"
+        ]
+      },
+      {
+        "problem": "DeepSpeed standard accumulation called unsupported no_sync; engine update boundaries and scheduler ownership differed from the reference.",
+        "change": "Let GradientState control engine boundaries, skip DeepSpeed no_sync, and leave ordinary PyTorch schedulers under AcceleratedScheduler while config-defined schedulers remain engine-owned.",
+        "files": [
+          "src/accelerate/accelerator.py",
+          "src/accelerate/_backends.py",
+          "src/accelerate/utils/deepspeed.py"
+        ],
+        "verified_by": [
+          "deepspeed_standard",
+          "deepspeed_defaults"
+        ]
+      }
+    ],
+    "extended_gpu_round": [
+      {
+        "problem": "External scheduler retained the optimizer replaced by CPUAdam.",
+        "files": [
+          "src/accelerate/_backends.py"
+        ],
+        "verified_by": [
+          "cpu_offload"
+        ]
+      },
+      {
+        "problem": "Ulysses registered before the native DeepSpeed distributed backend was initialized.",
+        "files": [
+          "src/accelerate/_backends.py"
+        ],
+        "verified_by": [
+          "ulysses"
+        ]
+      },
+      {
+        "problem": "Megatron parser defaults and native training/checkpoint contracts were not fully applied.",
+        "files": [
+          "src/accelerate/utils/megatron_lm.py"
+        ],
+        "verified_by": [
+          "megatron"
+        ]
+      },
+      {
+        "problem": "Generic checkpoint handling loaded the native Megatron scheduler a second time.",
+        "files": [
+          "src/accelerate/accelerator.py"
+        ],
+        "verified_by": [
+          "megatron"
+        ]
+      },
+      {
+        "problem": "Unpadded vocabulary size was incorrectly supplied as padded size.",
+        "files": [
+          "src/accelerate/utils/dataclasses.py"
+        ],
+        "verified_by": [
+          "megatron"
+        ]
+      },
+      {
+        "problem": "Native consumed-sample bookkeeping was missing.",
+        "files": [
+          "src/accelerate/utils/megatron_lm.py"
+        ],
+        "verified_by": [
+          "megatron"
+        ]
+      },
+      {
+        "problem": "Default HF GPT causal-label/EOS translation and default public return object differed.",
+        "files": [
+          "src/accelerate/utils/megatron_lm.py",
+          "src/accelerate/utils/dataclasses.py"
+        ],
+        "verified_by": [
+          "megatron"
+        ]
+      }
+    ],
+    "note": "这些问题已修复并对相关样例重跑，不计为当前仍失败。候选源码路径仅为公开技术定位，不含运行环境路径。"
+  },
+  "nodes": [
+    {
+      "id": "runtime-state",
+      "domain": "runtime",
+      "name": "识别运行环境与设备",
+      "summary": "CPU 单进程／双进程及 GPU 1／2／4／8 rank 的设备、进程身份和 NCCL 初始化已执行。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "CPU 单进程／双进程及 GPU 1／2／4／8 rank 的设备、进程身份和 NCCL 初始化已执行。",
+          "两节点实际进程拓扑与模块来源已审计。"
+        ],
+        "failed": [],
+        "unverified": [
+          "其他厂商设备、原生 MPI、混合硬件安装及任意 rendezvous 组合。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "core-training",
+                "mpi-environment",
+                "ddp-dispatch-local-sgd-mesh-trigger"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "single_fp32",
+                "single_fp16",
+                "single_bf16",
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16",
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "multinode_core"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process-coordination",
+      "domain": "runtime",
+      "name": "协调多进程执行顺序",
+      "summary": "CPU／CUDA 的 barrier、输入划分、停止信号以及两节点保存／恢复协调样例通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "CPU／CUDA 的 barrier、输入划分、停止信号以及两节点保存／恢复协调样例通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "所有装饰器与上下文组合、非 CUDA 同步和任意网络拓扑。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "ddp-dispatch-local-sgd-mesh-trigger"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "distributed-rank0",
+                "distributed-rank1"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16",
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "multinode_core",
+                "multinode_deepspeed"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "distributed-collectives",
+      "domain": "runtime",
+      "name": "汇总结果与交换张量",
+      "summary": "Gloo／NCCL 的收集、广播、尾批去重已执行。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "Gloo／NCCL 的收集、广播、尾批去重已执行。",
+          "CP8 跨节点注意力通信及四卡 Ulysses all-to-all 为真实执行。"
+        ],
+        "failed": [],
+        "unverified": [
+          "任意不等长 collective、异构设备、XLA 和其他通信后端。"
+        ],
+        "observations": [
+          "CP 通信调度计数存在差异；已测功能输出一致，不宣称通信时间表相同。"
+        ],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison",
+          "independent_dense_oracle"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "operations",
+                "distributed-rank0",
+                "distributed-rank1"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "ddp-dispatch-local-sgd-mesh-trigger"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16",
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "parallel",
+              "cases": [
+                "cp"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "multinode_parallel",
+                "ulysses"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "runtime-support",
+      "domain": "runtime",
+      "name": "适配硬件、依赖与进程环境",
+      "summary": "CPU 依赖诊断、模块导入与 MPI 风格环境启动通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "CPU 依赖诊断、模块导入与 MPI 风格环境启动通过。",
+          "真实 CUDA、NGC TE 和隔离的 DeepSpeed 环境完成所选工作流。"
+        ],
+        "failed": [],
+        "unverified": [
+          "XLA 安装、未使用的可选设备扩展及全部环境辅助函数组合。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/backend-validation.json",
+            "label": "backend-validation.json",
+            "selection": {
+              "cases": [
+                "environment"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/support-validation.json",
+            "label": "support-validation.json",
+            "selection": {
+              "workflows": [
+                "module_imports"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "mpi-environment"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "single_fp32",
+                "single_fp16",
+                "single_bf16",
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16",
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "transformer_engine_fp8",
+                "ulysses"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "training-prepare",
+      "domain": "training",
+      "name": "接入模型、优化器与数据",
+      "summary": "CPU／DDP／FSDP1／FSDP2、Transformers Trainer 以及原生 ZeRO2／3 接入样例通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "CPU／DDP／FSDP1／FSDP2、Transformers Trainer 以及原生 ZeRO2／3 接入样例通过。",
+          "TE FP8、CPUAdam、Ulysses、Qwen 与所测 Megatron GPT 配置完成模型／优化器／数据接入。"
+        ],
+        "failed": [],
+        "unverified": [
+          "所有外部模型与优化器集成；Megatron 默认 provider、BERT／T5 和其他自定义模式。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes",
+          "te_ngc",
+          "megatron_ngc"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "core-training",
+                "fsdp1-two-rank",
+                "fsdp2-two-rank",
+                "scheduler-dp-vs-tp"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/transformers-comparison.json",
+            "label": "transformers-comparison.json",
+            "selection": {
+              "assertions": [
+                "train/evaluate/predict/resume"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "single_fp32",
+                "single_fp16",
+                "single_bf16",
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16",
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "fp8_ao",
+              "cases": [
+                "fp8_ao"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "parallel",
+              "cases": [
+                "tp",
+                "cp"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_standard",
+              "cases": [
+                "zero2_torch",
+                "zero3_torch",
+                "zero2_deepspeed",
+                "zero3_deepspeed",
+                "zero2_torch_tail"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_defaults",
+              "cases": [
+                "deepspeed_zero2",
+                "deepspeed_zero3"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "transformer_engine_fp8",
+                "cpu_offload",
+                "ulysses",
+                "pretrained_qwen",
+                "megatron"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "training-step",
+      "domain": "training",
+      "name": "反向传播与参数更新",
+      "summary": "SGD／Adam、裁剪、调度与 FP16 overflow 跳过更新已有真实工作流及黑盒对照。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "SGD／Adam、裁剪、调度与 FP16 overflow 跳过更新已有真实工作流及黑盒对照。",
+          "TE FP8、CPUAdam、ZeRO、Ulysses 和所测 Megatron 完成真实反向传播与参数更新。"
+        ],
+        "failed": [],
+        "unverified": [
+          "所有优化器／调度器、XLA、未测 FP8 配方与模型模式。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes",
+          "te_ngc",
+          "megatron_ngc"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "train",
+                "accumulation",
+                "clipping"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "fsdp1-two-rank",
+                "fsdp2-two-rank",
+                "scheduler-dp-vs-tp"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "single_fp32",
+                "single_fp16",
+                "single_bf16",
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16",
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "fp8_ao",
+              "cases": [
+                "fp8_ao"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "parallel",
+              "cases": [
+                "tp",
+                "cp"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_standard",
+              "cases": [
+                "zero2_torch",
+                "zero3_torch",
+                "zero2_deepspeed",
+                "zero3_deepspeed",
+                "zero2_torch_tail"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_defaults",
+              "cases": [
+                "deepspeed_zero2",
+                "deepspeed_zero3"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "transformer_engine_fp8",
+                "cpu_offload",
+                "ulysses",
+                "multinode_deepspeed",
+                "megatron"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "gradient-accumulation",
+      "domain": "training",
+      "name": "梯度累积与同步控制",
+      "summary": "CPU／CUDA DDP／FSDP 的累积边界与参数轨迹样例通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "CPU／CUDA DDP／FSDP 的累积边界与参数轨迹样例通过。",
+          "ZeRO2／3 的普通累积、默认同步及五 microbatch 尾批刷新分别执行；所选两节点配置通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "任意 rank 提前耗尽数据、所有嵌套同步上下文和可选引擎组合。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "accumulation",
+                "distributed-rank0",
+                "distributed-rank1"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "core-training",
+                "fsdp1-two-rank",
+                "fsdp2-two-rank"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "single_fp32",
+                "single_fp16",
+                "single_bf16",
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16",
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_standard",
+              "cases": [
+                "zero2_torch",
+                "zero3_torch",
+                "zero2_deepspeed",
+                "zero3_deepspeed",
+                "zero2_torch_tail"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_defaults",
+              "cases": [
+                "deepspeed_zero2",
+                "deepspeed_zero3"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "multinode_core",
+                "multinode_deepspeed"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "local-sgd",
+      "domain": "training",
+      "name": "周期性模型平均",
+      "summary": "双 rank CPU／Gloo 周期性本地更新与最终模型平均通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "CPU工作流样例",
+        "passed": [
+          "双 rank CPU／Gloo 周期性本地更新与最终模型平均通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "GPU、多节点以及所有优化器／精度组合。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e"
+        ],
+        "device_profiles": [
+          "cpu_gloo"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "ddp-dispatch-local-sgd-mesh-trigger"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "model-compilation",
+      "domain": "training",
+      "name": "编译模型与重复计算区域",
+      "summary": "CPU 区域 aot_eager 编译的前向、梯度与未编译模型一致；区域发现和解包通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "CPU工作流样例",
+        "passed": [
+          "CPU 区域 aot_eager 编译的前向、梯度与未编译模型一致；区域发现和解包通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "Inductor／GPU 性能与数值、DeepSpeed／FSDP2 编译训练。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e"
+        ],
+        "device_profiles": [
+          "cpu_gloo"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/support-validation.json",
+            "label": "support-validation.json",
+            "selection": {
+              "workflows": [
+                "regional_compilation"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "data-sharding",
+      "domain": "data",
+      "name": "按进程分发数据批次",
+      "summary": "split／非 split 分发、尾批实际样本数、map-style shard 与 TP 复制／DP 分片已有执行。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "split／非 split 分发、尾批实际样本数、map-style shard 与 TP 复制／DP 分片已有执行。",
+          "两节点 TP2×DP_shard4 及 Ulysses token／position／label 分片重构通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "全部自定义 sampler、流式数据、worker 模式与非 CUDA 数据转移。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "data_shards",
+                "distributed-rank0",
+                "distributed-rank1"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "ddp-dispatch-local-sgd-mesh-trigger"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16",
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "parallel",
+              "cases": [
+                "tp"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "multinode_parallel",
+                "ulysses"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "data-reproducibility",
+      "domain": "data",
+      "name": "复现采样与恢复数据进度",
+      "summary": "随机数据、Dropout、普通／Stateful loader 的进度恢复通过，包括 0／2 workers 与双 rank 分发。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "随机数据、Dropout、普通／Stateful loader 的进度恢复通过，包括 0／2 workers 与双 rank 分发。",
+          "所选单节点和两节点核心工作流的 CPU／CUDA RNG 与续训可复现。"
+        ],
+        "failed": [],
+        "unverified": [
+          "任意用户数据集内部状态、GPU 随机数据变换和全部持久 worker／流式组合。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "rng-recovery-stateful-False-workers-0",
+                "rng-recovery-stateful-False-workers-2",
+                "rng-recovery-stateful-True-workers-0",
+                "rng-recovery-stateful-True-workers-2",
+                "distributed-rng-recovery-shard",
+                "distributed-rng-recovery-dispatch",
+                "distributed-rng-recovery-dispatch-split"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "skip_batches"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "single_fp32",
+                "single_fp16",
+                "single_bf16",
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16",
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "multinode_core"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "checkpoint-resume",
+      "domain": "persistence",
+      "name": "保存并恢复训练现场",
+      "summary": "CPU／Trainer、所选 CUDA DDP／FSDP2、ZeRO、TE FP8、Ulysses 与 Megatron 保存／独立进程恢复样例通过。",
+      "validation": {
+        "status": "partial",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "CPU／Trainer、所选 CUDA DDP／FSDP2、ZeRO、TE FP8、Ulysses 与 Megatron 保存／独立进程恢复样例通过。",
+          "Qwen 的完整模型状态哈希与一续训步一致；NVMe 全部可交换分组可零误差恢复模型权重。"
+        ],
+        "failed": [
+          {
+            "title": "NVMe 优化器学习率恢复失败",
+            "scope": "完整模型权重恢复为零误差，但 optimizer LR 未恢复；严格检查阻止续训。",
+            "variant": "candidate_and_reference",
+            "dependency": "DeepSpeed 0.18.2",
+            "classification": "shared_dependency_failure",
+            "current": true,
+            "resolution": "未解决；不能将模型恢复通过称为完整训练状态恢复通过。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527579/native-nvme/failure-diagnosis.json",
+                "label": "NVMe LR 恢复失败诊断"
+              }
+            ]
+          },
+          {
+            "title": "NVMe 小尾部分组权重没有恢复",
+            "scope": "较小 subgroup 配置的最后 bias 不满足 AIO 交换阈值，恢复误差 0.00201416015625。",
+            "variant": "candidate_and_reference",
+            "dependency": "DeepSpeed 0.18.2",
+            "classification": "shared_dependency_failure",
+            "current": true,
+            "resolution": "合并分组后的模型恢复通过仅为另一配置；原小尾分组边界仍未修复。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527341/native-nvme/failure-diagnosis.json",
+                "label": "NVMe 小尾分组诊断"
+              }
+            ]
+          },
+          {
+            "title": "FSDP1 空局部分片导致优化器恢复失败",
+            "scope": "8 rank、末层输出维度4的原模型触发 PyTorch DCP planner 旧格式分支。",
+            "variant": "candidate_and_reference",
+            "dependency": "PyTorch 2.8 / FSDP1 DCP",
+            "classification": "shared_dependency_failure",
+            "current": true,
+            "resolution": "4 rank 原模型与8 rank宽末层控制通过，不能替代原失败配置。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527658/fsdp1-followup-strict-summary.json",
+                "label": "FSDP1 三组鉴别与原失败"
+              }
+            ]
+          },
+          {
+            "title": "原版 CPUAdam＋StepLR 恢复后学习率错误",
+            "scope": "ZeRO2／3 转换为 CPUAdam 后，原版 scheduler 仍绑定旧 optimizer。",
+            "variant": "reference_only",
+            "dependency": "DeepSpeed 0.17.6 / Torch StepLR",
+            "classification": "reference_only_failure",
+            "current": true,
+            "resolution": "候选已重绑并通过恢复；原生 WarmupLR 两版通过。不是该外部调度器路径的两版全通过。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527341/torch-offload/external-scheduler-fix-evidence.json",
+                "label": "CPUAdam StepLR 对照"
+              }
+            ]
+          },
+          {
+            "title": "旧版本 NVMe checkpoint 保存竞争",
+            "scope": "多 rank copytree 写相同目标目录导致保存失败。",
+            "variant": "candidate_and_reference",
+            "dependency": "DeepSpeed 0.17.6",
+            "classification": "old_dependency_failure",
+            "current": false,
+            "resolution": "0.18.2 保存通过，但其优化器恢复仍失败；没有验证 0.19.9 NVMe。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527254/matrix-summary.json",
+                "label": "NVMe 旧版本运行记录"
+              }
+            ]
+          },
+          {
+            "title": "旧版本 Ulysses checkpoint rank 映射错误",
+            "scope": "SP 被视为 MP rank，训练／保存通过但新进程恢复失败。",
+            "variant": "candidate_and_reference",
+            "dependency": "DeepSpeed 0.18.2",
+            "classification": "old_dependency_failure",
+            "current": false,
+            "resolution": "官方隔离安装的0.19.9在SP4／SP2×DP2通过全部保存／恢复。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527579/ulysses/failure-diagnosis.json",
+                "label": "Ulysses 0.18.2 恢复诊断"
+              }
+            ]
+          }
+        ],
+        "unverified": [
+          "NVMe 完整优化器状态与恢复后续训；跨版本／跨程序 checkpoint、XLA 及所有其他配置。"
+        ],
+        "observations": [
+          "CPU卸载跨实现完整模型权重／loss／LR精确一致；BF16自身恢复续训用rtol=0.002、atol=0.0005，实测最大权重误差0.000244140625。",
+          "完整模型权重对照不等同于独立逐字节验证全部optimizer／RNG状态。"
+        ],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes",
+          "te_ngc",
+          "megatron_ngc"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "persistence-hooks-trackers",
+                "fsdp1-two-rank",
+                "fsdp2-two-rank"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "checkpoint",
+                "distributed-rank0",
+                "distributed-rank1"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/transformers-comparison.json",
+            "label": "transformers-comparison.json",
+            "selection": {
+              "assertions": [
+                "exact_resume"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "single_fp32",
+                "single_fp16",
+                "single_bf16",
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16",
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "fp8_ao",
+              "cases": [
+                "fp8_ao"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "parallel",
+              "cases": [
+                "tp"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_standard",
+              "cases": [
+                "zero2_torch",
+                "zero3_torch",
+                "zero2_deepspeed",
+                "zero3_deepspeed",
+                "zero2_torch_tail"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_defaults",
+              "cases": [
+                "deepspeed_zero2",
+                "deepspeed_zero3"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "transformer_engine_fp8",
+                "cpu_offload",
+                "nvme_offload",
+                "ulysses",
+                "pretrained_qwen",
+                "fsdp1_boundary",
+                "megatron"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8528065/megatron-full-tensor-parity.json",
+            "label": "Megatron 完整张量与公共合同"
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527800/ulysses-full-tensor-parity.json",
+            "label": "Ulysses 0.19.9 完整模型张量对照"
+          }
+        ]
+      }
+    },
+    {
+      "id": "model-export",
+      "domain": "persistence",
+      "name": "导出可分片模型权重",
+      "summary": "bin／safetensors 分片、覆盖导出、共享权重和 Trainer 保存模型样例通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "bin／safetensors 分片、覆盖导出、共享权重和 Trainer 保存模型样例通过。",
+          "CUDA DDP／FSDP 导出可原生重载；ZeRO 完整模型快照与 Qwen 模型状态字节哈希已检查。"
+        ],
+        "failed": [],
+        "unverified": [
+          "所有后端导出模式、adapter 约定、共享存储和格式组合。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "safe_shards",
+                "bin_shards"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "persistence-hooks-trackers"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/transformers-comparison.json",
+            "label": "transformers-comparison.json",
+            "selection": {
+              "assertions": [
+                "saved_model"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/large-model-validation.json",
+            "label": "large-model-validation.json",
+            "selection": {
+              "workflows": [
+                "roundtrips"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/support-validation.json",
+            "label": "support-validation.json",
+            "selection": {
+              "workflows": [
+                "export_replacement",
+                "checkpoint_format_switch"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "single_fp32",
+                "single_fp16",
+                "single_bf16",
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16",
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_standard",
+              "cases": [
+                "zero2_torch",
+                "zero3_torch",
+                "zero2_deepspeed",
+                "zero3_deepspeed",
+                "zero2_torch_tail"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_defaults",
+              "cases": [
+                "deepspeed_zero2",
+                "deepspeed_zero3"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "multinode_deepspeed",
+                "pretrained_qwen"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "experiment-tracking",
+      "domain": "observability",
+      "name": "记录实验与训练日志",
+      "summary": "TensorBoard 事件／多图片和自定义 tracker 生命周期在 CPU 工作流通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "CPU工作流样例",
+        "passed": [
+          "TensorBoard 事件／多图片和自定义 tracker 生命周期在 CPU 工作流通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "WandB／Trackio／Comet／Aim／MLflow／ClearML／DVCLive／Swanlab 在线服务及全部 rank 选项。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "tensorboard",
+                "custom_tracker"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "persistence-hooks-trackers"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/support-validation.json",
+            "label": "support-validation.json",
+            "selection": {
+              "workflows": [
+                "tensorboard_images"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "profiling-memory",
+      "domain": "observability",
+      "name": "观察性能与调整内存占用",
+      "summary": "CPU profiler trace 与模拟 OOM 的批量重试序列通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "CPU profiler trace 与模拟 OOM 的批量重试序列通过。",
+          "真实 TE FP8、Flash Attention、NCCL 内核已有 profile；Qwen 记录计时与 allocated／reserved 峰值。"
+        ],
+        "failed": [],
+        "unverified": [
+          "真实 GPU OOM 恢复、长期 allocator 压力和通用性能／显存改善。"
+        ],
+        "observations": [
+          "Qwen reserved峰值包括初始完整权重哈希和预热留下的缓存，不能当成隔离稳态训练需求。"
+        ],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes",
+          "te_ngc"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/support-validation.json",
+            "label": "support-validation.json",
+            "selection": {
+              "workflows": [
+                "profiling"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "batch_search"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "parallel",
+              "cases": [
+                "cp"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "memory",
+              "cases": [
+                "cpu_offload",
+                "disk_offload",
+                "mixed_dispatch",
+                "multi_gpu_tied",
+                "auto_device_map",
+                "meta_bin",
+                "meta_safe_shards",
+                "cast_fp16",
+                "cast_bf16",
+                "cast_fp16_bf16",
+                "bnb4",
+                "bnb8",
+                "bnb8_disk"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "transformer_engine_fp8",
+                "ulysses",
+                "pretrained_qwen"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "ddp-training",
+      "domain": "distributed-backends",
+      "name": "多进程数据并行 · DDP",
+      "summary": "双 rank CPU 及 GPU 单节点 2／4 卡所选精度完成训练、累积、指标和恢复。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "双 rank CPU 及 GPU 单节点 2／4 卡所选精度完成训练、累积、指标和恢复。",
+          "两节点 8 rank FP16／BF16 的完整记录数值与原版严格一致。"
+        ],
+        "failed": [],
+        "unverified": [
+          "全部通信 hook、任意不等长 join、其他厂商 collective 和网络拓扑。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "ddp-dispatch-local-sgd-mesh-trigger"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "distributed-rank0",
+                "distributed-rank1"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "multinode_core"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "fsdp-training",
+      "domain": "distributed-backends",
+      "name": "参数分片训练 · FSDP / FSDP2",
+      "summary": "CPU／双卡 FSDP1／2、LoRA adapter 恢复和所选四卡 FSDP2 工作流通过。",
+      "validation": {
+        "status": "partial",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "CPU／双卡 FSDP1／2、LoRA adapter 恢复和所选四卡 FSDP2 工作流通过。",
+          "两节点 FSDP2／Qwen 通过；FSDP1 原模型 4 rank 与宽末层 8 rank 控制组通过。"
+        ],
+        "failed": [
+          {
+            "title": "FSDP1 空局部分片导致优化器恢复失败",
+            "scope": "8 rank、末层输出维度4的原模型触发 PyTorch DCP planner 旧格式分支。",
+            "variant": "candidate_and_reference",
+            "dependency": "PyTorch 2.8 / FSDP1 DCP",
+            "classification": "shared_dependency_failure",
+            "current": true,
+            "resolution": "4 rank 原模型与8 rank宽末层控制通过，不能替代原失败配置。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527658/fsdp1-followup-strict-summary.json",
+                "label": "FSDP1 三组鉴别与原失败"
+              }
+            ]
+          }
+        ],
+        "unverified": [
+          "所有空分片布局和 PyTorch 版本、参数／优化器卸载、嵌套包装与分布式格式组合。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "fsdp1-single",
+                "fsdp1-two-rank",
+                "fsdp2-single",
+                "fsdp2-two-rank"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/backend-validation.json",
+            "label": "backend-validation.json",
+            "selection": {
+              "cases": [
+                "adapter_fsdp1",
+                "adapter_fsdp2"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "parallel",
+              "cases": [
+                "tp",
+                "cp"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "multinode_core",
+                "pretrained_qwen",
+                "fsdp1_boundary"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "deepspeed-training",
+      "domain": "distributed-backends",
+      "name": "ZeRO 与引擎训练 · DeepSpeed",
+      "summary": "原生 ZeRO2／3、普通和引擎调度器、累积与尾批刷新及两节点保存／恢复通过。",
+      "validation": {
+        "status": "partial",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "原生 ZeRO2／3、普通和引擎调度器、累积与尾批刷新及两节点保存／恢复通过。",
+          "CPUAdam 原生调度器两版通过；Ulysses 0.19.9 的 SP4／SP2×DP2 全流程通过。",
+          "NVMe 真实参数／优化器交换、训练、保存及全部可交换分组的模型权重恢复通过。"
+        ],
+        "failed": [
+          {
+            "title": "NVMe 优化器学习率恢复失败",
+            "scope": "完整模型权重恢复为零误差，但 optimizer LR 未恢复；严格检查阻止续训。",
+            "variant": "candidate_and_reference",
+            "dependency": "DeepSpeed 0.18.2",
+            "classification": "shared_dependency_failure",
+            "current": true,
+            "resolution": "未解决；不能将模型恢复通过称为完整训练状态恢复通过。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527579/native-nvme/failure-diagnosis.json",
+                "label": "NVMe LR 恢复失败诊断"
+              }
+            ]
+          },
+          {
+            "title": "NVMe 小尾部分组权重没有恢复",
+            "scope": "较小 subgroup 配置的最后 bias 不满足 AIO 交换阈值，恢复误差 0.00201416015625。",
+            "variant": "candidate_and_reference",
+            "dependency": "DeepSpeed 0.18.2",
+            "classification": "shared_dependency_failure",
+            "current": true,
+            "resolution": "合并分组后的模型恢复通过仅为另一配置；原小尾分组边界仍未修复。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527341/native-nvme/failure-diagnosis.json",
+                "label": "NVMe 小尾分组诊断"
+              }
+            ]
+          },
+          {
+            "title": "原版 CPUAdam＋StepLR 恢复后学习率错误",
+            "scope": "ZeRO2／3 转换为 CPUAdam 后，原版 scheduler 仍绑定旧 optimizer。",
+            "variant": "reference_only",
+            "dependency": "DeepSpeed 0.17.6 / Torch StepLR",
+            "classification": "reference_only_failure",
+            "current": true,
+            "resolution": "候选已重绑并通过恢复；原生 WarmupLR 两版通过。不是该外部调度器路径的两版全通过。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527341/torch-offload/external-scheduler-fix-evidence.json",
+                "label": "CPUAdam StepLR 对照"
+              }
+            ]
+          },
+          {
+            "title": "旧版本 NVMe checkpoint 保存竞争",
+            "scope": "多 rank copytree 写相同目标目录导致保存失败。",
+            "variant": "candidate_and_reference",
+            "dependency": "DeepSpeed 0.17.6",
+            "classification": "old_dependency_failure",
+            "current": false,
+            "resolution": "0.18.2 保存通过，但其优化器恢复仍失败；没有验证 0.19.9 NVMe。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527254/matrix-summary.json",
+                "label": "NVMe 旧版本运行记录"
+              }
+            ]
+          },
+          {
+            "title": "旧版本 Ulysses checkpoint rank 映射错误",
+            "scope": "SP 被视为 MP rank，训练／保存通过但新进程恢复失败。",
+            "variant": "candidate_and_reference",
+            "dependency": "DeepSpeed 0.18.2",
+            "classification": "old_dependency_failure",
+            "current": false,
+            "resolution": "官方隔离安装的0.19.9在SP4／SP2×DP2通过全部保存／恢复。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527579/ulysses/failure-diagnosis.json",
+                "label": "Ulysses 0.18.2 恢复诊断"
+              }
+            ]
+          }
+        ],
+        "unverified": [
+          "NVMe 完整优化器恢复和续训、ZeRO1、FusedAdam、所有调度器／模型及跨节点 Ulysses。"
+        ],
+        "observations": [
+          "CPU卸载BF16自身恢复续训为容差通过，跨实现保存／连续训练的完整模型权重、loss／LR精确一致。"
+        ],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/backend-validation.json",
+            "label": "backend-validation.json",
+            "selection": {
+              "cases": [
+                "configuration",
+                "deepspeed_transformers_registration"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_standard",
+              "cases": [
+                "zero2_torch",
+                "zero3_torch",
+                "zero2_deepspeed",
+                "zero3_deepspeed",
+                "zero2_torch_tail"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_defaults",
+              "cases": [
+                "deepspeed_zero2",
+                "deepspeed_zero3"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "multinode_deepspeed",
+                "cpu_offload",
+                "nvme_offload",
+                "ulysses"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527800/ulysses-full-tensor-parity.json",
+            "label": "Ulysses 0.19.9 完整模型张量对照"
+          }
+        ]
+      }
+    },
+    {
+      "id": "megatron-training",
+      "domain": "distributed-backends",
+      "name": "大模型并行训练 · Megatron-LM",
+      "summary": "两节点 TP2×PP2×DP2＋SP 完成真实训练和独立进程恢复；8 对完整模型张量／原生输出／损失／LR 一致。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "两节点 TP2×PP2×DP2＋SP 完成真实训练和独立进程恢复；8 对完整模型张量／原生输出／损失／LR 一致。",
+          "默认 GPT return_dict=True 的公共输出对象与样本计数通过；实际 PP 分组跨节点。"
+        ],
+        "failed": [
+          {
+            "title": "历史默认 GPT 标签／EOS 转换不一致",
+            "scope": "候选与原版实际 native labels 尾 token 不同，导致原生 loss／更新不同。",
+            "variant": "candidate",
+            "dependency": "Megatron 原生 GPT / HF bridge",
+            "classification": "historical_fixed",
+            "current": false,
+            "resolution": "按实测默认 pretraining 标签合同修复，最终两节点张量／输入／输出通过；旧负例仍拒绝。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/ngc-job-8527943/full-tensor-and-public-contract-review.json",
+                "label": "标签不同的保留负例"
+              }
+            ]
+          },
+          {
+            "title": "历史 GPT 公共返回类型不一致",
+            "scope": "数值一致，但候选返回 Tensor，原版返回 CausalLMOutputWithCrossAttentions。",
+            "variant": "candidate",
+            "dependency": "默认 GPT return_dict=True",
+            "classification": "historical_fixed",
+            "current": false,
+            "resolution": "修复返回对象后最终两节点公共合同通过；return_logits及其他模式未覆盖。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/ngc-job-8528060/full-tensor-and-public-contract-review.json",
+                "label": "公共返回类型不同的保留负例"
+              }
+            ]
+          }
+        ],
+        "unverified": [
+          "默认 native 模型 provider、BERT／T5、return_logits、其他 return_dict／自定义批次、MoE、原生数据集及 ramp-up。"
+        ],
+        "observations": [
+          "仅bool attention_mask允许合法广播：原形状[2,1,32,32]与[1,1,32,32]不同，广播值完全相同；tokens／labels／positions保持原形状严格一致。",
+          "raw args.iteration、RerunStateMachine及全局CUDA RNG观察存在差异；不宣称所有内部状态逐字节相同。"
+        ],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "megatron_ngc"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/backend-validation.json",
+            "label": "backend-validation.json",
+            "selection": {
+              "cases": [
+                "configuration"
+              ],
+              "sections": [
+                "api_checks"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "megatron"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8528065/megatron-full-tensor-parity.json",
+            "label": "Megatron 完整张量与公共合同"
+          }
+        ]
+      }
+    },
+    {
+      "id": "composable-parallelism",
+      "domain": "distributed-backends",
+      "name": "组合并行拓扑 · TP / CP / SP",
+      "summary": "单节点 DP2×TP2／CP 及两节点 TP2×DP_shard4／CP8 的独立 dense 检查通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "单节点 DP2×TP2／CP 及两节点 TP2×DP_shard4／CP8 的独立 dense 检查通过。",
+          "Ulysses SP4／SP2×DP2 全流程通过；Megatron TP2×PP2×DP2＋SP 已执行。"
+        ],
+        "failed": [
+          {
+            "title": "旧版本 Ulysses checkpoint rank 映射错误",
+            "scope": "SP 被视为 MP rank，训练／保存通过但新进程恢复失败。",
+            "variant": "candidate_and_reference",
+            "dependency": "DeepSpeed 0.18.2",
+            "classification": "old_dependency_failure",
+            "current": false,
+            "resolution": "官方隔离安装的0.19.9在SP4／SP2×DP2通过全部保存／恢复。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527579/ulysses/failure-diagnosis.json",
+                "label": "Ulysses 0.18.2 恢复诊断"
+              }
+            ]
+          }
+        ],
+        "unverified": [
+          "完整 FSDP＋TP＋CP＋SP 组合、跨节点 Ulysses、全部注意力架构及 CP checkpoint。"
+        ],
+        "observations": [
+          "TP／CP 的16对功能字段一致；严格全报告仍因类型字符串与CP多一次all-gather而不同。",
+          "TP组节点内、DP_shard跨节点；CP8真实跨节点。导出权重摘要不证明跨实现完整张量等价。"
+        ],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison",
+          "independent_dense_oracle"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes",
+          "megatron_ngc"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "ddp-dispatch-local-sgd-mesh-trigger",
+                "scheduler-dp-vs-tp"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "parallel",
+              "cases": [
+                "tp",
+                "cp"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "multinode_parallel",
+                "ulysses"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527800/ulysses-full-tensor-parity.json",
+            "label": "Ulysses 0.19.9 完整模型张量对照"
+          }
+        ]
+      }
+    },
+    {
+      "id": "xla-training",
+      "domain": "distributed-backends",
+      "name": "TPU 与 XLA 训练",
+      "summary": "TPU／XLA 原生训练、数值、数据管线及 checkpoint 均未运行。",
+      "validation": {
+        "status": "not_run",
+        "execution": "not_executed",
+        "level": "没有原生执行证据",
+        "passed": [],
+        "failed": [],
+        "unverified": [
+          "TPU／XLA 原生训练、数值、数据管线及 checkpoint 均未运行。"
+        ],
+        "observations": [],
+        "test_types": [],
+        "device_profiles": [],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/backend-validation.json",
+            "label": "backend-validation.json",
+            "selection": {
+              "sections": [
+                "unverified"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "mixed-precision",
+      "domain": "precision",
+      "name": "自动混合精度 · FP16 / BF16",
+      "summary": "CPU BF16 及单卡／DDP／FSDP 的 FP16／BF16 工作流已执行。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "CPU BF16 及单卡／DDP／FSDP 的 FP16／BF16 工作流已执行。",
+          "FP16 故意 overflow 时跳过更新、降低 loss scale 且不推进调度器；所选 ZeRO 与 Qwen BF16 通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "全部厂商精度、优化器／并行拓扑与自定义 autocast 组合。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "gb200_two_nodes"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "core-training"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "core",
+              "cases": [
+                "single_fp32",
+                "single_fp16",
+                "single_bf16",
+                "ddp_fp32",
+                "ddp_fp16",
+                "ddp_bf16",
+                "fsdp1_fp32",
+                "fsdp1_fp16",
+                "fsdp1_bf16",
+                "fsdp2_fp32",
+                "fsdp2_fp16",
+                "fsdp2_bf16"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_standard",
+              "cases": [
+                "zero2_torch",
+                "zero3_torch",
+                "zero2_deepspeed",
+                "zero3_deepspeed",
+                "zero2_torch_tail"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "deepspeed_defaults",
+              "cases": [
+                "deepspeed_zero2",
+                "deepspeed_zero3"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "transformer_engine_fp8",
+                "multinode_core",
+                "pretrained_qwen"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "fp8-training",
+      "domain": "precision",
+      "name": "FP8 训练 · TorchAO / Transformer Engine",
+      "summary": "TorchAO 原生 FP8 GEMM 在单／双 GB200 通过训练和恢复。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "TorchAO 原生 FP8 GEMM 在单／双 GB200 通过训练和恢复。",
+          "TE DelayedScaling／MXFP8 双卡使用真实内核；两版完整模型权重、loss／LR 与恢复续训一致。"
+        ],
+        "failed": [],
+        "unverified": [
+          "多节点 TE、FSDP float8 all-gather、全部 scaling 配方和大模型 FP8 性能。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native",
+          "te_ngc"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/backend-validation.json",
+            "label": "backend-validation.json",
+            "selection": {
+              "sections": [
+                "unverified"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "fp8_ao",
+              "cases": [
+                "fp8_ao"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "transformer_engine_fp8"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "empty-weight-loading",
+      "domain": "large-model-memory",
+      "name": "低内存构建与权重加载",
+      "summary": "meta 初始化、共享权重、bin／safetensors 加载、CPU 分布式广播和 DTensor 场景通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "meta 初始化、共享权重、bin／safetensors 加载、CPU 分布式广播和 DTensor 场景通过。",
+          "实际 CUDA／CPU／磁盘混合及双卡 safetensors 加载已有输出检查。"
+        ],
+        "failed": [],
+        "unverified": [
+          "任意模型架构、远端 checkpoint 布局、设备厂商和序列化拓扑组合。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/large-model-validation.json",
+            "label": "large-model-validation.json",
+            "selection": {
+              "workflows": [
+                "roundtrips",
+                "broadcast",
+                "dtensor"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "safe_shards",
+                "bin_shards"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "memory",
+              "cases": [
+                "meta_bin",
+                "meta_safe_shards"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "device-offloading",
+      "domain": "large-model-memory",
+      "name": "设备布局与 CPU / 磁盘卸载",
+      "summary": "推理 CPU／磁盘卸载、混合映射、hook 清理、共享权重和预算约束样例通过。",
+      "validation": {
+        "status": "partial",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "推理 CPU／磁盘卸载、混合映射、hook 清理、共享权重和预算约束样例通过。",
+          "DeepSpeed CPU 训练卸载通过；NVMe 真实交换／训练／保存及特定分组的模型权重恢复通过。"
+        ],
+        "failed": [
+          {
+            "title": "NVMe 优化器学习率恢复失败",
+            "scope": "完整模型权重恢复为零误差，但 optimizer LR 未恢复；严格检查阻止续训。",
+            "variant": "candidate_and_reference",
+            "dependency": "DeepSpeed 0.18.2",
+            "classification": "shared_dependency_failure",
+            "current": true,
+            "resolution": "未解决；不能将模型恢复通过称为完整训练状态恢复通过。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527579/native-nvme/failure-diagnosis.json",
+                "label": "NVMe LR 恢复失败诊断"
+              }
+            ]
+          },
+          {
+            "title": "NVMe 小尾部分组权重没有恢复",
+            "scope": "较小 subgroup 配置的最后 bias 不满足 AIO 交换阈值，恢复误差 0.00201416015625。",
+            "variant": "candidate_and_reference",
+            "dependency": "DeepSpeed 0.18.2",
+            "classification": "shared_dependency_failure",
+            "current": true,
+            "resolution": "合并分组后的模型恢复通过仅为另一配置；原小尾分组边界仍未修复。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527341/native-nvme/failure-diagnosis.json",
+                "label": "NVMe 小尾分组诊断"
+              }
+            ]
+          },
+          {
+            "title": "原版 CPUAdam＋StepLR 恢复后学习率错误",
+            "scope": "ZeRO2／3 转换为 CPUAdam 后，原版 scheduler 仍绑定旧 optimizer。",
+            "variant": "reference_only",
+            "dependency": "DeepSpeed 0.17.6 / Torch StepLR",
+            "classification": "reference_only_failure",
+            "current": true,
+            "resolution": "候选已重绑并通过恢复；原生 WarmupLR 两版通过。不是该外部调度器路径的两版全通过。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527341/torch-offload/external-scheduler-fix-evidence.json",
+                "label": "CPUAdam StepLR 对照"
+              }
+            ]
+          },
+          {
+            "title": "旧版本 NVMe checkpoint 保存竞争",
+            "scope": "多 rank copytree 写相同目标目录导致保存失败。",
+            "variant": "candidate_and_reference",
+            "dependency": "DeepSpeed 0.17.6",
+            "classification": "old_dependency_failure",
+            "current": false,
+            "resolution": "0.18.2 保存通过，但其优化器恢复仍失败；没有验证 0.19.9 NVMe。",
+            "evidence": [
+              {
+                "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527254/matrix-summary.json",
+                "label": "NVMe 旧版本运行记录"
+              }
+            ]
+          }
+        ],
+        "unverified": [
+          "任意模型／hook／设备布局、非 CUDA 转移、NVMe 完整优化器恢复续训和通用显存改善。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/large-model-validation.json",
+            "label": "large-model-validation.json",
+            "selection": {
+              "workflows": [
+                "roundtrips",
+                "edges"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/comparison.json",
+            "label": "comparison.json",
+            "selection": {
+              "cases": [
+                "cpu_offload",
+                "disk_offload",
+                "sizing"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "memory",
+              "cases": [
+                "cpu_offload",
+                "disk_offload",
+                "mixed_dispatch",
+                "multi_gpu_tied",
+                "auto_device_map"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-extended-validation.json",
+            "label": "gpu-extended-validation.json",
+            "selection": {
+              "suites": [
+                "cpu_offload",
+                "nvme_offload"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "bnb-quantization",
+      "domain": "large-model-memory",
+      "name": "4-bit / 8-bit 量化加载",
+      "summary": "bitsandbytes 0.48.2 真实 CPU／CUDA 4-bit／8-bit 常驻与 meta 加载通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "bitsandbytes 0.48.2 真实 CPU／CUDA 4-bit／8-bit 常驻与 meta 加载通过。",
+          "8-bit 磁盘卸载恢复量化执行并逐次回收；常驻 8-bit 使用已记录容差。"
+        ],
+        "failed": [],
+        "unverified": [
+          "4-bit 磁盘量化状态、所有量化配方／模型／GPU 架构。"
+        ],
+        "observations": [
+          "常驻8-bit最大差异0.00048828125，按rtol=0.003、atol=0.002通过；不能称所有量化场景零误差。"
+        ],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/large-model-validation.json",
+            "label": "large-model-validation.json",
+            "selection": {
+              "workflows": [
+                "quantization"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "memory",
+              "cases": [
+                "bnb4",
+                "bnb8",
+                "bnb8_disk"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "layerwise-casting",
+      "domain": "large-model-memory",
+      "name": "逐层存储与计算精度切换",
+      "summary": "CPU hook 与真实 CUDA FP16／BF16 存储、FP32／BF16 计算的所选组合多次推理通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "真实GPU工作流样例",
+        "passed": [
+          "CPU hook 与真实 CUDA FP16／BF16 存储、FP32／BF16 计算的所选组合多次推理通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "所有 dtype／device 组合以及带宽或峰值显存收益。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "black_box_comparison"
+        ],
+        "device_profiles": [
+          "cpu_gloo",
+          "gb200_native"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/large-model-validation.json",
+            "label": "large-model-validation.json",
+            "selection": {
+              "workflows": [
+                "roundtrips",
+                "edges"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/gpu-validation.json",
+            "label": "gpu-validation.json",
+            "selection": {
+              "suite": "memory",
+              "cases": [
+                "cast_fp16",
+                "cast_bf16",
+                "cast_fp16_bf16"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cli-config",
+      "domain": "launch-and-tools",
+      "name": "生成与更新运行配置",
+      "summary": "默认配置生成、更新与配置解析工作流通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "CPU工作流样例",
+        "passed": [
+          "默认配置生成、更新与配置解析工作流通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "所有交互分支／非法输入、原生云服务和特殊设备配置。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e"
+        ],
+        "device_profiles": [
+          "cpu_gloo"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/backend-validation.json",
+            "label": "backend-validation.json",
+            "selection": {
+              "cases": [
+                "config_default",
+                "config_update",
+                "configuration"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cli-launch",
+      "domain": "launch-and-tools",
+      "name": "从命令行启动训练",
+      "summary": "脚本、module、no-python、非零退出码传播及真实双 rank CPU 启动通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "CPU工作流样例",
+        "passed": [
+          "脚本、module、no-python、非零退出码传播及真实双 rank CPU 启动通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "accelerate CLI 的 DeepSpeed／TPU／SageMaker 路径和多节点 GPU 启动；Slurm 原生启动不替代这些路径。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e"
+        ],
+        "device_profiles": [
+          "cpu_gloo"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/backend-validation.json",
+            "label": "backend-validation.json",
+            "selection": {
+              "cases": [
+                "launch_script",
+                "launch_module",
+                "launch_failure_propagation",
+                "launch_no_python",
+                "launch_two_rank"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "notebook-launch",
+      "domain": "launch-and-tools",
+      "name": "在 Notebook 中启动多进程",
+      "summary": "真实 CPU Notebook launcher 与 debug 多进程工作流通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "CPU工作流样例",
+        "passed": [
+          "真实 CPU Notebook launcher 与 debug 多进程工作流通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "GPU 初始化限制、全部 Notebook 前端、TPU 和弹性多节点重启。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e"
+        ],
+        "device_profiles": [
+          "cpu_gloo"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/backend-validation.json",
+            "label": "backend-validation.json",
+            "selection": {
+              "cases": [
+                "notebook_launcher",
+                "debug_launcher"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cloud-tpu-launch",
+      "domain": "launch-and-tools",
+      "name": "提交云端与 TPU 集群任务",
+      "summary": "SageMaker 实际提交、TPU VM provisioning／远程命令与 TPU Pod 执行未运行。",
+      "validation": {
+        "status": "not_run",
+        "execution": "not_executed",
+        "level": "没有原生执行证据",
+        "passed": [],
+        "failed": [],
+        "unverified": [
+          "SageMaker 实际提交、TPU VM provisioning／远程命令与 TPU Pod 执行未运行。"
+        ],
+        "observations": [],
+        "test_types": [],
+        "device_profiles": [],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/backend-validation.json",
+            "label": "backend-validation.json",
+            "selection": {
+              "sections": [
+                "unverified"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cli-diagnostics",
+      "domain": "launch-and-tools",
+      "name": "诊断安装与运行环境",
+      "summary": "CLI help、环境报告与内置微型训练自检在已有 CPU 环境通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "CPU工作流样例",
+        "passed": [
+          "CLI help、环境报告与内置微型训练自检在已有 CPU 环境通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "未提供硬件后端的自检执行。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e"
+        ],
+        "device_profiles": [
+          "cpu_gloo"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/backend-validation.json",
+            "label": "backend-validation.json",
+            "selection": {
+              "cases": [
+                "cli_help",
+                "environment",
+                "selftest"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cli-model-tools",
+      "domain": "launch-and-tools",
+      "name": "估算显存与迁移模型配置",
+      "summary": "显存估算、FSDP1→FSDP2 配置迁移和 DCP checkpoint 合并的 CPU 工作流通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "CPU工作流样例",
+        "passed": [
+          "显存估算、FSDP1→FSDP2 配置迁移和 DCP checkpoint 合并的 CPU 工作流通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "全部迁移策略、Hub 模型和 checkpoint 拓扑；估算与真实 GPU 分配的普遍误差。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e"
+        ],
+        "device_profiles": [
+          "cpu_gloo"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/large-model-validation.json",
+            "label": "large-model-validation.json",
+            "selection": {
+              "workflows": [
+                "roundtrips"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/backend-validation.json",
+            "label": "backend-validation.json",
+            "selection": {
+              "cases": [
+                "model_tools"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "training-recipes",
+      "domain": "recipes-and-development",
+      "name": "参考完整训练与特性示例",
+      "summary": "共用文本／视觉训练循环；真实双 rank CPU 示例训练和输出保存通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "示例端到端冒烟",
+        "passed": [
+          "共用文本／视觉训练循环；真实双 rank CPU 示例训练和输出保存通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "所有原版指定模型／数据集示例、大规模预训练配方和精度／并行组合。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "recipe_smoke"
+        ],
+        "device_profiles": [
+          "cpu_gloo"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/recipe-validation.json",
+            "label": "recipe-validation.json",
+            "selection": {
+              "checks": [
+                "existing_two_rank_text_training_recipe"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "inference-recipes",
+      "domain": "recipes-and-development",
+      "name": "参考多进程推理示例",
+      "summary": "双 CPU rank 五请求分发、本地 GPT2 文本、DDPM 图像和 Vits 语音推理通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "示例端到端冒烟",
+        "passed": [
+          "双 CPU rank 五请求分发、本地 GPT2 文本、DDPM 图像和 Vits 语音推理通过。",
+          "构造帧的 MP4 编解码通过，仅证明序列化。"
+        ],
+        "failed": [],
+        "unverified": [
+          "真实视频生成模型、GPU／多设备推理、大模型及全部多模态架构。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "recipe_smoke"
+        ],
+        "device_profiles": [
+          "cpu_gloo"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/recipe-validation.json",
+            "label": "recipe-validation.json",
+            "selection": {
+              "checks": [
+                "two_rank_offline_request_sharding",
+                "local_gpt2_text_pipeline",
+                "local_diffusers_ddpm_image_generation",
+                "local_vits_speech_pipeline",
+                "video_artifact_roundtrip"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "performance-benchmarks",
+      "domain": "recipes-and-development",
+      "name": "测量后端性能与内存",
+      "summary": "离线 CPU 训练／推理基准、本地 GPT2 加载及双 rank 测量字段通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "示例端到端冒烟",
+        "passed": [
+          "离线 CPU 训练／推理基准、本地 GPT2 加载及双 rank 测量字段通过。",
+          "独立 Qwen GPU 专项另有短程性能观察，不等同于本示例覆盖全部后端。"
+        ],
+        "failed": [],
+        "unverified": [
+          "该基准全部 GPU／FSDP2／FP8／编译模式、通用性能或显存改善。"
+        ],
+        "observations": [
+          "短程计时及allocated／reserved为观察，不证明加速、扩展效率、显存节省或模型质量。"
+        ],
+        "test_types": [
+          "self_e2e",
+          "recipe_smoke"
+        ],
+        "device_profiles": [
+          "cpu_gloo"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/recipe-validation.json",
+            "label": "recipe-validation.json",
+            "selection": {
+              "checks": [
+                "existing_cpu_training_benchmark",
+                "offline_training_benchmark",
+                "offline_inference_benchmark",
+                "two_rank_inference_benchmark",
+                "local_hf_device_map_inference_benchmark"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "developer-support",
+      "domain": "recipes-and-development",
+      "name": "维护打包与测试支持",
+      "summary": "子进程 stdout／stderr、退出码／超时、模块导入和便携 runner 通过。",
+      "validation": {
+        "status": "sample_pass",
+        "execution": "executed",
+        "level": "CPU工作流样例",
+        "passed": [
+          "子进程 stdout／stderr、退出码／超时、模块导入和便携 runner 通过。",
+          "新 wheel 在独立环境安装、工作区外运行及模块来源检查通过。"
+        ],
+        "failed": [],
+        "unverified": [
+          "所有 Python／PyTorch／平台组合；原版 unit tests 没有运行。"
+        ],
+        "observations": [],
+        "test_types": [
+          "self_e2e",
+          "isolated_package_install"
+        ],
+        "device_profiles": [
+          "cpu_gloo"
+        ],
+        "evidence": [
+          {
+            "href": "evidence/verification/results/support-validation.json",
+            "label": "support-validation.json",
+            "selection": {
+              "workflows": [
+                "subprocess",
+                "module_imports"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/core-validation.json",
+            "label": "core-validation.json",
+            "selection": {
+              "cases": [
+                "core-training",
+                "rng-recovery-stateful-True-workers-0"
+              ]
+            }
+          },
+          {
+            "href": "evidence/verification/results/wheel-extended-validation.json",
+            "label": "最终 wheel 独立安装验证"
+          }
+        ]
+      }
+    }
+  ],
+  "evidence_manifest": [
+    {
+      "source_relative": "verification/graph-coverage.json",
+      "href": "evidence/verification/graph-coverage.json"
+    },
+    {
+      "source_relative": "verification/results/backend-validation.json",
+      "href": "evidence/verification/results/backend-validation.json"
+    },
+    {
+      "source_relative": "verification/results/comparison.json",
+      "href": "evidence/verification/results/comparison.json"
+    },
+    {
+      "source_relative": "verification/results/core-validation.json",
+      "href": "evidence/verification/results/core-validation.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended-validation.json",
+      "href": "evidence/verification/results/gpu-extended-validation.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended/extended-20261101/job-8527048/pretrained-single-parity-review.json",
+      "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527048/pretrained-single-parity-review.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended/extended-20261101/job-8527254/matrix-summary.json",
+      "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527254/matrix-summary.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended/extended-20261101/job-8527341/native-nvme/failure-diagnosis.json",
+      "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527341/native-nvme/failure-diagnosis.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended/extended-20261101/job-8527341/torch-offload/external-scheduler-fix-evidence.json",
+      "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527341/torch-offload/external-scheduler-fix-evidence.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended/extended-20261101/job-8527499/pretrained-fsdp2-strict-parity.json",
+      "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527499/pretrained-fsdp2-strict-parity.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended/extended-20261101/job-8527579/native-nvme/failure-diagnosis.json",
+      "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527579/native-nvme/failure-diagnosis.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended/extended-20261101/job-8527579/ulysses/failure-diagnosis.json",
+      "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527579/ulysses/failure-diagnosis.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended/extended-20261101/job-8527658/fsdp1-followup-strict-summary.json",
+      "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527658/fsdp1-followup-strict-summary.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended/extended-20261101/job-8527800/ulysses-full-tensor-parity.json",
+      "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8527800/ulysses-full-tensor-parity.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended/extended-20261101/job-8528065/megatron-full-tensor-parity.json",
+      "href": "evidence/verification/results/gpu-extended/extended-20261101/job-8528065/megatron-full-tensor-parity.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended/extended-20261101/ngc-job-8527943/full-tensor-and-public-contract-review.json",
+      "href": "evidence/verification/results/gpu-extended/extended-20261101/ngc-job-8527943/full-tensor-and-public-contract-review.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-extended/extended-20261101/ngc-job-8528060/full-tensor-and-public-contract-review.json",
+      "href": "evidence/verification/results/gpu-extended/extended-20261101/ngc-job-8528060/full-tensor-and-public-contract-review.json"
+    },
+    {
+      "source_relative": "verification/results/gpu-validation.json",
+      "href": "evidence/verification/results/gpu-validation.json"
+    },
+    {
+      "source_relative": "verification/results/large-model-validation.json",
+      "href": "evidence/verification/results/large-model-validation.json"
+    },
+    {
+      "source_relative": "verification/results/recipe-validation.json",
+      "href": "evidence/verification/results/recipe-validation.json"
+    },
+    {
+      "source_relative": "verification/results/support-validation.json",
+      "href": "evidence/verification/results/support-validation.json"
+    },
+    {
+      "source_relative": "verification/results/transformers-comparison.json",
+      "href": "evidence/verification/results/transformers-comparison.json"
+    },
+    {
+      "source_relative": "verification/results/wheel-extended-validation.json",
+      "href": "evidence/verification/results/wheel-extended-validation.json"
+    }
+  ]
+}

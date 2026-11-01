@@ -1,0 +1,260 @@
+{
+  "case": "NVMe parameter and optimizer offload, DeepSpeed 0.18.2, subgroup size 1048576",
+  "status": "training_and_save_passed_but_fresh_resume_failed",
+  "observations": [
+    {
+      "variant": "candidate",
+      "phase": "save",
+      "rank": 0,
+      "evidence": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527341/native-nvme/offload/nvme_zero3/world-2/candidate/save-rank0.json",
+      "status": "checkpoint_written",
+      "versions": {
+        "deepspeed": "0.18.2",
+        "torch": "2.8.0+cu129",
+        "torchao": "0.13.0",
+        "transformer-engine": null,
+        "transformer-engine-torch": null,
+        "transformers": "4.57.1",
+        "triton": "3.4.0"
+      },
+      "nvme_mount": {
+        "fstype": "ext4",
+        "source": "/dev/nvme0n1p2",
+        "target": "/"
+      },
+      "nvme_swap_folder": "[TMPDIR]/accelerate-followup-8527341.xmFul7/nvme/accelerate-nvme-save-rank0-xzygc8gi",
+      "nvme_swap_folder_cleaned": true,
+      "nvme_swap_bytes": 37761024,
+      "nvme_parameter_swap_bytes": 4194304,
+      "nvme_optimizer_swap_bytes": 25178112,
+      "optimizer_partition_numels": [
+        0,
+        0,
+        512
+      ],
+      "optimizer_updates": 3,
+      "continuation_lr": 0.004
+    },
+    {
+      "variant": "candidate",
+      "phase": "save",
+      "rank": 1,
+      "evidence": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527341/native-nvme/offload/nvme_zero3/world-2/candidate/save-rank1.json",
+      "status": "checkpoint_written",
+      "versions": {
+        "deepspeed": "0.18.2",
+        "torch": "2.8.0+cu129",
+        "torchao": "0.13.0",
+        "transformer-engine": null,
+        "transformer-engine-torch": null,
+        "transformers": "4.57.1",
+        "triton": "3.4.0"
+      },
+      "nvme_mount": {
+        "fstype": "ext4",
+        "source": "/dev/nvme0n1p2",
+        "target": "/"
+      },
+      "nvme_swap_folder": "[TMPDIR]/accelerate-followup-8527341.xmFul7/nvme/accelerate-nvme-save-rank1-bj26tonf",
+      "nvme_swap_folder_cleaned": true,
+      "nvme_swap_bytes": 37761024,
+      "nvme_parameter_swap_bytes": 4194304,
+      "nvme_optimizer_swap_bytes": 25178112,
+      "optimizer_partition_numels": [
+        0,
+        0,
+        512
+      ],
+      "optimizer_updates": 3,
+      "continuation_lr": 0.004
+    },
+    {
+      "variant": "reference",
+      "phase": "save",
+      "rank": 0,
+      "evidence": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527341/native-nvme/offload/nvme_zero3/world-2/reference/save-rank0.json",
+      "status": "checkpoint_written",
+      "versions": {
+        "deepspeed": "0.18.2",
+        "torch": "2.8.0+cu129",
+        "torchao": "0.13.0",
+        "transformer-engine": null,
+        "transformer-engine-torch": null,
+        "transformers": "4.57.1",
+        "triton": "3.4.0"
+      },
+      "nvme_mount": {
+        "fstype": "ext4",
+        "source": "/dev/nvme0n1p2",
+        "target": "/"
+      },
+      "nvme_swap_folder": "[TMPDIR]/accelerate-followup-8527341.xmFul7/nvme/accelerate-nvme-save-rank0-zp9xmukq",
+      "nvme_swap_folder_cleaned": true,
+      "nvme_swap_bytes": 37761024,
+      "nvme_parameter_swap_bytes": 4194304,
+      "nvme_optimizer_swap_bytes": 25178112,
+      "optimizer_partition_numels": [
+        0,
+        0,
+        512
+      ],
+      "optimizer_updates": 3,
+      "continuation_lr": 0.004
+    },
+    {
+      "variant": "reference",
+      "phase": "save",
+      "rank": 1,
+      "evidence": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527341/native-nvme/offload/nvme_zero3/world-2/reference/save-rank1.json",
+      "status": "checkpoint_written",
+      "versions": {
+        "deepspeed": "0.18.2",
+        "torch": "2.8.0+cu129",
+        "torchao": "0.13.0",
+        "transformer-engine": null,
+        "transformer-engine-torch": null,
+        "transformers": "4.57.1",
+        "triton": "3.4.0"
+      },
+      "nvme_mount": {
+        "fstype": "ext4",
+        "source": "/dev/nvme0n1p2",
+        "target": "/"
+      },
+      "nvme_swap_folder": "[TMPDIR]/accelerate-followup-8527341.xmFul7/nvme/accelerate-nvme-save-rank1-zvw3h15s",
+      "nvme_swap_folder_cleaned": true,
+      "nvme_swap_bytes": 37761024,
+      "nvme_parameter_swap_bytes": 4194304,
+      "nvme_optimizer_swap_bytes": 25178112,
+      "optimizer_partition_numels": [
+        0,
+        0,
+        512
+      ],
+      "optimizer_updates": 3,
+      "continuation_lr": 0.004
+    },
+    {
+      "variant": "candidate",
+      "phase": "resume",
+      "rank": 0,
+      "evidence": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527341/native-nvme/offload/nvme_zero3/world-2/candidate/resume-rank0.json",
+      "status": "failed",
+      "versions": {
+        "deepspeed": "0.18.2",
+        "torch": "2.8.0+cu129",
+        "torchao": "0.13.0",
+        "transformer-engine": null,
+        "transformer-engine-torch": null,
+        "transformers": "4.57.1",
+        "triton": "3.4.0"
+      },
+      "nvme_mount": {
+        "fstype": "ext4",
+        "source": "/dev/nvme0n1p2",
+        "target": "/"
+      },
+      "nvme_swap_folder": "[TMPDIR]/accelerate-followup-8527341.xmFul7/nvme/accelerate-nvme-resume-rank0-cftw1cms",
+      "optimizer_partition_numels": [
+        0,
+        0,
+        512
+      ],
+      "error": "Traceback (most recent call last):\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 252, in main\n    run(args, report)\n    ~~~^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 145, in run\n    report[\"restored_max_weight_error\"] = assert_same_state(snapshot(accelerator, model), reference[\"checkpoint_weights\"])\n                                          ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_backend_workflows.py\", line 90, in assert_same_state\n    torch.testing.assert_close(actual[name], expected[name], rtol=rtol, atol=atol, msg=lambda message: name + \": \" + message)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-env/lib/python3.13/site-packages/torch/testing/_comparison.py\", line 1587, in assert_close\n    raise error_metas[0].to_error(msg)\nAssertionError: 3.bias: Tensor-likes are not equal!\n\nMismatched elements: 1024 / 1024 (100.0%)\nGreatest absolute difference: 0.00201416015625 at index (19,)\nGreatest relative difference: 1560.81396484375 at index (138,)\n"
+    },
+    {
+      "variant": "candidate",
+      "phase": "resume",
+      "rank": 1,
+      "evidence": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527341/native-nvme/offload/nvme_zero3/world-2/candidate/resume-rank1.json",
+      "status": "failed",
+      "versions": {
+        "deepspeed": "0.18.2",
+        "torch": "2.8.0+cu129",
+        "torchao": "0.13.0",
+        "transformer-engine": null,
+        "transformer-engine-torch": null,
+        "transformers": "4.57.1",
+        "triton": "3.4.0"
+      },
+      "nvme_mount": {
+        "fstype": "ext4",
+        "source": "/dev/nvme0n1p2",
+        "target": "/"
+      },
+      "nvme_swap_folder": "[TMPDIR]/accelerate-followup-8527341.xmFul7/nvme/accelerate-nvme-resume-rank1-84oauiv1",
+      "optimizer_partition_numels": [
+        0,
+        0,
+        512
+      ],
+      "error": "Traceback (most recent call last):\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 252, in main\n    run(args, report)\n    ~~~^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 145, in run\n    report[\"restored_max_weight_error\"] = assert_same_state(snapshot(accelerator, model), reference[\"checkpoint_weights\"])\n                                          ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_backend_workflows.py\", line 90, in assert_same_state\n    torch.testing.assert_close(actual[name], expected[name], rtol=rtol, atol=atol, msg=lambda message: name + \": \" + message)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-env/lib/python3.13/site-packages/torch/testing/_comparison.py\", line 1587, in assert_close\n    raise error_metas[0].to_error(msg)\nAssertionError: 3.bias: Tensor-likes are not equal!\n\nMismatched elements: 1024 / 1024 (100.0%)\nGreatest absolute difference: 0.00201416015625 at index (19,)\nGreatest relative difference: 1560.81396484375 at index (138,)\n"
+    },
+    {
+      "variant": "reference",
+      "phase": "resume",
+      "rank": 0,
+      "evidence": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527341/native-nvme/offload/nvme_zero3/world-2/reference/resume-rank0.json",
+      "status": "failed",
+      "versions": {
+        "deepspeed": "0.18.2",
+        "torch": "2.8.0+cu129",
+        "torchao": "0.13.0",
+        "transformer-engine": null,
+        "transformer-engine-torch": null,
+        "transformers": "4.57.1",
+        "triton": "3.4.0"
+      },
+      "nvme_mount": {
+        "fstype": "ext4",
+        "source": "/dev/nvme0n1p2",
+        "target": "/"
+      },
+      "nvme_swap_folder": "[TMPDIR]/accelerate-followup-8527341.xmFul7/nvme/accelerate-nvme-resume-rank0-o5vw96wj",
+      "optimizer_partition_numels": [
+        0,
+        0,
+        512
+      ],
+      "error": "Traceback (most recent call last):\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 252, in main\n    run(args, report)\n    ~~~^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 145, in run\n    report[\"restored_max_weight_error\"] = assert_same_state(snapshot(accelerator, model), reference[\"checkpoint_weights\"])\n                                          ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_backend_workflows.py\", line 90, in assert_same_state\n    torch.testing.assert_close(actual[name], expected[name], rtol=rtol, atol=atol, msg=lambda message: name + \": \" + message)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-env/lib/python3.13/site-packages/torch/testing/_comparison.py\", line 1587, in assert_close\n    raise error_metas[0].to_error(msg)\nAssertionError: 3.bias: Tensor-likes are not equal!\n\nMismatched elements: 1024 / 1024 (100.0%)\nGreatest absolute difference: 0.00201416015625 at index (19,)\nGreatest relative difference: 1560.81396484375 at index (138,)\n"
+    },
+    {
+      "variant": "reference",
+      "phase": "resume",
+      "rank": 1,
+      "evidence": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527341/native-nvme/offload/nvme_zero3/world-2/reference/resume-rank1.json",
+      "status": "failed",
+      "versions": {
+        "deepspeed": "0.18.2",
+        "torch": "2.8.0+cu129",
+        "torchao": "0.13.0",
+        "transformer-engine": null,
+        "transformer-engine-torch": null,
+        "transformers": "4.57.1",
+        "triton": "3.4.0"
+      },
+      "nvme_mount": {
+        "fstype": "ext4",
+        "source": "/dev/nvme0n1p2",
+        "target": "/"
+      },
+      "nvme_swap_folder": "[TMPDIR]/accelerate-followup-8527341.xmFul7/nvme/accelerate-nvme-resume-rank1-hh3p0lcd",
+      "optimizer_partition_numels": [
+        0,
+        0,
+        512
+      ],
+      "error": "Traceback (most recent call last):\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 252, in main\n    run(args, report)\n    ~~~^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 145, in run\n    report[\"restored_max_weight_error\"] = assert_same_state(snapshot(accelerator, model), reference[\"checkpoint_weights\"])\n                                          ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_backend_workflows.py\", line 90, in assert_same_state\n    torch.testing.assert_close(actual[name], expected[name], rtol=rtol, atol=atol, msg=lambda message: name + \": \" + message)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-env/lib/python3.13/site-packages/torch/testing/_comparison.py\", line 1587, in assert_close\n    raise error_metas[0].to_error(msg)\nAssertionError: 3.bias: Tensor-likes are not equal!\n\nMismatched elements: 1024 / 1024 (100.0%)\nGreatest absolute difference: 0.00201416015625 at index (19,)\nGreatest relative difference: 1560.81396484375 at index (138,)\n"
+    }
+  ],
+  "diagnosis": {
+    "confidence": "Supported by identical candidate/reference failure and third-party backend load path; reconfiguration rerun pending",
+    "cause": "The final small bias occupies an optimizer subgroup below DeepSpeed MIN_AIO_BYTES=1048576, so it is not swapped. DeepSpeed 0.18.2 NVMe load skips ordinary ZeRO optimizer-state loading and restores only disk-swapped groups; only final bias fails exact restoration.",
+    "not_a_missing_temporary_directory": "Other weight/bias groups restore exactly before assertion reaches 3.bias; checkpoint copies contain optimizer tensors under offloaded_tensors/rank00 and rank01. New temporary NVMe directory is populated by the backend.",
+    "failed_parameter": "3.bias",
+    "max_abs_error": 0.00201416015625,
+    "failure_preserved": true,
+    "next_configuration": "Keep every model parameter including biases; subgroup size 4194304 puts all master parameters into a swappable optimizer group. Full model restoration and continuation must pass without weakening tolerances.",
+    "generality_limit": "Passing a fully swappable grouping does not establish support for mixed swappable/non-swappable groups."
+  }
+}

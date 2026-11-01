@@ -1,0 +1,131 @@
+{
+  "generated_at": "2026-11-01T07:53:03.366676+00:00",
+  "python": "3.13.11 | packaged by Anaconda, Inc. | (main, Dec 10 2025, 21:29:12) [GCC 14.3.0]",
+  "torch": "2.8.0+cpu",
+  "accelerate_origin": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/__init__.py",
+  "bitsandbytes": "0.48.2",
+  "cuda_available": false,
+  "all_passed": true,
+  "passed_scenarios": 35,
+  "workflows": {
+    "roundtrips": {
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/large-model-roundtrips.py"
+      ],
+      "exit_code": 0,
+      "checks": [
+        "meta initialization and exception restoration",
+        "torch checkpoint into all-meta skeleton",
+        "sharded bin loading and temporary CPU spill",
+        "sharded safetensors loading and temporary CPU spill",
+        "CPU offload repeated forwards and detach",
+        "CPU offload parameters and buffers",
+        "disk offload repeated forwards and detach",
+        "checkpoint load plus mixed CPU/disk dispatch",
+        "disk tensor dtypes, scalars, and empty shapes",
+        "safetensors direct and lazy loading",
+        "tied weights: size, loading, offload, device map",
+        "loading omitted tied aliases into resident and mixed disk models",
+        "automatic device-map budget and dtype accounting",
+        "memory estimate includes parent parameters and FP32 Adam state",
+        "layerwise storage/compute casts and exclusions",
+        "manual CPU offload hook lifecycle",
+        "strict missing/unexpected checkpoint validation"
+      ],
+      "passed": true,
+      "script_sha256": "4eb8d3ddec6d165195bfd7ac15d47f304839fa5d56e30f07950f4dc9580bae5a"
+    },
+    "edges": {
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/large-model-edges.py"
+      ],
+      "exit_code": 0,
+      "checks": [
+        "preload direct submodule weights",
+        "offload exception cleanup",
+        "block hook on a root tensor-owning module",
+        "block hook map covering children",
+        "extracting state from offloaded model",
+        "temporary aligned weights",
+        "missing bitsandbytes reports dependency"
+      ],
+      "passed": true,
+      "script_sha256": "2c1697403aa9cab6b63658f4662b322589208bfcb21e6d82abe19d4d9f5ce666"
+    },
+    "broadcast": {
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/large-model-broadcast.py"
+      ],
+      "exit_code": 0,
+      "checks": [
+        "two-process Gloo rank-zero checkpoint broadcast"
+      ],
+      "passed": true,
+      "script_sha256": "1e7a15e55e784f9474668a63ac02cb8e60ff1359a7e7c170bd469957879cc01d"
+    },
+    "dtensor": {
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/large-model-dtensor.py"
+      ],
+      "exit_code": 0,
+      "checks": [
+        "dtensor_local",
+        "dtensor_broadcast",
+        "dtensor_dtype",
+        "dense_broadcast",
+        "dense_extra_state_broadcast"
+      ],
+      "passed": true,
+      "script_sha256": "e183950b7aa99c663f4f8760166e33aef244f5e4de9d48ffc567890331796a09"
+    },
+    "quantization": {
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/large-model-quantization.py"
+      ],
+      "exit_code": 0,
+      "checks": [
+        "8-bit resident native-bnb parity",
+        "8-bit meta checkpoint native-bnb parity",
+        "8-bit disk offload repeated native-bnb parity and eviction",
+        "4-bit resident native-bnb parity",
+        "4-bit meta checkpoint native-bnb parity"
+      ],
+      "passed": true,
+      "script_sha256": "349b69d6cb6e404c8abeefb5b692d5c897160064c94e9d063a829f3ed43f311c"
+    }
+  },
+  "source_sha256": {
+    "big_modeling.py": "c4d13526ddd6a1d32255294a179c960d1a9b1d69f001647f0dc22cb1edd2ba5c",
+    "hooks.py": "8779aa58875af61d9c1c64732d1cabefa5577e7ae0671d22e321d9b48902a47b",
+    "memory_utils.py": "23c81dcf82dc0e5aab74785acd67b3ecd0b36235f098547bfd904c64f037cb40",
+    "utils/modeling.py": "e47150a8253e3613e4daabf8ea7b93eaf5c9e8721550b4a29f88cbf057be0f6e",
+    "utils/offload.py": "0cb0fe14cbce87242519ae5f6fbc216ab13f2b073e6e4cf87fa86c8ee7dca960",
+    "utils/bnb.py": "73dd7736fd38bf2808af34596287c68ce88b7da49046961cfc608738eeb4b00e"
+  },
+  "fixes": [
+    "Only rank zero needs checkpoint filesystem access when broadcasting; DTensor strict key validation is consistent across ranks.",
+    "DTensor loading honors requested dtype; dense checkpoint broadcast preserves custom non-tensor extra state.",
+    "Missing tied aliases use loaded weights rather than stale initialization, including mixed disk/CPU placement.",
+    "Int8 offload releases bitsandbytes layer caches as well as parameter storage after each forward.",
+    "Layerwise casting shares one lifecycle for recursive and direct-tensor casts.",
+    "Memory estimates include tensors owned by parent modules and FP32 Adam state for lower-precision training."
+  ],
+  "limitations": [
+    "All real accelerator-device execution (CUDA, XPU, NPU, MPS and others), multi-device transfer, and non-Gloo collectives remain unverified in this CPU environment.",
+    "The allocator preserves budgets, tied groups and indivisible layers but uses an independent heuristic; identical maps or peak memory to upstream are not claimed.",
+    "Quantization parity covers bitsandbytes 0.48.2 CPU: resident and meta-initialized 4/8-bit models plus repeated 8-bit disk offload. GPU kernels and every quantization recipe remain unverified.",
+    "DTensor workflows cover a two-rank CPU mesh with row sharding and full ordinary checkpoint shards, not every FSDP/DTensor topology or serialized distributed-tensor format.",
+    "CPU and disk tiers in mixed 4-bit maps retain dense layers by design; 4-bit quantized disk state is not exercised.",
+    "These independent workflow samples provide evidence of behavior, not a proof of complete upstream API equivalence."
+  ],
+  "primary_dependency_references": [
+    "https://docs.pytorch.org/docs/stable/distributed.checkpoint.html",
+    "https://huggingface.co/docs/bitsandbytes/installation"
+  ],
+  "post_validation_cleanup": "Removed two unused imports; module imports and syntax parsing passed after cleanup."
+}

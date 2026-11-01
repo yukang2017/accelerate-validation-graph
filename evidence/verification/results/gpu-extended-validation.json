@@ -1,0 +1,473 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-01T12:18:57.999771+00:00",
+  "status": "completed_with_known_failures",
+  "scope": "Completed additional GPU validation round: selected native workflows pass; shared NVMe optimizer-restore and FSDP1 empty-shard boundary failures remain explicit. This is not a proof of all APIs, models or backend combinations.",
+  "reference_commit": "3008af926ffe3e04ffe6fbe3d87494193fc85041",
+  "reference_use": "Original Accelerate was executed in isolated processes as a black-box reference; its source and tests were not read for these workflows.",
+  "evidence_lookup": "Paths are relative to this report. Run artifacts are collected beneath gpu-extended/extended-20261101; each run preserves its own source snapshot and module origins.",
+  "environment": {
+    "resource_limit": {
+      "max_concurrent_nodes": 2,
+      "gpus_per_node": 4,
+      "gpu": "NVIDIA GB200"
+    },
+    "host_environment": {
+      "architecture": "aarch64",
+      "python": "3.13.11",
+      "torch": "2.8.0+cu129",
+      "cuda": "12.9",
+      "transformers": "4.57.1",
+      "distributed_backend": "NCCL"
+    },
+    "deepspeed_versions": {
+      "standard_and_cpu_offload": "0.17.6",
+      "nvme": "0.18.2",
+      "ulysses_successful_round": "0.19.9"
+    },
+    "dependency_isolation": "DeepSpeed 0.18.2 and 0.19.9 use separate prefixes; the original gpu-env and system packages were not modified. CPUAdam was compiled against real CUDA libraries, using a separate linker-alias prefix.",
+    "te_environment": {
+      "container": "NVIDIA NGC PyTorch 25.08",
+      "torch": "2.8.0a0+34c6371d24.nv25.8",
+      "transformer_engine": "2.5.0+f05f12c"
+    },
+    "evidence": [
+      "gpu-extended/extended-20261101/ngc-image-manifest.json",
+      "gpu-extended/extended-20261101/ulysses-environment/cuda-link-manifest.json",
+      "gpu-extended/extended-20261101/ulysses-environment/DS0199-environment-manifest.json",
+      "gpu-extended/extended-20261101/ulysses-environment/DS0199-source-manifest.json"
+    ],
+    "megatron_environment": {
+      "python": "3.12",
+      "cuda": "13.0",
+      "core_version": "0.16.0rc0",
+      "official_source_commit": "9a1c0d05c992c8a241da384ab27dce2021bb56dd",
+      "shared_image_manifest": "gpu-extended/extended-20261101/ngc-image-manifest.json"
+    }
+  },
+  "comparison_contract": [
+    "A successful checkpoint write is not a successful restore. Full-flow comparisons require successful save and fresh-process resume on both implementations.",
+    "Full-tensor comparisons cover model checkpoint/final weights and recorded losses/LR. They do not independently compare every optimizer tensor, scalar metadata or RNG byte.",
+    "Cross-implementation exact equality (rtol=atol=0) and within-implementation BF16 replay tolerances are recorded separately.",
+    "TP/CP cross-implementation JSON weight summaries are not full-tensor equivalence. Their independent dense-oracle checks and observation differences are reported explicitly.",
+    "Cases, phases and ranks overlap; counts must not be summed into a number of independent supported features."
+  ],
+  "suites": {
+    "multinode_core": {
+      "status": "passed_selected_cases_with_shared_fsdp1_failure",
+      "nodes": 2,
+      "world_size": 8,
+      "passed_cases": [
+        "ddp_fp16",
+        "ddp_bf16",
+        "fsdp2_bf16"
+      ],
+      "strict_rank_pairs": 24,
+      "rtol": 0,
+      "atol": 0,
+      "checked": "Entire numerical comparison payload: training, accumulation, metrics, checkpoint continuation and export.",
+      "failed_case": "Original fsdp1_bf16 fixture fails optimizer restoration on both implementations; retained separately below.",
+      "evidence": [
+        "gpu-extended/extended-20261101/job-8526938/matrix-summary.json",
+        "gpu-extended/extended-20261101/job-8526938/completed-core-parity.json"
+      ]
+    },
+    "multinode_deepspeed": {
+      "status": "passed",
+      "nodes": 2,
+      "world_size": 8,
+      "cases": [
+        "zero2_torch",
+        "zero3_deepspeed"
+      ],
+      "process_runs_passed": 8,
+      "strict_full_model_rank_pairs": 16,
+      "rtol": 0,
+      "atol": 0,
+      "checked": "Full checkpoint/final model tensors, all recorded losses and learning rates; fresh-process save/resume both pass.",
+      "evidence": [
+        "gpu-extended/extended-20261101/job-8527499/deepspeed-full-tensor-parity-v2.json",
+        "gpu-extended/extended-20261101/job-8527499/multinode-strict-summary.json"
+      ]
+    },
+    "multinode_parallel": {
+      "status": "functional_outputs_matched_with_observation_differences",
+      "nodes": 2,
+      "world_size": 8,
+      "cases": {
+        "tp": "Node-local TP2 x cross-node DP_shard4/FSDP; full dense update checks and checkpoint continuation within each implementation.",
+        "cp": "CP8 causal Flash Attention forward/backward, full dense update checks, replica equality and input-buffer restoration; no CP checkpoint case."
+      },
+      "functional_rank_pairs_matched": 16,
+      "strict_all_report_rank_pairs_different": 16,
+      "observed_differences": [
+        "Distributed type string FSDP versus DistributedType.FSDP.",
+        "CP profiler records one extra candidate c10d::_allgather_base_ dispatch (2 versus 1)."
+      ],
+      "boundary": "Exported cross-implementation weights are JSON summaries, not complete tensor bytes; all-to-all execution does not prove RDMA or cross-rack transport.",
+      "evidence": [
+        "gpu-extended/extended-20261101/job-8527499/parallel-strict-rank-parity.json",
+        "gpu-extended/extended-20261101/job-8527499/multinode-topology-audit.json"
+      ]
+    },
+    "transformer_engine_fp8": {
+      "status": "passed",
+      "world_size": 2,
+      "cases": [
+        "DelayedScaling",
+        "MXFP8BlockScaling"
+      ],
+      "strict_full_model_rank_pairs": 4,
+      "rtol": 0,
+      "atol": 0,
+      "checked": "Real TE CUDA FP8 kernels and finite gradients, AdamW/StepLR training, full checkpoint/final model weights, recorded losses/LR and fresh-process continuation.",
+      "restored_max_weight_error": 0.0,
+      "continuation_max_weight_error": 0.0,
+      "evidence": [
+        "gpu-extended/extended-20261101/te-full-compare-8527072.json",
+        "gpu-extended/extended-20261101/te-full-compare-8527149.json",
+        "gpu-extended/extended-20261101/ngc-job-8527072/matrix-summary.json",
+        "gpu-extended/extended-20261101/ngc-job-8527149/matrix-summary.json"
+      ],
+      "historical_boundary": "The first report also retains missing MXFP8 reference results; the later MXFP8-specific report supplies its successful rerun. These are separate results, not an all-pass claim for the earlier job.",
+      "successful_process_runs": 8,
+      "successful_rank_phase_reports": 16
+    },
+    "cpu_offload": {
+      "status": "passed_native_scheduler_candidate_external_scheduler_fixed",
+      "world_size": 2,
+      "cases": [
+        "cpu_zero2",
+        "cpu_zero3"
+      ],
+      "native_scheduler": {
+        "name": "DeepSpeed WarmupLR",
+        "process_runs_passed": 8,
+        "strict_full_model_rank_pairs": 4,
+        "cross_implementation_rtol": 0,
+        "cross_implementation_atol": 0,
+        "restored_max_weight_error": 0.0,
+        "within_implementation_continuation_rtol": 0.002,
+        "within_implementation_continuation_atol": 0.0005,
+        "observed_continuation_max_weight_error": 0.000244140625
+      },
+      "external_scheduler": {
+        "name": "Torch StepLR",
+        "candidate_save_and_resume": "passed for both cases",
+        "reference_save": "passed",
+        "reference_resume": "failed LR after optimizer conversion/load; scheduler retains old optimizer",
+        "uninterrupted_full_model_rank_pairs_exact": 4,
+        "candidate_continuation_lr": 0.002125764,
+        "reference_continuation_lr": 0.0026244000000000003,
+        "candidate_fix": "Rebind scheduler.optimizer to converted CPUAdam before engine setup.",
+        "boundary": "This path is not an all-variants parity pass; original failure evidence is retained."
+      },
+      "native_execution": "Compiled DeepSpeedCPUAdam, actual CUDA training and CPU optimizer/master-parameter partitions; no emulated optimizer.",
+      "evidence": [
+        "gpu-extended/extended-20261101/job-8527254/cpu-native-full-tensor-parity.json",
+        "gpu-extended/extended-20261101/job-8527341/torch-offload/external-scheduler-fix-evidence.json",
+        "gpu-extended/extended-20261101/job-8527341/torch-offload/full-tensor-parity.json"
+      ]
+    },
+    "nvme_offload": {
+      "status": "partial_shared_dependency_failure",
+      "world_size": 2,
+      "deepspeed": "0.18.2",
+      "case": "nvme_zero3",
+      "sub_group_size": 4194304,
+      "passed": [
+        "Real CUDA training and CPUAdam updates.",
+        "Actual local NVMe parameter and optimizer swap files.",
+        "Training and checkpoint saving on both variants.",
+        "Fresh-process restoration of every full model tensor with zero error on both variants.",
+        "Save-phase checkpoint/final full model tensors and recorded losses/LR match across implementations exactly."
+      ],
+      "parameter_swap_bytes_per_rank": 4194304,
+      "optimizer_swap_bytes_per_rank": 25184256,
+      "failed": "Optimizer parameter-group learning rate does not restore on either variant; expected checkpoint LR 0.0025. The actual loaded LR was not directly recorded.",
+      "unverified": [
+        "Post-restore continuation: blocked by the strict LR precondition before another training batch.",
+        "Other non-tensor optimizer metadata, including Adam step count, was not directly observed after load."
+      ],
+      "prior_boundary": "An earlier 1Mi-element subgroup configuration also lost the non-swappable small bias tail during load. The later fully swappable group is a diagnostic control, not proof that all subgroup layouts restore.",
+      "diagnosis": "The tested DeepSpeed NVMe restore copies swap tensor files while skipping ordinary ZeRO optimizer-state metadata loading. No LR assertion was bypassed, no tolerance enlarged, and no checkpoint files manually copied.",
+      "evidence": [
+        "gpu-extended/extended-20261101/job-8527579/native-nvme/failure-diagnosis.json",
+        "gpu-extended/extended-20261101/job-8527579/native-nvme/uninterrupted-full-tensor-parity.json",
+        "gpu-extended/extended-20261101/job-8527579/native-nvme/full-tensor-parity.json",
+        "gpu-extended/extended-20261101/job-8527341/native-nvme/failure-diagnosis.json"
+      ]
+    },
+    "ulysses": {
+      "status": "passed",
+      "deepspeed": "0.19.9",
+      "world_size": 4,
+      "cases": [
+        "SP4",
+        "SP2 x DP2"
+      ],
+      "process_runs_passed": 8,
+      "strict_full_model_rank_pairs": 8,
+      "rtol": 0,
+      "atol": 0,
+      "model": "Official Transformers random Llama: 2 layers, hidden128, intermediate256, 8 attention and KV heads, vocab256, sequence128.",
+      "checked": "Real SDPA/Flash Attention training, all-to-all communication, finite nonzero gradients, reconstructed input shards, complete model checkpoint/final weights and all recorded loss/LR.",
+      "oracle": "First dense/sharded forward both use SDPA MATH; parameters are BF16 and corresponding rotary buffers are FP32 with identical values. Training then uses real Flash Attention. Oracle tolerance was not loosened.",
+      "fresh_resume_rank_reports": 16,
+      "restored_max_weight_error": 0.0,
+      "continuation_max_weight_error": 0.0,
+      "candidate_fix": "Initialize the public DeepSpeed distributed backend before Ulysses registration.",
+      "dependency_boundary": "DeepSpeed 0.18.2 trains and saves but fails fresh SP checkpoint loading on both variants. Official released 0.19.9 fixes checkpoint model-parallel rank selection; this is a separately pinned environment, not a local checkpoint patch.",
+      "evidence": [
+        "gpu-extended/extended-20261101/job-8527800/matrix-summary.json",
+        "gpu-extended/extended-20261101/job-8527800/ulysses-full-tensor-parity.json",
+        "gpu-extended/extended-20261101/job-8527579/ulysses/failure-diagnosis.json",
+        "gpu-extended/extended-20261101/job-8527725/failure-diagnosis.json",
+        "gpu-extended/extended-20261101/ulysses-environment/DS0199-environment-manifest.json"
+      ]
+    },
+    "pretrained_qwen": {
+      "status": "passed_sampled_workflows",
+      "model": "Qwen2.5-1.5B",
+      "parameters": 1543714304,
+      "precision": "BF16 autocast, FP32 AdamW state",
+      "batch_per_rank": 1,
+      "sequence_length": 128,
+      "single_gpu": {
+        "nodes": 1,
+        "world_size": 1,
+        "warmup_steps": 1,
+        "measured_steps": 3,
+        "exact_comparison_leaves": 28,
+        "candidate_mean_step_seconds": 0.16732111542175213,
+        "reference_mean_step_seconds": 0.16923712100833654,
+        "candidate_peak_allocated_GiB": 24.91640853881836,
+        "reference_peak_allocated_GiB": 24.91640853881836,
+        "candidate_peak_reserved_GiB": 27.671875,
+        "reference_peak_reserved_GiB": 27.671875
+      },
+      "fsdp2": {
+        "nodes": 2,
+        "world_size": 8,
+        "warmup_steps": 1,
+        "measured_steps": 20,
+        "exact_comparison_leaves": 360,
+        "candidate_mean_step_seconds": 0.34611548548564314,
+        "reference_mean_step_seconds": 0.35359252281486986,
+        "candidate_tokens_per_second": 2958.5500878794846,
+        "reference_tokens_per_second": 2895.988840058518,
+        "candidate_max_rank_peak_allocated_GiB": 4.749058246612549,
+        "reference_max_rank_peak_allocated_GiB": 4.709751605987549,
+        "candidate_max_rank_peak_reserved_GiB": 9.458984375,
+        "reference_max_rank_peak_reserved_GiB": 6.193359375
+      },
+      "checked": "Complete initial/trained/continued model-state tensor byte hashes, recorded losses/LR, top-8 inference IDs/logits and one exact restored continuation step.",
+      "limits": [
+        "Optimizer/RNG state were not independently fully hashed; their tested behavior is supported by the observed model/loss/LR continuation.",
+        "One ordered run per variant with repeated fixed text; not a quality, convergence, long-context, scaling or statistical speedup result.",
+        "Allocated and reserved are per-process PyTorch allocator peaks after warmup, not total GPU use. Resetting peaks does not empty caches; reserved peaks include blocks retained from initial full-state hashing and warmup. These are not isolated steady-state memory requirements.",
+        "Single and eight-rank timings use different global batches, step counts and contexts; do not infer scaling efficiency or memory-reduction ratios."
+      ],
+      "evidence": [
+        "gpu-extended/extended-20261101/job-8527048/pretrained-single-parity-review.json",
+        "gpu-extended/extended-20261101/job-8527499/pretrained-fsdp2-strict-parity.json"
+      ]
+    },
+    "fsdp1_boundary": {
+      "status": "shared_native_empty_shard_failure_isolated",
+      "nodes": 2,
+      "controls": [
+        {
+          "world_size": 4,
+          "output_features": 4,
+          "candidate": "passed",
+          "reference": "passed"
+        },
+        {
+          "world_size": 8,
+          "output_features": 4,
+          "candidate": "failed",
+          "reference": "failed"
+        },
+        {
+          "world_size": 8,
+          "output_features": 16,
+          "candidate": "passed",
+          "reference": "passed"
+        }
+      ],
+      "successful_rank_pairs_exact": 12,
+      "successful_comparison_leaves": 5772,
+      "failed_rank_pairs_retained": 8,
+      "rtol": 0,
+      "atol": 0,
+      "finding": "At world size eight the original four-row output layer produces empty local optimizer shards. Actual GPU diagnostics show complete original param_groups and metadata, then the native PyTorch DCP planner changes to a legacy aggregate key and fails restoration.",
+      "boundary": "The unchanged four-rank model and wider eight-rank control pass; neither repairs nor replaces the original eight-rank failure. Runtime and acceptance tolerances were unchanged for these controls.",
+      "evidence": [
+        "gpu-extended/extended-20261101/job-8527658/fsdp1-followup-strict-summary.json",
+        "gpu-extended/extended-20261101/job-8527499/fsdp1-dcp-diagnosis.json",
+        "gpu-extended/extended-20261101/job-8527658/world8-original/matrix-summary.json"
+      ]
+    },
+    "megatron": {
+      "status": "passed_tested_native_gpt_workflows",
+      "nodes": 2,
+      "world_size": 8,
+      "parallelism": "TP2 x PP2 x DP2 with sequence parallelism",
+      "slurm_job_id": "8528065",
+      "execution_steps_passed": 5,
+      "native_training_process_runs": 4,
+      "training_rank_phase_reports": 32,
+      "strict_full_model_rank_pairs": 8,
+      "public_functional_rank_phase_pairs": 16,
+      "rtol": 0,
+      "atol": 0,
+      "checked": [
+        "Complete initial/checkpoint/final model parameter tensors and all recorded native outputs, losses and learning rates.",
+        "Both variants restore in fresh processes on every rank; restored model and native continuation output errors are zero.",
+        "Exact public CausalLMOutputWithCrossAttentions type, loss field, keys and logits=None for default GPT return_dict=True.",
+        "Consumed samples restore at 8 and finish at 16; actual engine iterations and optimizer/scheduler observations agree.",
+        "Real pipeline groups [0,4], [1,5], [2,6], [3,7] cross two hosts; all ranks record send and recv. TP/DP groups stay node-local."
+      ],
+      "input_contract": "Tokens, labels and positions compare with original shape/value exactly. Only boolean causal attention masks use legal broadcasting before exact value comparison; original shapes [2,1,32,32] and [1,1,32,32] are retained.",
+      "hf_label_contract": "Black-box probes of labels=input_ids, arbitrary labels and -100 values established that the default HF GPT pretraining bridge derives next-token targets plus EOS from input_ids. The candidate now reproduces this. Custom/native-label paths retain their separate behavior and are not claimed fully verified.",
+      "earlier_single_node_scope": "Candidate TP2+SP, TP2xPP2+SP and TP2xDP2+SP completed native training and fresh restoration; final cross-implementation acceptance uses the two-node configuration above.",
+      "provider_scope": "Common public custom native GPT provider with official tokenizer rebuilding, 4 layers/hidden128, BPE vocabulary257 padded by native Megatron to512. Default model providers, BERT/T5, return_logits and every custom training mode are not covered.",
+      "observation_differences": [
+        "Raw args.iteration and RerunStateMachine state differ despite matching functional results.",
+        "Global CUDA RNG/config observations are retained; no claim that every internal RNG or optimizer byte is identical."
+      ],
+      "evidence": [
+        "gpu-extended/extended-20261101/job-8528065/megatron-full-tensor-parity.json",
+        "gpu-extended/extended-20261101/job-8528065/megatron-multinode-strict-summary.json",
+        "gpu-extended/extended-20261101/job-8528065/megatron-topology-and-public-review.json",
+        "gpu-extended/extended-20261101/job-8528065/native-full-configuration-review.json",
+        "gpu-extended/extended-20261101/ngc-job-8528060/independent-label-contract-review.json",
+        "gpu-extended/extended-20261101/ngc-job-8527943/independent-native-first-difference.json"
+      ],
+      "comparator_negative_controls": [
+        "gpu-extended/extended-20261101/ngc-job-8527943/full-tensor-and-public-contract-review.json",
+        "gpu-extended/extended-20261101/ngc-job-8528060/full-tensor-and-public-contract-review.json"
+      ]
+    }
+  },
+  "topology_scope": {
+    "max_nodes": 2,
+    "max_world_size": 8,
+    "audited_worker_reports_job_8527499": 136,
+    "audited_worker_reports_fsdp1_controls": 60,
+    "boundary": "Actual distinct Slurm hosts/local GPU slots are audited. Hosts share an NVL prefix; no claim of cross-rack network or RDMA transport.",
+    "audited_worker_reports_megatron": 40
+  },
+  "historical_failures_retained": [
+    "CPUAdam development linker aliases were missing in the ARM monolithic Torch wheel; a separate prefix points to real CUDA libraries with source/SONAME/hash provenance.",
+    "External Torch scheduler still referenced the optimizer replaced by CPUAdam; candidate binding corrected and fresh resume rerun, original failure retained.",
+    "DeepSpeed 0.17.6 NVMe checkpoint copytree race, 0.18.2 small unswappable tail loss and optimizer LR metadata restoration failure remain recorded.",
+    "DeepSpeed 0.18.2 Ulysses checkpoint rank mapping failure is retained alongside successful official 0.19.9 results.",
+    "Ulysses first-forward BF16 kernel mismatch and native rotary-buffer precision mismatch were corrected in the shared fixture by aligning kernels and buffer dtypes, without widening acceptance tolerances.",
+    "Original eight-rank FSDP1 empty-shard optimizer restoration failure remains a failed case despite passing diagnostic controls.",
+    "Megatron label and public-return mismatches are retained and rejected by the final comparator. Explicit matching expert-TP configuration resolved missing reference checkpoint shards; no checkpoint file was fabricated or copied to bypass restoration."
+  ],
+  "remaining_unverified": [
+    "Megatron default native model provider, BERT/T5, return_logits, alternate return_dict/custom batch modes, MoE and all native dataset/ramp-up combinations.",
+    "Complete NVMe optimizer-state restore and post-restore continuation; all subgroup layouts.",
+    "All FSDP1 empty-shard checkpoint layouts and PyTorch versions.",
+    "Combined FSDP+TP+CP+SP topologies, cross-node Ulysses, and all model/attention/optimizer configurations.",
+    "Multi-node TE FP8, all scaling recipes and FSDP float8 all-gather.",
+    "TPU/XLA, other accelerator vendors, cloud submissions and most online tracking services.",
+    "General throughput, convergence, model quality, long-context behavior and performance or memory improvement claims."
+  ],
+  "pending": [],
+  "package_version": "1.16.0.dev0+graph.3",
+  "runtime_fixes": [
+    {
+      "problem": "External scheduler retained the optimizer replaced by CPUAdam.",
+      "files": [
+        "src/accelerate/_backends.py"
+      ],
+      "verified_by": [
+        "cpu_offload"
+      ]
+    },
+    {
+      "problem": "Ulysses registered before the native DeepSpeed distributed backend was initialized.",
+      "files": [
+        "src/accelerate/_backends.py"
+      ],
+      "verified_by": [
+        "ulysses"
+      ]
+    },
+    {
+      "problem": "Megatron parser defaults and native training/checkpoint contracts were not fully applied.",
+      "files": [
+        "src/accelerate/utils/megatron_lm.py"
+      ],
+      "verified_by": [
+        "megatron"
+      ]
+    },
+    {
+      "problem": "Generic checkpoint handling loaded the native Megatron scheduler a second time.",
+      "files": [
+        "src/accelerate/accelerator.py"
+      ],
+      "verified_by": [
+        "megatron"
+      ]
+    },
+    {
+      "problem": "Unpadded vocabulary size was incorrectly supplied as padded size.",
+      "files": [
+        "src/accelerate/utils/dataclasses.py"
+      ],
+      "verified_by": [
+        "megatron"
+      ]
+    },
+    {
+      "problem": "Native consumed-sample bookkeeping was missing.",
+      "files": [
+        "src/accelerate/utils/megatron_lm.py"
+      ],
+      "verified_by": [
+        "megatron"
+      ]
+    },
+    {
+      "problem": "Default HF GPT causal-label/EOS translation and default public return object differed.",
+      "files": [
+        "src/accelerate/utils/megatron_lm.py",
+        "src/accelerate/utils/dataclasses.py"
+      ],
+      "verified_by": [
+        "megatron"
+      ]
+    }
+  ],
+  "resource_accounting": {
+    "evidence": "gpu-extended/extended-20261101/slurm-accounting.json",
+    "job_count": 27,
+    "peak_allocated_nodes": 2,
+    "peak_allocated_gpus": 8,
+    "allocated_gpu_hours": 9.424444444444445,
+    "allocated_node_hours": 2.3561111111111113
+  },
+  "portable_evidence": {
+    "manifest": "gpu-extended/manifest.json",
+    "files": 1757,
+    "bytes": 67964542,
+    "manifest_sha256": "426f288e5088cb5eb96ab6bd0edafbc261edc6fb63bdf2a3360c8166daf0072d"
+  },
+  "reference_integrity": "gpu-extended/extended-20261101/reference-final-integrity.json",
+  "package_validation": "wheel-extended-validation.json",
+  "package_source_validation": {
+    "runtime_files_compared": 55,
+    "final_gpu_job": "8528065",
+    "matching_files": 54,
+    "only_post_gpu_runtime_difference": "__version__ changed from 1.16.0.dev0+graph.2 to 1.16.0.dev0+graph.3; all other source bytes unchanged.",
+    "wheel": "wheel-extended-validation.json",
+    "installed_package_files": 55,
+    "source_checkout_imported": false
+  }
+}

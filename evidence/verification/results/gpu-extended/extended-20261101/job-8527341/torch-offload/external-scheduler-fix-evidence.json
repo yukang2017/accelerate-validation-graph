@@ -1,0 +1,1063 @@
+{
+  "scope": "CPU offload external StepLR regression: uninterrupted candidate/reference strict comparison, plus explicit fresh-process outcome. Reference resume fails LR; candidate fixes optimizer binding. This is not an all-variants workflow pass.",
+  "rtol": 0,
+  "atol": 0,
+  "rows": [
+    {
+      "case": "cpu_zero2",
+      "rank": 0,
+      "uninterrupted_full_weights": {
+        "checkpoint_weights": {
+          "status": "matched",
+          "candidate_only_keys": [],
+          "reference_only_keys": [],
+          "elements": 131712,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "max_abs_error": 0.0,
+          "parameters": {
+            "0.bias": {
+              "candidate_shape": [
+                512
+              ],
+              "reference_shape": [
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 512,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "0.weight": {
+              "candidate_shape": [
+                512,
+                128
+              ],
+              "reference_shape": [
+                512,
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.bias": {
+              "candidate_shape": [
+                128
+              ],
+              "reference_shape": [
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 128,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.weight": {
+              "candidate_shape": [
+                128,
+                512
+              ],
+              "reference_shape": [
+                128,
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            }
+          }
+        },
+        "final_weights": {
+          "status": "matched",
+          "candidate_only_keys": [],
+          "reference_only_keys": [],
+          "elements": 131712,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "max_abs_error": 0.0,
+          "parameters": {
+            "0.bias": {
+              "candidate_shape": [
+                512
+              ],
+              "reference_shape": [
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 512,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "0.weight": {
+              "candidate_shape": [
+                512,
+                128
+              ],
+              "reference_shape": [
+                512,
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.bias": {
+              "candidate_shape": [
+                128
+              ],
+              "reference_shape": [
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 128,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.weight": {
+              "candidate_shape": [
+                128,
+                512
+              ],
+              "reference_shape": [
+                128,
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            }
+          }
+        }
+      },
+      "uninterrupted_loss_lr": {
+        "initial_losses": {
+          "candidate_shape": [
+            4
+          ],
+          "reference_shape": [
+            4
+          ],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 4,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        },
+        "checkpoint_lr": {
+          "candidate_shape": [],
+          "reference_shape": [],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 1,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        },
+        "continuation_losses": {
+          "candidate_shape": [
+            2
+          ],
+          "reference_shape": [
+            2
+          ],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 2,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        },
+        "continuation_lr": {
+          "candidate_shape": [],
+          "reference_shape": [],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 1,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        }
+      },
+      "fresh_resume": {
+        "candidate": {
+          "status": "passed",
+          "scheduler_optimizer_alias_after_load": true,
+          "continuation_lr": 0.002125764,
+          "restored_max_weight_error": 0.0,
+          "continuation_max_weight_error": 0.000244140625,
+          "error": null
+        },
+        "reference": {
+          "status": "failed",
+          "scheduler_optimizer_alias_after_load": false,
+          "continuation_lr": 0.0026244000000000003,
+          "restored_max_weight_error": 0.0,
+          "continuation_max_weight_error": 0.000244140625,
+          "error": "Traceback (most recent call last):\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 252, in main\n    run(args, report)\n    ~~~^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 222, in run\n    assert optimizer.param_groups[0][\"lr\"] == reference[\"continuation_lr\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+        }
+      }
+    },
+    {
+      "case": "cpu_zero2",
+      "rank": 1,
+      "uninterrupted_full_weights": {
+        "checkpoint_weights": {
+          "status": "matched",
+          "candidate_only_keys": [],
+          "reference_only_keys": [],
+          "elements": 131712,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "max_abs_error": 0.0,
+          "parameters": {
+            "0.bias": {
+              "candidate_shape": [
+                512
+              ],
+              "reference_shape": [
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 512,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "0.weight": {
+              "candidate_shape": [
+                512,
+                128
+              ],
+              "reference_shape": [
+                512,
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.bias": {
+              "candidate_shape": [
+                128
+              ],
+              "reference_shape": [
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 128,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.weight": {
+              "candidate_shape": [
+                128,
+                512
+              ],
+              "reference_shape": [
+                128,
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            }
+          }
+        },
+        "final_weights": {
+          "status": "matched",
+          "candidate_only_keys": [],
+          "reference_only_keys": [],
+          "elements": 131712,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "max_abs_error": 0.0,
+          "parameters": {
+            "0.bias": {
+              "candidate_shape": [
+                512
+              ],
+              "reference_shape": [
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 512,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "0.weight": {
+              "candidate_shape": [
+                512,
+                128
+              ],
+              "reference_shape": [
+                512,
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.bias": {
+              "candidate_shape": [
+                128
+              ],
+              "reference_shape": [
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 128,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.weight": {
+              "candidate_shape": [
+                128,
+                512
+              ],
+              "reference_shape": [
+                128,
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            }
+          }
+        }
+      },
+      "uninterrupted_loss_lr": {
+        "initial_losses": {
+          "candidate_shape": [
+            4
+          ],
+          "reference_shape": [
+            4
+          ],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 4,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        },
+        "checkpoint_lr": {
+          "candidate_shape": [],
+          "reference_shape": [],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 1,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        },
+        "continuation_losses": {
+          "candidate_shape": [
+            2
+          ],
+          "reference_shape": [
+            2
+          ],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 2,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        },
+        "continuation_lr": {
+          "candidate_shape": [],
+          "reference_shape": [],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 1,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        }
+      },
+      "fresh_resume": {
+        "candidate": {
+          "status": "passed",
+          "scheduler_optimizer_alias_after_load": true,
+          "continuation_lr": 0.002125764,
+          "restored_max_weight_error": 0.0,
+          "continuation_max_weight_error": 0.000244140625,
+          "error": null
+        },
+        "reference": {
+          "status": "failed",
+          "scheduler_optimizer_alias_after_load": false,
+          "continuation_lr": 0.0026244000000000003,
+          "restored_max_weight_error": 0.0,
+          "continuation_max_weight_error": 0.000244140625,
+          "error": "Traceback (most recent call last):\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 252, in main\n    run(args, report)\n    ~~~^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 222, in run\n    assert optimizer.param_groups[0][\"lr\"] == reference[\"continuation_lr\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+        }
+      }
+    },
+    {
+      "case": "cpu_zero3",
+      "rank": 0,
+      "uninterrupted_full_weights": {
+        "checkpoint_weights": {
+          "status": "matched",
+          "candidate_only_keys": [],
+          "reference_only_keys": [],
+          "elements": 131712,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "max_abs_error": 0.0,
+          "parameters": {
+            "0.bias": {
+              "candidate_shape": [
+                512
+              ],
+              "reference_shape": [
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 512,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "0.weight": {
+              "candidate_shape": [
+                512,
+                128
+              ],
+              "reference_shape": [
+                512,
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.bias": {
+              "candidate_shape": [
+                128
+              ],
+              "reference_shape": [
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 128,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.weight": {
+              "candidate_shape": [
+                128,
+                512
+              ],
+              "reference_shape": [
+                128,
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            }
+          }
+        },
+        "final_weights": {
+          "status": "matched",
+          "candidate_only_keys": [],
+          "reference_only_keys": [],
+          "elements": 131712,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "max_abs_error": 0.0,
+          "parameters": {
+            "0.bias": {
+              "candidate_shape": [
+                512
+              ],
+              "reference_shape": [
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 512,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "0.weight": {
+              "candidate_shape": [
+                512,
+                128
+              ],
+              "reference_shape": [
+                512,
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.bias": {
+              "candidate_shape": [
+                128
+              ],
+              "reference_shape": [
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 128,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.weight": {
+              "candidate_shape": [
+                128,
+                512
+              ],
+              "reference_shape": [
+                128,
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            }
+          }
+        }
+      },
+      "uninterrupted_loss_lr": {
+        "initial_losses": {
+          "candidate_shape": [
+            4
+          ],
+          "reference_shape": [
+            4
+          ],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 4,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        },
+        "checkpoint_lr": {
+          "candidate_shape": [],
+          "reference_shape": [],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 1,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        },
+        "continuation_losses": {
+          "candidate_shape": [
+            2
+          ],
+          "reference_shape": [
+            2
+          ],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 2,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        },
+        "continuation_lr": {
+          "candidate_shape": [],
+          "reference_shape": [],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 1,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        }
+      },
+      "fresh_resume": {
+        "candidate": {
+          "status": "passed",
+          "scheduler_optimizer_alias_after_load": true,
+          "continuation_lr": 0.002125764,
+          "restored_max_weight_error": 0.0,
+          "continuation_max_weight_error": 0.000244140625,
+          "error": null
+        },
+        "reference": {
+          "status": "failed",
+          "scheduler_optimizer_alias_after_load": false,
+          "continuation_lr": 0.0026244000000000003,
+          "restored_max_weight_error": 0.0,
+          "continuation_max_weight_error": 0.000244140625,
+          "error": "Traceback (most recent call last):\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 252, in main\n    run(args, report)\n    ~~~^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 222, in run\n    assert optimizer.param_groups[0][\"lr\"] == reference[\"continuation_lr\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+        }
+      }
+    },
+    {
+      "case": "cpu_zero3",
+      "rank": 1,
+      "uninterrupted_full_weights": {
+        "checkpoint_weights": {
+          "status": "matched",
+          "candidate_only_keys": [],
+          "reference_only_keys": [],
+          "elements": 131712,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "max_abs_error": 0.0,
+          "parameters": {
+            "0.bias": {
+              "candidate_shape": [
+                512
+              ],
+              "reference_shape": [
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 512,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "0.weight": {
+              "candidate_shape": [
+                512,
+                128
+              ],
+              "reference_shape": [
+                512,
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.bias": {
+              "candidate_shape": [
+                128
+              ],
+              "reference_shape": [
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 128,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.weight": {
+              "candidate_shape": [
+                128,
+                512
+              ],
+              "reference_shape": [
+                128,
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            }
+          }
+        },
+        "final_weights": {
+          "status": "matched",
+          "candidate_only_keys": [],
+          "reference_only_keys": [],
+          "elements": 131712,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "max_abs_error": 0.0,
+          "parameters": {
+            "0.bias": {
+              "candidate_shape": [
+                512
+              ],
+              "reference_shape": [
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 512,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "0.weight": {
+              "candidate_shape": [
+                512,
+                128
+              ],
+              "reference_shape": [
+                512,
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.bias": {
+              "candidate_shape": [
+                128
+              ],
+              "reference_shape": [
+                128
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 128,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            },
+            "3.weight": {
+              "candidate_shape": [
+                128,
+                512
+              ],
+              "reference_shape": [
+                128,
+                512
+              ],
+              "candidate_dtype": "torch.float32",
+              "reference_dtype": "torch.float32",
+              "elements": 65536,
+              "exact_mismatch_count": 0,
+              "tolerance_mismatch_count": 0,
+              "nonfinite_count": 0,
+              "max_abs_error": 0.0,
+              "max_relative_error": 0.0,
+              "reference_zero_candidate_nonzero": 0,
+              "status": "matched"
+            }
+          }
+        }
+      },
+      "uninterrupted_loss_lr": {
+        "initial_losses": {
+          "candidate_shape": [
+            4
+          ],
+          "reference_shape": [
+            4
+          ],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 4,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        },
+        "checkpoint_lr": {
+          "candidate_shape": [],
+          "reference_shape": [],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 1,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        },
+        "continuation_losses": {
+          "candidate_shape": [
+            2
+          ],
+          "reference_shape": [
+            2
+          ],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 2,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        },
+        "continuation_lr": {
+          "candidate_shape": [],
+          "reference_shape": [],
+          "candidate_dtype": "torch.float64",
+          "reference_dtype": "torch.float64",
+          "elements": 1,
+          "exact_mismatch_count": 0,
+          "tolerance_mismatch_count": 0,
+          "nonfinite_count": 0,
+          "max_abs_error": 0.0,
+          "max_relative_error": 0.0,
+          "reference_zero_candidate_nonzero": 0,
+          "status": "matched"
+        }
+      },
+      "fresh_resume": {
+        "candidate": {
+          "status": "passed",
+          "scheduler_optimizer_alias_after_load": true,
+          "continuation_lr": 0.002125764,
+          "restored_max_weight_error": 0.0,
+          "continuation_max_weight_error": 0.000244140625,
+          "error": null
+        },
+        "reference": {
+          "status": "failed",
+          "scheduler_optimizer_alias_after_load": false,
+          "continuation_lr": 0.0026244000000000003,
+          "restored_max_weight_error": 0.0,
+          "continuation_max_weight_error": 0.000244140625,
+          "error": "Traceback (most recent call last):\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 252, in main\n    run(args, report)\n    ~~~^^^^^^^^^^^^^^\n  File \"[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/verification/gpu_offload_workflows.py\", line 222, in run\n    assert optimizer.param_groups[0][\"lr\"] == reference[\"continuation_lr\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+        }
+      }
+    }
+  ]
+}

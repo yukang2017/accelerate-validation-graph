@@ -1,0 +1,175 @@
+{
+  "candidate": {
+    "status": "pass",
+    "accelerate_source": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/__init__.py",
+    "transformers_version": "4.57.1",
+    "torch_version": "2.8.0+cpu",
+    "global_step": 2,
+    "eval_loss": 0.692475438117981,
+    "predictions": [
+      [
+        -0.009885863400995731,
+        -0.005060880910605192
+      ],
+      [
+        -0.008888643234968185,
+        -0.008166797459125519
+      ],
+      [
+        -0.002817835658788681,
+        -0.006505347788333893
+      ],
+      [
+        -0.006386410444974899,
+        -0.006557330954819918
+      ],
+      [
+        -0.0004755820264108479,
+        -0.005194019991904497
+      ],
+      [
+        -0.0099454615265131,
+        -0.00410649785771966
+      ],
+      [
+        -0.008076605387032032,
+        -0.003920604474842548
+      ],
+      [
+        -0.01076970249414444,
+        -0.005802153144031763
+      ]
+    ],
+    "exact_resume": true,
+    "saved_model": true,
+    "module_origins": {
+      "accelerate": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/__init__.py",
+      "accelerate.accelerator": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/accelerator.py",
+      "accelerate.big_modeling": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/big_modeling.py",
+      "accelerate.data_loader": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/data_loader.py",
+      "accelerate.hooks": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/hooks.py",
+      "accelerate.optimizer": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/optimizer.py",
+      "accelerate.parallelism_config": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/parallelism_config.py",
+      "accelerate.scheduler": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/scheduler.py",
+      "accelerate.state": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/state.py",
+      "accelerate.utils": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/__init__.py",
+      "accelerate.utils.bnb": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/bnb.py",
+      "accelerate.utils.constants": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/constants.py",
+      "accelerate.utils.dataclasses": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/dataclasses.py",
+      "accelerate.utils.deepspeed": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/deepspeed.py",
+      "accelerate.utils.environment": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/environment.py",
+      "accelerate.utils.fsdp_utils": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/fsdp_utils.py",
+      "accelerate.utils.imports": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/imports.py",
+      "accelerate.utils.memory": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/memory.py",
+      "accelerate.utils.modeling": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/modeling.py",
+      "accelerate.utils.offload": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/offload.py",
+      "accelerate.utils.operations": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/operations.py",
+      "accelerate.utils.other": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/other.py",
+      "accelerate.utils.random": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/random.py",
+      "accelerate.utils.tqdm": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/tqdm.py",
+      "accelerate.utils.versions": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/utils/versions.py"
+    }
+  },
+  "reference": {
+    "status": "pass",
+    "accelerate_source": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/__init__.py",
+    "transformers_version": "4.57.1",
+    "torch_version": "2.8.0+cpu",
+    "global_step": 2,
+    "eval_loss": 0.692475438117981,
+    "predictions": [
+      [
+        -0.009885863400995731,
+        -0.005060880910605192
+      ],
+      [
+        -0.008888643234968185,
+        -0.008166797459125519
+      ],
+      [
+        -0.002817835658788681,
+        -0.006505347788333893
+      ],
+      [
+        -0.006386410444974899,
+        -0.006557330954819918
+      ],
+      [
+        -0.0004755820264108479,
+        -0.005194019991904497
+      ],
+      [
+        -0.0099454615265131,
+        -0.00410649785771966
+      ],
+      [
+        -0.008076605387032032,
+        -0.003920604474842548
+      ],
+      [
+        -0.01076970249414444,
+        -0.005802153144031763
+      ]
+    ],
+    "exact_resume": true,
+    "saved_model": true,
+    "module_origins": {
+      "accelerate": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/__init__.py",
+      "accelerate.accelerator": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/accelerator.py",
+      "accelerate.big_modeling": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/big_modeling.py",
+      "accelerate.checkpointing": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/checkpointing.py",
+      "accelerate.commands": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/__init__.py",
+      "accelerate.commands.config": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/config/__init__.py",
+      "accelerate.commands.config.cluster": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/config/cluster.py",
+      "accelerate.commands.config.config": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/config/config.py",
+      "accelerate.commands.config.config_args": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/config/config_args.py",
+      "accelerate.commands.config.config_utils": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/config/config_utils.py",
+      "accelerate.commands.config.default": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/config/default.py",
+      "accelerate.commands.config.sagemaker": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/config/sagemaker.py",
+      "accelerate.commands.config.update": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/config/update.py",
+      "accelerate.commands.menu": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/menu/__init__.py",
+      "accelerate.commands.menu.cursor": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/menu/cursor.py",
+      "accelerate.commands.menu.helpers": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/menu/helpers.py",
+      "accelerate.commands.menu.input": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/menu/input.py",
+      "accelerate.commands.menu.keymap": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/menu/keymap.py",
+      "accelerate.commands.menu.selection_menu": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/commands/menu/selection_menu.py",
+      "accelerate.data_loader": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/data_loader.py",
+      "accelerate.hooks": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/hooks.py",
+      "accelerate.launchers": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/launchers.py",
+      "accelerate.logging": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/logging.py",
+      "accelerate.optimizer": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/optimizer.py",
+      "accelerate.parallelism_config": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/parallelism_config.py",
+      "accelerate.scheduler": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/scheduler.py",
+      "accelerate.state": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/state.py",
+      "accelerate.tracking": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/tracking.py",
+      "accelerate.utils": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/__init__.py",
+      "accelerate.utils.ao": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/ao.py",
+      "accelerate.utils.bnb": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/bnb.py",
+      "accelerate.utils.constants": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/constants.py",
+      "accelerate.utils.dataclasses": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/dataclasses.py",
+      "accelerate.utils.environment": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/environment.py",
+      "accelerate.utils.fsdp_utils": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/fsdp_utils.py",
+      "accelerate.utils.imports": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/imports.py",
+      "accelerate.utils.launch": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/launch.py",
+      "accelerate.utils.megatron_lm": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/megatron_lm.py",
+      "accelerate.utils.memory": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/memory.py",
+      "accelerate.utils.modeling": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/modeling.py",
+      "accelerate.utils.offload": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/offload.py",
+      "accelerate.utils.operations": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/operations.py",
+      "accelerate.utils.other": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/other.py",
+      "accelerate.utils.random": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/random.py",
+      "accelerate.utils.torch_xla": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/torch_xla.py",
+      "accelerate.utils.tqdm": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/tqdm.py",
+      "accelerate.utils.transformer_engine": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/transformer_engine.py",
+      "accelerate.utils.versions": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src/accelerate/utils/versions.py"
+    }
+  },
+  "compared_fields": [
+    "global_step",
+    "eval_loss",
+    "predictions",
+    "exact_resume",
+    "saved_model"
+  ],
+  "exact_match": true
+}

@@ -1,0 +1,166 @@
+{
+  "runtime": "CPython 3.13 / PyTorch 2.8.0+cpu",
+  "isolated_optional_dependencies": {
+    "transformers": "4.57.1",
+    "peft": "0.17.1",
+    "megatron-core": "0.14.0"
+  },
+  "cases": [
+    {
+      "case": "cli_help",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-cli_help.log"
+    },
+    {
+      "case": "config_default",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-config_default.log"
+    },
+    {
+      "case": "config_update",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-config_update.log"
+    },
+    {
+      "case": "environment",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-environment.log"
+    },
+    {
+      "case": "selftest",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-selftest.log"
+    },
+    {
+      "case": "launch_script",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-launch_script.log"
+    },
+    {
+      "case": "launch_module",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-launch_module.log"
+    },
+    {
+      "case": "launch_failure_propagation",
+      "status": "passed",
+      "exit_code": 7,
+      "expected_exit_code": 7,
+      "log": "backend-launch_failure_propagation.log"
+    },
+    {
+      "case": "launch_no_python",
+      "status": "passed",
+      "exit_code": 9,
+      "expected_exit_code": 9,
+      "log": "backend-launch_no_python.log"
+    },
+    {
+      "case": "launch_two_rank",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-launch_two_rank.log"
+    },
+    {
+      "case": "debug_launcher",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-debug_launcher.log"
+    },
+    {
+      "case": "notebook_launcher",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-notebook_launcher.log"
+    },
+    {
+      "case": "configuration",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-configuration.log"
+    },
+    {
+      "case": "adapter_fsdp1",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-adapter_fsdp1.log"
+    },
+    {
+      "case": "adapter_fsdp2",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-adapter_fsdp2.log"
+    },
+    {
+      "case": "model_tools",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-model_tools.log"
+    },
+    {
+      "case": "deepspeed_transformers_registration",
+      "status": "passed",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "backend-deepspeed_transformers_registration.log"
+    }
+  ],
+  "unverified": [
+    "Native Megatron-LM full training package and CUDA/NCCL TP/PP/SP training/checkpoint roundtrip",
+    "DeepSpeed ZeRO stages and Ulysses sequence parallelism (DeepSpeed and accelerator devices unavailable)",
+    "Transformer Engine / TorchAO FP8 kernels (GPU required)",
+    "TPU/XLA runtime and SageMaker submission (no corresponding devices/cloud account)"
+  ],
+  "design_references": [
+    "https://huggingface.co/docs/accelerate/main/usage_guides/megatron_lm",
+    "https://docs.nvidia.com/megatron-core/developer-guide/latest/apidocs/core/core.tensor_parallel.layers.html",
+    "https://docs.nvidia.com/megatron-core/developer-guide/latest/api-guide/models/models.gpt.html",
+    "https://docs.nvidia.com/megatron-core/developer-guide/latest/api-guide/models/models.bert.html",
+    "https://docs.nvidia.com/megatron-core/developer-guide/latest/api-guide/models/models.t5.html",
+    "https://huggingface.co/docs/peft/package_reference/peft_model",
+    "https://docs.pytorch.org/xla/release/r2.8/index.html"
+  ],
+  "implementation_changes": [
+    "Explicit lazy public exports for all backend utility modules",
+    "CLI success/failure exit status and parallelism YAML propagation",
+    "Native Megatron-Core GPT/BERT/T5 model providers with TP/PP/SP configuration, built-in dataset construction and native/HF batch adaptation",
+    "GPT return_logits and data-parallel output gathering",
+    "FSDP1/FSDP2 trainable-adapter checkpoint save and restore through PyTorch DCP",
+    "DeepSpeed ZeRO3 initialization registration and context switching with Transformers",
+    "Shared model-memory estimator preserving indivisible layers and actual buffer dtypes",
+    "Torch/XLA installer uses the installed torch version by default",
+    "Megatron main-process selection follows final global/local rank",
+    "Align ordinary DataLoader full-batch size with native Megatron micro-batch scheduling; native dataset iterators can be consumed by engine()"
+  ],
+  "verification_entrypoint": "verification/backend_workflows.py",
+  "scope_note": "17 CPU workflow cases passed; Megatron-Core constructor/spec imports are an API check only, not a successful Megatron training run. Native optional backend training, checkpoint interoperability across Megatron versions, and cloud/TPU hardware paths remain unverified.",
+  "api_checks": [
+    {
+      "case": "megatron_native_api",
+      "status": "passed",
+      "log": "backend-megatron-api.log",
+      "scope": "Imported real GPT/BERT/T5 native classes and local T5 specs; constructed a real Megatron-Core TransformerConfig with tensor_parallel=2 and sequence_parallel=true. Did not initialize CUDA/NCCL, construct/train a model, or run a Megatron optimizer."
+    }
+  ]
+}

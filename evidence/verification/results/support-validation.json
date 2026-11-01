@@ -1,0 +1,88 @@
+{
+  "accelerate_source": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src/accelerate/__init__.py",
+  "torch": "2.8.0+cpu",
+  "workflows": {
+    "regional_compilation": {
+      "status": "pass",
+      "forward_and_backward_equal": true
+    },
+    "profiling": {
+      "status": "pass",
+      "trace_files": 1
+    },
+    "export_replacement": {
+      "status": "pass",
+      "formats_and_sharding_transitions": 6
+    },
+    "checkpoint_format_switch": {
+      "status": "pass",
+      "restored_checkpoints": 3
+    },
+    "tensorboard_images": {
+      "status": "pass",
+      "image_groups": 2
+    },
+    "subprocess": {
+      "status": "pass",
+      "streams_exit_status_and_timeout": true
+    },
+    "module_imports": {
+      "status": "pass",
+      "modules": [
+        "accelerate._backends",
+        "accelerate._selftest",
+        "accelerate.accelerator",
+        "accelerate.big_modeling",
+        "accelerate.checkpointing",
+        "accelerate.commands",
+        "accelerate.commands.accelerate_cli",
+        "accelerate.commands.config",
+        "accelerate.commands.config.config",
+        "accelerate.commands.config.config_args",
+        "accelerate.commands.config.default",
+        "accelerate.commands.config.update",
+        "accelerate.commands.env",
+        "accelerate.commands.estimate",
+        "accelerate.commands.launch",
+        "accelerate.commands.merge",
+        "accelerate.commands.test",
+        "accelerate.commands.to_fsdp2",
+        "accelerate.data_loader",
+        "accelerate.hooks",
+        "accelerate.launchers",
+        "accelerate.local_sgd",
+        "accelerate.logging",
+        "accelerate.memory_utils",
+        "accelerate.optimizer",
+        "accelerate.parallelism_config",
+        "accelerate.scheduler",
+        "accelerate.state",
+        "accelerate.test_utils",
+        "accelerate.test_utils.testing",
+        "accelerate.tracking",
+        "accelerate.utils",
+        "accelerate.utils.ao",
+        "accelerate.utils.bnb",
+        "accelerate.utils.constants",
+        "accelerate.utils.dataclasses",
+        "accelerate.utils.deepspeed",
+        "accelerate.utils.environment",
+        "accelerate.utils.fsdp_utils",
+        "accelerate.utils.imports",
+        "accelerate.utils.launch",
+        "accelerate.utils.megatron_lm",
+        "accelerate.utils.memory",
+        "accelerate.utils.modeling",
+        "accelerate.utils.offload",
+        "accelerate.utils.operations",
+        "accelerate.utils.other",
+        "accelerate.utils.random",
+        "accelerate.utils.rich",
+        "accelerate.utils.torch_xla",
+        "accelerate.utils.tqdm",
+        "accelerate.utils.transformer_engine",
+        "accelerate.utils.versions"
+      ]
+    }
+  }
+}

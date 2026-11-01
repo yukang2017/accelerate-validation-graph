@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-01T09:26:03.900586+00:00",
+  "status": "passed",
+  "scope": "Real single-node GPU workflow samples; not a proof of complete public-API, hardware, workload or performance equivalence.",
+  "branch": "examples/accelerate-graph-rewrite",
+  "package_version": "1.16.0.dev0+graph.2",
+  "baseline_candidate_commit": "c2a0be0ff66b436a71b468d13494835c94a8a10a",
+  "reference_commit": "3008af926ffe3e04ffe6fbe3d87494193fc85041",
+  "reference_use": "Separate black-box execution of independently authored workflows, with per-process module-origin checks. No upstream unit tests run or copied.",
+  "environment": {
+    "python": "3.13.11",
+    "architecture": "aarch64",
+    "torch": "2.8.0+cu129",
+    "cuda": "12.9",
+    "driver": "580.126.20",
+    "gpu": "NVIDIA GB200",
+    "gpus_per_node": 4,
+    "memory_mib_per_gpu": 189471,
+    "distributed_backend": "NCCL",
+    "nodes_per_job": 1,
+    "torchao": "0.13.0",
+    "deepspeed": "0.17.6",
+    "bitsandbytes": "0.48.2",
+    "slurm_account": "nvr_elm_llm",
+    "qos": "short"
+  },
+  "suites": {
+    "core": {
+      "status": "passed",
+      "slurm_job_id": "8526145",
+      "configurations": 14,
+      "details": "Single GPU and two-GPU DDP/FSDP1/FSDP2 in FP32/FP16/BF16, plus four-GPU DDP/FSDP2 BF16; train, accumulation, tail metrics, scaler overflow, Adam/StepLR, exact checkpoint continuation and native model export.",
+      "evidence": "gpu/job-8526145/core-parity.json",
+      "strict_rank_pairs": 29,
+      "exact_numeric_leaves": 13552,
+      "max_abs_difference": 0
+    },
+    "memory": {
+      "status": "passed",
+      "slurm_job_id": "8526122",
+      "configurations": 13,
+      "details": "CUDA/CPU/disk offload, multi-GPU tied weights, auto mapping, meta bin/safetensors loading, FP16/BF16 layer casting, real bitsandbytes 4/8-bit resident/meta/disk inference.",
+      "evidence": "gpu/job-8526122/memory-comparison.json",
+      "exact_cases": 12,
+      "quantized_resident_8bit_max_abs_difference": 0.00048828125,
+      "quantization_tolerance": {
+        "rtol": 0.003,
+        "atol": 0.002
+      }
+    },
+    "fp8_ao": {
+      "status": "passed",
+      "slurm_job_id": "8526127",
+      "configurations": 2,
+      "details": "One and two GPUs; emulate=False, real aten::_scaled_mm (18 calls/rank during continuation), finite nonzero gradients, fresh-process checkpoint recovery. This suite selects fp8_ao rows only; historical DeepSpeed differences in this job are superseded by jobs 8526282/8526283.",
+      "evidence": "gpu/job-8526127/backend-full-state-comparison-strict.json",
+      "strict_full_parameter_rank_pairs": 3,
+      "rtol": 0,
+      "atol": 0,
+      "checkpoint_resume_max_weight_error": 0
+    },
+    "parallel": {
+      "status": "passed",
+      "slurm_job_id": "8526216",
+      "configurations": 2,
+      "details": "Four-GPU DP2 x TP2 and two-GPU CP; both implementations verify full parameter updates against independent dense PyTorch models. TP verifies checkpoint continuation; CP records FlashAttention forward/backward and actual all-to-all collectives. Cross-implementation reported summaries/losses match, but no full-parameter cross-implementation parity claim is made.",
+      "evidence": "gpu/job-8526216/parallel-validation-summary.json",
+      "passed_rank_pairs": 6
+    },
+    "deepspeed_standard": {
+      "status": "passed",
+      "slurm_job_id": "8526282",
+      "configurations": 5,
+      "details": "ZeRO2/3 with standard Accelerator.accumulate, native PyTorch StepLR or DeepSpeed WarmupLR, plus ZeRO2 five-microbatch tail flush. Fresh save/resume processes. Six (or five-tail) microbatches produce three updates.",
+      "evidence": "gpu/job-8526282/backend-full-state-comparison-strict.json",
+      "strict_full_parameter_rank_pairs": 10,
+      "rtol": 0,
+      "atol": 0,
+      "checkpoint_resume_max_weight_error": 0
+    },
+    "deepspeed_defaults": {
+      "status": "passed",
+      "slurm_job_id": "8526283",
+      "configurations": 2,
+      "details": "ZeRO2/3 behavior without Accelerator.accumulate: default sync state updates on every backward, reproducing the reference. Six microbatches produce six updates; not the standard accumulation recipe.",
+      "evidence": "gpu/job-8526283/backend-full-state-comparison-strict.json",
+      "strict_full_parameter_rank_pairs": 4,
+      "rtol": 0,
+      "atol": 0,
+      "checkpoint_resume_max_weight_error": 0
+    }
+  },
+  "runtime_fixes": [
+    {
+      "problem": "Optimizer wrapper retained stale param_groups/state/defaults after distributed checkpoint restoration.",
+      "change": "Delegate current state to the underlying optimizer instead of caching dictionary references.",
+      "files": [
+        "src/accelerate/optimizer.py"
+      ],
+      "verified_by": [
+        "core",
+        "parallel"
+      ]
+    },
+    {
+      "problem": "FSDP2 context-parallel ranks did not reduce gradients across the CP dimension.",
+      "change": "Use the joint dp_shard x cp mesh for FSDP gradient reduction, retaining the replication dimension.",
+      "files": [
+        "src/accelerate/utils/fsdp_utils.py"
+      ],
+      "verified_by": [
+        "parallel"
+      ]
+    },
+    {
+      "problem": "DeepSpeed standard accumulation called unsupported no_sync; engine update boundaries and scheduler ownership differed from the reference.",
+      "change": "Let GradientState control engine boundaries, skip DeepSpeed no_sync, and leave ordinary PyTorch schedulers under AcceleratedScheduler while config-defined schedulers remain engine-owned.",
+      "files": [
+        "src/accelerate/accelerator.py",
+        "src/accelerate/_backends.py",
+        "src/accelerate/utils/deepspeed.py"
+      ],
+      "verified_by": [
+        "deepspeed_standard",
+        "deepspeed_defaults"
+      ]
+    }
+  ],
+  "historical_failures": [
+    {
+      "job": "8525998",
+      "classification": "candidate runtime defects",
+      "details": "TP checkpoint LR reference was stale; CP parameter replicas diverged. Superseded by 8526216.",
+      "evidence": "gpu/job-8525998/matrix-summary.json"
+    },
+    {
+      "job": "8526127",
+      "classification": "cross-implementation numerical mismatch despite independent train/resume success",
+      "details": "DeepSpeed update counts and learning rates differed; full tensor comparison exposed the mismatch. Superseded by 8526282/8526283.",
+      "evidence": "gpu/job-8526127/backend-full-state-comparison-strict.json"
+    },
+    {
+      "job": "8526190",
+      "classification": "candidate runtime defect",
+      "details": "Standard DeepSpeed accumulation entered engine.no_sync, which ZeRO gradient partitioning rejects. Superseded by 8526282.",
+      "evidence": "gpu/job-8526190/matrix-summary.json"
+    },
+    {
+      "jobs": [
+        "8525937",
+        "8525939",
+        "8526000",
+        "8526150"
+      ],
+      "classification": "environment or validation fixture compatibility",
+      "details": "Missing real CUDA toolkit, different public hook/config entry points, string path requirements and unsupported TP-only FSDP topology. Fixed with official CUDA components and common public API fixtures, then rerun."
+    }
+  ],
+  "remaining_unverified": [
+    "Transformer Engine FP8 and MXFP8",
+    "Full Megatron-LM TP/PP/SP training",
+    "DeepSpeed Ulysses, CPU/NVMe offload, other ZeRO/optimizer configurations",
+    "Multiple nodes and network topologies",
+    "TPU/XLA and other hardware vendors",
+    "Full TP/CP/SP combinations, large pretrained-model workloads and performance"
+  ],
+  "evidence": {
+    "portable_manifest": "gpu/manifest.json",
+    "raw_shared_directory": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/20261101",
+    "format": "JSON and text logs collected; tensor/checkpoint binaries remain in the shared raw directory. Per-run source hashes and all module origins are retained.",
+    "slurm_accounting": "../slurm/slurm-accounting.psv",
+    "installation": "wheel-validation.json"
+  },
+  "slurm_jobs": [
+    {
+      "JobID": "8525802",
+      "JobName": "accel-gpu-probe",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Elapsed": "00:00:23",
+      "NodeList": "GPU_NODE_09",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=16G,node=1"
+    },
+    {
+      "JobID": "8525937",
+      "JobName": "accelerate-gpu",
+      "State": "FAILED",
+      "ExitCode": "1:0",
+      "Elapsed": "00:02:00",
+      "NodeList": "GPU_NODE_11",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=64G,node=1"
+    },
+    {
+      "JobID": "8525939",
+      "JobName": "accel-memory",
+      "State": "FAILED",
+      "ExitCode": "1:0",
+      "Elapsed": "00:00:55",
+      "NodeList": "GPU_NODE_07",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=64G,node=1"
+    },
+    {
+      "JobID": "8525998",
+      "JobName": "accel-parallel",
+      "State": "FAILED",
+      "ExitCode": "1:0",
+      "Elapsed": "00:00:57",
+      "NodeList": "GPU_NODE_14",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=64G,node=1"
+    },
+    {
+      "JobID": "8526000",
+      "JobName": "accel-memory",
+      "State": "FAILED",
+      "ExitCode": "1:0",
+      "Elapsed": "00:01:05",
+      "NodeList": "GPU_NODE_12",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=64G,node=1"
+    },
+    {
+      "JobID": "8526122",
+      "JobName": "accel-memory",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Elapsed": "00:01:06",
+      "NodeList": "GPU_NODE_10",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=64G,node=1"
+    },
+    {
+      "JobID": "8526127",
+      "JobName": "accel-backend",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Elapsed": "00:05:40",
+      "NodeList": "GPU_NODE_15",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=64G,node=1"
+    },
+    {
+      "JobID": "8526145",
+      "JobName": "accel-core",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Elapsed": "00:08:01",
+      "NodeList": "GPU_NODE_13",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=64G,node=1"
+    },
+    {
+      "JobID": "8526150",
+      "JobName": "accel-parallel",
+      "State": "FAILED",
+      "ExitCode": "1:0",
+      "Elapsed": "00:01:15",
+      "NodeList": "GPU_NODE_05",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=64G,node=1"
+    },
+    {
+      "JobID": "8526190",
+      "JobName": "accel-ds-standard",
+      "State": "FAILED",
+      "ExitCode": "1:0",
+      "Elapsed": "00:03:27",
+      "NodeList": "GPU_NODE_04",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=64G,node=1"
+    },
+    {
+      "JobID": "8526216",
+      "JobName": "accel-parallel",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Elapsed": "00:01:45",
+      "NodeList": "GPU_NODE_13",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=64G,node=1"
+    },
+    {
+      "JobID": "8526282",
+      "JobName": "accel-ds-standard",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Elapsed": "00:08:10",
+      "NodeList": "GPU_NODE_01",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=64G,node=1"
+    },
+    {
+      "JobID": "8526283",
+      "JobName": "accel-ds-regress",
+      "State": "COMPLETED",
+      "ExitCode": "0:0",
+      "Elapsed": "00:03:45",
+      "NodeList": "GPU_NODE_06",
+      "AllocTRES": "billing=1,cpu=144,gres/gpu=4,mem=64G,node=1"
+    }
+  ],
+  "gpu_jobs_remaining": 0
+}

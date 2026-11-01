@@ -1,0 +1,138 @@
+{
+  "rtol": 2e-05,
+  "atol": 2e-06,
+  "sources": {
+    "candidate": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/candidate/src",
+    "original": "[WORKSPACE]/LMA-reviews/accelerate-graph-main-20261031/upstream/src"
+  },
+  "matched": 18,
+  "total": 18,
+  "results": [
+    {
+      "case": "train",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "accumulation",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "bf16",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "data_shards",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "operations",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "checkpoint",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "safe_shards",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "bin_shards",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "cpu_offload",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "disk_offload",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "sizing",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "clipping",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "skip_batches",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "tensorboard",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "custom_tracker",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "batch_search",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "distributed-rank0",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    },
+    {
+      "case": "distributed-rank1",
+      "candidate_pass": true,
+      "original_pass": true,
+      "match": true,
+      "differences": []
+    }
+  ]
+}

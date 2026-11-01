@@ -1,0 +1,2257 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-01T12:18:57.999771+00:00",
+  "reference_commit": "3008af926ffe3e04ffe6fbe3d87494193fc85041",
+  "graph_counts": {
+    "domains": 10,
+    "flows": 37,
+    "steps": 104,
+    "source_files": 151,
+    "source_lines": 47185,
+    "package_source_files": 79,
+    "package_source_lines": 34187,
+    "source_symbols": 186,
+    "semantic_relationships": 31,
+    "mapped_source_files": 151,
+    "unmapped_source_files": 0
+  },
+  "assessment": "Each graph flow has a mapped implementation route. This matrix separates implemented behavior from executed evidence; it is not a proof of complete API or hardware equivalence.",
+  "evidence_lookup": "Evidence paths are relative to verification/graph-coverage.json. Recorded results live in verification/results; local reruns may overwrite corresponding reports.",
+  "validation_environment": {
+    "python": "3.13.11",
+    "torch": "2.8.0+cpu",
+    "torchdata": "0.11.0",
+    "distributed_backend": "Gloo",
+    "gpu": {
+      "python": "3.13.11",
+      "architecture": "aarch64",
+      "torch": "2.8.0+cu129",
+      "cuda_runtime": "12.9",
+      "devices": "4 x NVIDIA GB200 per Slurm node",
+      "device_capability": [
+        10,
+        0
+      ],
+      "driver": "580.126.20",
+      "distributed_backend": "NCCL",
+      "nodes_per_job": [
+        1,
+        2
+      ],
+      "tested_process_counts": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "memory_workflow_max_devices_used": 2,
+      "bitsandbytes": "0.48.2",
+      "evidence": "results/gpu-validation.json",
+      "extended_evidence": "results/gpu-extended-validation.json",
+      "optional_backend_environments": {
+        "standard_and_cpu_offload": "0.17.6",
+        "nvme": "0.18.2",
+        "ulysses_successful_round": "0.19.9",
+        "transformer_engine": "NGC PyTorch25.08 / TE2.5.0+f05f12c"
+      }
+    }
+  },
+  "summary": {
+    "flows": 37,
+    "implementation_status_counts": {
+      "implemented": 27,
+      "implemented_adapters": 7,
+      "consolidated_recipe": 3
+    },
+    "validation_status_counts": {
+      "gpu_workflow_samples_verified": 23,
+      "cpu_workflow_samples_verified": 9,
+      "runtime_unverified": 2,
+      "recipe_smoke_verified": 3
+    },
+    "gpu_suite_samples": {
+      "core_configurations": 14,
+      "core_implementation_runs": 28,
+      "core_strict_rank_pairs": 29,
+      "core_exact_numeric_leaves": 13552,
+      "memory_cases_per_implementation": 13,
+      "fp8_ao_world_sizes": [
+        1,
+        2
+      ],
+      "parallel_configurations": [
+        "DP2 x TP2 on 4 GPUs",
+        "CP on 2 GPUs"
+      ],
+      "deepspeed_status": "Standard and engine-default workflows passed; full checkpoint/final tensors, losses and learning rates match the reference exactly",
+      "deepspeed_standard_configurations": 5,
+      "deepspeed_standard_process_runs": 20,
+      "deepspeed_default_configurations": 2,
+      "deepspeed_default_process_runs": 8,
+      "deepspeed_default_strict_rank_pairs": 4,
+      "deepspeed_standard_strict_rank_pairs": 10
+    },
+    "extended_gpu_status": "completed_with_known_failures",
+    "extended_gpu_suite_samples": {
+      "multinode_core": {
+        "status": "passed_selected_cases_with_shared_fsdp1_failure",
+        "world_size": 8,
+        "strict_rank_pairs": 24
+      },
+      "multinode_deepspeed": {
+        "status": "passed",
+        "world_size": 8,
+        "process_runs_passed": 8,
+        "strict_full_model_rank_pairs": 16
+      },
+      "multinode_parallel": {
+        "status": "functional_outputs_matched_with_observation_differences",
+        "world_size": 8,
+        "functional_rank_pairs_matched": 16,
+        "strict_all_report_rank_pairs_different": 16
+      },
+      "transformer_engine_fp8": {
+        "status": "passed",
+        "world_size": 2,
+        "strict_full_model_rank_pairs": 4
+      },
+      "cpu_offload": {
+        "status": "passed_native_scheduler_candidate_external_scheduler_fixed",
+        "world_size": 2
+      },
+      "nvme_offload": {
+        "status": "partial_shared_dependency_failure",
+        "world_size": 2
+      },
+      "ulysses": {
+        "status": "passed",
+        "world_size": 4,
+        "process_runs_passed": 8,
+        "strict_full_model_rank_pairs": 8
+      },
+      "pretrained_qwen": {
+        "status": "passed_sampled_workflows"
+      },
+      "fsdp1_boundary": {
+        "status": "shared_native_empty_shard_failure_isolated",
+        "successful_rank_pairs_exact": 12,
+        "failed_rank_pairs_retained": 8
+      },
+      "megatron": {
+        "status": "passed_tested_native_gpt_workflows",
+        "world_size": 8,
+        "process_runs_passed": 4,
+        "rank_phase_reports": 32,
+        "strict_full_model_rank_pairs": 8,
+        "paired_public_and_functional_reports": 16,
+        "cross_node_pipeline_parallelism_verified": true
+      }
+    }
+  },
+  "flows": [
+    {
+      "id": "runtime-state",
+      "domain": "runtime",
+      "name": "识别运行环境与设备",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/state.py",
+        "src/accelerate/accelerator.py",
+        "src/accelerate/utils/imports.py"
+      ],
+      "implemented_behavior": "Shared process/training state, explicit and discovered devices, process-group initialization, plugin selection, and cleanup.",
+      "verified_scope": [
+        "CPU single/two-rank identities and initialization",
+        "Real Gloo collectives launched from OpenMPI-style environment variables without preset rendezvous address/port",
+        "Single-node real CUDA device selection and 1/2/4-process NCCL initialization on GB200; imported Accelerate module origins audited in every workflow",
+        "Real two-node/eight-rank Slurm CUDA/NCCL initialization with distinct host/local GPU slots and per-worker source snapshots."
+      ],
+      "unverified_scope": [
+        "XPU/NPU/MLU/MUSA/HPU/SDAA/Neuron execution",
+        "Native MPI execution and untested rendezvous/topology combinations",
+        "Hardware selection under mixed accelerator installations"
+      ],
+      "evidence": [
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "core-training",
+            "mpi-environment",
+            "ddp-dispatch-local-sgd-mesh-trigger"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "single_fp32",
+            "single_fp16",
+            "single_bf16",
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16",
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "multinode_core"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "process-coordination",
+      "domain": "runtime",
+      "name": "协调多进程执行顺序",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/state.py",
+        "src/accelerate/accelerator.py"
+      ],
+      "implemented_behavior": "Process-selective decorators, ordered contexts, barriers, input partitioning, and cross-rank stop triggers.",
+      "verified_scope": [
+        "Two-rank barriers, input partitioning, and set/check/reset trigger behavior",
+        "Single-node two/four-GPU barriers and rank-coordinated checkpoint/export workflows",
+        "Two-node/eight-rank coordinated training, barriers and native checkpoint workflows."
+      ],
+      "unverified_scope": [
+        "Every decorator/context combination",
+        "Non-CUDA accelerator synchronization and arbitrary network topologies"
+      ],
+      "evidence": [
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "ddp-dispatch-local-sgd-mesh-trigger"
+          ]
+        },
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "distributed-rank0",
+            "distributed-rank1"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16",
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "multinode_core",
+            "multinode_deepspeed"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "distributed-collectives",
+      "domain": "runtime",
+      "name": "汇总结果与交换张量",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/utils/operations.py",
+        "src/accelerate/accelerator.py",
+        "src/accelerate/state.py"
+      ],
+      "implemented_behavior": "Nested tensor/object gather, broadcast, reductions, padding, device transfer, and removal of padded evaluation examples.",
+      "verified_scope": [
+        "Two-rank CPU/Gloo tensor and object workflows",
+        "Split/non-split dispatch collects true remainder sample count",
+        "Black-box comparison with upstream on fixed workflows",
+        "Real NCCL gathering and exact tail-batch metric deduplication in two/four-GPU DDP/FSDP workflows",
+        "CP attention execution records actual distributed all-to-all/all-gather dispatch alongside flash-attention forward/backward",
+        "Actual two-node NCCL collectives; CP8 cross-node attention and four-GPU Ulysses all-to-all training."
+      ],
+      "unverified_scope": [
+        "Collective backends other than Gloo/NCCL, XLA and heterogeneous devices",
+        "Arbitrary uneven collective shapes/topologies"
+      ],
+      "evidence": [
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "operations",
+            "distributed-rank0",
+            "distributed-rank1"
+          ]
+        },
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "ddp-dispatch-local-sgd-mesh-trigger"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16",
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "parallel",
+          "cases": [
+            "cp"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "multinode_parallel",
+            "ulysses"
+          ]
+        }
+      ],
+      "known_differences": [
+        "TP/CP functional outputs match, but CP records one additional candidate all-gather dispatch; collective schedules are not identical."
+      ],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "runtime-support",
+      "domain": "runtime",
+      "name": "适配硬件、依赖与进程环境",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/utils/imports.py",
+        "src/accelerate/utils/environment.py",
+        "src/accelerate/utils/versions.py",
+        "src/accelerate/utils/tqdm.py",
+        "src/accelerate/utils/rich.py",
+        "src/accelerate/utils/torch_xla.py"
+      ],
+      "implemented_behavior": "Optional dependency and hardware discovery, version comparison, environment contexts, progress output, and lazy XLA installation/runtime helpers.",
+      "verified_scope": [
+        "CPU dependency/environment diagnostics and package imports",
+        "MPI-style environment setup in a real two-process run",
+        "AArch64 Slurm GPU execution with PyTorch 2.8.0+cu129, real CUDA/NCCL dependencies and per-rank source-origin audits",
+        "Separate native CUDA and NGC TE environments, pinned DeepSpeed0.17.6/0.18.2/0.19.9 prefixes and source-origin audits."
+      ],
+      "unverified_scope": [
+        "Unexercised optional device extensions and non-CUDA device-specific imports",
+        "XLA installation and runtime",
+        "Every environment/progress helper combination"
+      ],
+      "evidence": [
+        {
+          "record": "results/backend-validation.json",
+          "cases": [
+            "environment"
+          ]
+        },
+        {
+          "record": "results/support-validation.json",
+          "workflows": [
+            "module_imports"
+          ]
+        },
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "mpi-environment"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "single_fp32",
+            "single_fp16",
+            "single_bf16",
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16",
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "transformer_engine_fp8",
+            "ulysses"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "training-prepare",
+      "domain": "training",
+      "name": "接入模型、优化器与数据",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/accelerator.py",
+        "src/accelerate/optimizer.py",
+        "src/accelerate/scheduler.py",
+        "src/accelerate/_backends.py"
+      ],
+      "implemented_behavior": "Prepare models, optimizers, schedulers, and loaders through shared dispatch; rebind replaced model parameters.",
+      "verified_scope": [
+        "CPU/DDP/FSDP1/FSDP2 preparation",
+        "Transformers Trainer train/evaluate/predict/checkpoint workflow",
+        "Two-rank DP/TP scheduler counting",
+        "CUDA single/DDP/FSDP1/FSDP2 model, Adam, scheduler and dataloader preparation across the 14 core GPU configurations",
+        "Native TorchAO Float8Linear preparation on one/two GPUs and composable DP2 x TP2 / two-GPU CP preparation",
+        "Native CUDA ZeRO2/ZeRO3 engine preparation with AdamW and ordinary Torch StepLR or engine-configured WarmupLR passes the standard and engine-default matrices",
+        "Native Transformer Engine delayed/MXFP8, CPUAdam CPU offload, Ulysses SP4/SP2xDP2 and real Qwen2.5-1.5B FSDP2 preparation.",
+        "Native GPT through a common custom model provider passes TP2 x PP2 x DP2+SP across two hosts, with complete model/native-output, public return contract, loss and LR comparisons."
+      ],
+      "unverified_scope": [
+        "Every external model/optimizer integration",
+        "Megatron default providers, BERT/T5, return_logits and every custom batch mode"
+      ],
+      "evidence": [
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "core-training",
+            "fsdp1-two-rank",
+            "fsdp2-two-rank",
+            "scheduler-dp-vs-tp"
+          ]
+        },
+        {
+          "record": "results/transformers-comparison.json",
+          "assertions": [
+            "train/evaluate/predict/resume"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "single_fp32",
+            "single_fp16",
+            "single_bf16",
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16",
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "fp8_ao",
+          "cases": [
+            "fp8_ao"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "parallel",
+          "cases": [
+            "tp",
+            "cp"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_standard",
+          "cases": [
+            "zero2_torch",
+            "zero3_torch",
+            "zero2_deepspeed",
+            "zero3_deepspeed",
+            "zero2_torch_tail"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_defaults",
+          "cases": [
+            "deepspeed_zero2",
+            "deepspeed_zero3"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "transformer_engine_fp8",
+            "cpu_offload",
+            "ulysses",
+            "pretrained_qwen",
+            "megatron"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "training-step",
+      "domain": "training",
+      "name": "反向传播与参数更新",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/accelerator.py",
+        "src/accelerate/optimizer.py",
+        "src/accelerate/scheduler.py"
+      ],
+      "implemented_behavior": "Loss scaling, backward dispatch, gradient clipping, successful-update tracking, optimizer steps, and scheduler advancement.",
+      "verified_scope": [
+        "SGD/Adam CPU training, gradient clipping, and accumulation compared with upstream",
+        "FSDP1/FSDP2 norm clipping and Adam recovery",
+        "Scheduler counts data-parallel batches rather than replicated TP ranks",
+        "Real CUDA Adam updates and StepLR trajectories match the reference exactly for all 14 core configurations",
+        "FP16 GradScaler growth and deliberate overflow skip preserve model weights and scheduler state on single/DDP CUDA",
+        "Native TorchAO FP8 GEMMs execute finite AdamW updates; TP/CP full model updates are checked against independent dense PyTorch baselines",
+        "Native ZeRO2/ZeRO3 BF16 optimizer updates and scheduler boundaries pass standard accumulate and engine-default workflows; the standard five-microbatch tail flushes to three optimizer updates",
+        "Native TE FP8, CPUAdam offload, Ulysses and two-node ZeRO2/3 execute real updates with recorded gradients/kernels and loss/LR checks.",
+        "Native GPT through a common custom model provider passes TP2 x PP2 x DP2+SP across two hosts, with complete model/native-output, public return contract, loss and LR comparisons."
+      ],
+      "unverified_scope": [
+        "XLA optimizer execution",
+        "All optimizer/scheduler types and untested FP8 recipes",
+        "Megatron default providers, BERT/T5 and untested custom training modes"
+      ],
+      "evidence": [
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "train",
+            "accumulation",
+            "clipping"
+          ]
+        },
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "fsdp1-two-rank",
+            "fsdp2-two-rank",
+            "scheduler-dp-vs-tp"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "single_fp32",
+            "single_fp16",
+            "single_bf16",
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16",
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "fp8_ao",
+          "cases": [
+            "fp8_ao"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "parallel",
+          "cases": [
+            "tp",
+            "cp"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_standard",
+          "cases": [
+            "zero2_torch",
+            "zero3_torch",
+            "zero2_deepspeed",
+            "zero3_deepspeed",
+            "zero2_torch_tail"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_defaults",
+          "cases": [
+            "deepspeed_zero2",
+            "deepspeed_zero3"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "transformer_engine_fp8",
+            "cpu_offload",
+            "ulysses",
+            "multinode_deepspeed",
+            "megatron"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "gradient-accumulation",
+      "domain": "training",
+      "name": "梯度累积与同步控制",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/accelerator.py",
+        "src/accelerate/state.py",
+        "src/accelerate/utils/dataclasses.py"
+      ],
+      "implemented_behavior": "Accumulation boundaries, dataloader-end synchronization, DDP/FSDP2 no-sync contexts, explicit synchronization, and uneven-input join support.",
+      "verified_scope": [
+        "CPU/DDP accumulation boundaries and parameter trajectories",
+        "FSDP1/FSDP2 two-rank accumulation training",
+        "Two-microbatch accumulation boundaries, CUDA loss/weight trajectories and exact resume verified for single/DDP/FSDP1/FSDP2 FP32/FP16/BF16; representative four-GPU DDP/FSDP2 BF16 runs included",
+        "Native DeepSpeed ZeRO2/ZeRO3 accumulates two microbatches per update with ordinary Torch or engine-configured schedulers; a five-microbatch tail flushes the final partial update and resumes correctly",
+        "Two-node/eight-rank DDP/FSDP2 and standard ZeRO2/ZeRO3 accumulate and restore successfully in the selected cases."
+      ],
+      "unverified_scope": [
+        "Uneven-input join under arbitrary rank exhaustion",
+        "All nested explicit sync contexts",
+        "Untested optional-engine and vendor-accelerator combinations"
+      ],
+      "evidence": [
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "accumulation",
+            "distributed-rank0",
+            "distributed-rank1"
+          ]
+        },
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "core-training",
+            "fsdp1-two-rank",
+            "fsdp2-two-rank"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "single_fp32",
+            "single_fp16",
+            "single_bf16",
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16",
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_standard",
+          "cases": [
+            "zero2_torch",
+            "zero3_torch",
+            "zero2_deepspeed",
+            "zero3_deepspeed",
+            "zero2_torch_tail"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_defaults",
+          "cases": [
+            "deepspeed_zero2",
+            "deepspeed_zero3"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "multinode_core",
+            "multinode_deepspeed"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "local-sgd",
+      "domain": "training",
+      "name": "周期性模型平均",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/local_sgd.py"
+      ],
+      "implemented_behavior": "Run local DDP optimizer updates and periodically average replicated model parameters, including final synchronization.",
+      "verified_scope": [
+        "Two-rank CPU/Gloo local updates and final parameter equality"
+      ],
+      "unverified_scope": [
+        "GPU, multi-node, and interaction with every optimizer/precision mode"
+      ],
+      "evidence": [
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "ddp-dispatch-local-sgd-mesh-trigger"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "cpu_workflow_samples_verified"
+    },
+    {
+      "id": "model-compilation",
+      "domain": "training",
+      "name": "编译模型与重复计算区域",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/accelerator.py",
+        "src/accelerate/utils/other.py",
+        "src/accelerate/utils/fsdp_utils.py"
+      ],
+      "implemented_behavior": "Whole-model torch.compile and repeated-region compilation with parallel-wrapper traversal.",
+      "verified_scope": [
+        "Regional aot_eager CPU forward and backward equal uncompiled model",
+        "Compiled-region discovery and unwrapping"
+      ],
+      "unverified_scope": [
+        "Inductor/GPU performance or numerical equivalence",
+        "DeepSpeed/FSDP2 compiled training across hardware"
+      ],
+      "evidence": [
+        {
+          "record": "results/support-validation.json",
+          "workflows": [
+            "regional_compilation"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "cpu_workflow_samples_verified"
+    },
+    {
+      "id": "data-sharding",
+      "domain": "data",
+      "name": "按进程分发数据批次",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/data_loader.py",
+        "src/accelerate/utils/operations.py"
+      ],
+      "implemented_behavior": "Map/iterable batch partitioning, rank-zero dispatch, mesh-aware data groups, padding, and device transfer.",
+      "verified_scope": [
+        "Two-rank split/non-split dispatch and exact remainder handling",
+        "Map-style shard settings compared with upstream",
+        "DP/TP mesh input distribution",
+        "CUDA dataloader transfers and true remainder metrics verified on two/four GPUs",
+        "Four-GPU DP2 x TP2 uses TP-replicated batches and distinct DP batches with independent dense gradient averaging",
+        "Two-node TP2 x DP_shard4 uses node-local TP replicas and cross-node DP shards; Ulysses validates reconstructed token/position/label shards."
+      ],
+      "unverified_scope": [
+        "All custom batch samplers, iterable datasets and worker modes",
+        "Non-CUDA accelerator transfers"
+      ],
+      "evidence": [
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "data_shards",
+            "distributed-rank0",
+            "distributed-rank1"
+          ]
+        },
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "ddp-dispatch-local-sgd-mesh-trigger"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16",
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "parallel",
+          "cases": [
+            "tp"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "multinode_parallel",
+            "ulysses"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "data-reproducibility",
+      "domain": "data",
+      "name": "复现采样与恢复数据进度",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/data_loader.py",
+        "src/accelerate/utils/random.py",
+        "src/accelerate/checkpointing.py"
+      ],
+      "implemented_behavior": "Seeded sampling, RNG synchronization, epoch control, native StatefulDataLoader state or replay state, lookahead preservation, and skip-batch views.",
+      "verified_scope": [
+        "Random data plus Dropout/Adam continuation is bit-for-bit identical within candidate",
+        "Ordinary and native Stateful loaders with 0/2 workers",
+        "Two-rank shard and dispatch split/non-split continuation",
+        "Skip-batch and fixed sharding workflows match upstream",
+        "CPU and CUDA RNG draws plus CUDA Dropout reproduce exactly after checkpoint restoration in all initial single-node core GPU configurations",
+        "Selected two-node DDP/FSDP2 workflows retain exact recorded RNG/checkpoint continuation."
+      ],
+      "unverified_scope": [
+        "Arbitrary user-defined dataset state requires dataset/sampler state support",
+        "GPU-side stochastic dataset transforms",
+        "Every persistent-worker/iterable stream configuration"
+      ],
+      "evidence": [
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "rng-recovery-stateful-False-workers-0",
+            "rng-recovery-stateful-False-workers-2",
+            "rng-recovery-stateful-True-workers-0",
+            "rng-recovery-stateful-True-workers-2",
+            "distributed-rng-recovery-shard",
+            "distributed-rng-recovery-dispatch",
+            "distributed-rng-recovery-dispatch-split"
+          ]
+        },
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "skip_batches"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "single_fp32",
+            "single_fp16",
+            "single_bf16",
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16",
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "multinode_core"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "checkpoint-resume",
+      "domain": "persistence",
+      "name": "保存并恢复训练现场",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/checkpointing.py",
+        "src/accelerate/accelerator.py",
+        "src/accelerate/_backends.py",
+        "src/accelerate/utils/fsdp_utils.py"
+      ],
+      "implemented_behavior": "Persist and restore model/optimizer/scheduler/RNG/scaler/loader/custom state, pre-hooks, checkpoint naming/retention, and native backend checkpoints.",
+      "verified_scope": [
+        "CPU/DDP checkpoint continuation, custom objects, pre-hooks, retention",
+        "FSDP1/FSDP2 model and Adam state roundtrips",
+        "Transformers Trainer exact checkpoint continuation",
+        "Real CUDA model/Adam/StepLR/scaler and CPU/CUDA RNG checkpoint continuation is exact for every initial single-node core configuration, including FSDP1/FSDP2 model and optimizer shards",
+        "Native TorchAO FP8 one/two-GPU fresh-process checkpoint continuation restores full weights exactly",
+        "Four-GPU DP2 x TP2 restores weights and optimizer learning rate and reproduces the next update",
+        "Native ZeRO2/ZeRO3 fresh-process model/optimizer/scheduler restoration and continuation have zero weight error in standard accumulate and engine-default workflows",
+        "TE delayed/MXFP8 and DeepSpeed0.19.9 Ulysses fresh-process model restore/continuation have zero full-weight error.",
+        "CPU offload restores model weights exactly; within-implementation BF16 continuation uses rtol0.002/atol0.0005 (observed max0.000244140625), while uninterrupted cross-implementation full model weights/loss/LR are exact.",
+        "Real Qwen complete model state hashes and one restored continuation step match on one/eight GPUs; optimizer/RNG state are not independently fully hashed.",
+        "Native GPT TP2 x PP2 x DP2+SP across two hosts passes full model/native-output comparison and fresh checkpoint restoration; see the extended Megatron scope."
+      ],
+      "unverified_scope": [
+        "Complete NVMe optimizer metadata restore and continuation",
+        "Original eight-rank FSDP1 empty-shard optimizer restore",
+        "XLA checkpoint roundtrips and untested native Megatron modes",
+        "Cross-version/cross-program checkpoint compatibility"
+      ],
+      "evidence": [
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "persistence-hooks-trackers",
+            "fsdp1-two-rank",
+            "fsdp2-two-rank"
+          ]
+        },
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "checkpoint",
+            "distributed-rank0",
+            "distributed-rank1"
+          ]
+        },
+        {
+          "record": "results/transformers-comparison.json",
+          "assertions": [
+            "exact_resume"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "single_fp32",
+            "single_fp16",
+            "single_bf16",
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16",
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "fp8_ao",
+          "cases": [
+            "fp8_ao"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "parallel",
+          "cases": [
+            "tp"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_standard",
+          "cases": [
+            "zero2_torch",
+            "zero3_torch",
+            "zero2_deepspeed",
+            "zero3_deepspeed",
+            "zero2_torch_tail"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_defaults",
+          "cases": [
+            "deepspeed_zero2",
+            "deepspeed_zero3"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "transformer_engine_fp8",
+            "cpu_offload",
+            "nvme_offload",
+            "ulysses",
+            "pretrained_qwen",
+            "fsdp1_boundary",
+            "megatron"
+          ]
+        }
+      ],
+      "known_differences": [
+        "NVMe full model weights restore exactly in the fully swappable control, but optimizer LR fails on both implementations and blocks continuation.",
+        "Original eight-rank FSDP1 optimizer load fails in native DCP; four-rank and wider eight-rank controls pass without replacing that failure.",
+        "Candidate CPUAdam/StepLR rebind fixes fresh resume; reference retains stale optimizer and fails LR."
+      ],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "model-export",
+      "domain": "persistence",
+      "name": "导出可分片模型权重",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/accelerator.py",
+        "src/accelerate/checkpointing.py",
+        "src/accelerate/utils/other.py",
+        "src/accelerate/utils/fsdp_utils.py"
+      ],
+      "implemented_behavior": "Unwrap training wrappers, gather exportable state, and write ordinary or sharded PyTorch/safetensors weights.",
+      "verified_scope": [
+        "Sharded bin/safetensors loading and CPU offload interoperability",
+        "Trainer saved-model export",
+        "FSDP state collection in CPU roundtrips",
+        "Export overwrite and checkpoint serialization-format switching workflows",
+        "CUDA single/DDP/FSDP1/FSDP2 export to ordinary safetensors strictly reloads into a native model with exact exported weights and checked inference outputs",
+        "Native ZeRO2/ZeRO3 full-model state collection supplies checkpoint/final numerical snapshots; engine-default full tensors match the reference exactly",
+        "Two-node DeepSpeed full-model checkpoint/final tensors match across implementations; Qwen full model state bytes are compared by hashes."
+      ],
+      "unverified_scope": [
+        "All sharded backend export modes and adapter conventions",
+        "Every shared-storage/model format"
+      ],
+      "evidence": [
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "safe_shards",
+            "bin_shards"
+          ]
+        },
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "persistence-hooks-trackers"
+          ]
+        },
+        {
+          "record": "results/transformers-comparison.json",
+          "assertions": [
+            "saved_model"
+          ]
+        },
+        {
+          "record": "results/large-model-validation.json",
+          "workflows": [
+            "roundtrips"
+          ]
+        },
+        {
+          "record": "results/support-validation.json",
+          "workflows": [
+            "export_replacement",
+            "checkpoint_format_switch"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "single_fp32",
+            "single_fp16",
+            "single_bf16",
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16",
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_standard",
+          "cases": [
+            "zero2_torch",
+            "zero3_torch",
+            "zero2_deepspeed",
+            "zero3_deepspeed",
+            "zero2_torch_tail"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_defaults",
+          "cases": [
+            "deepspeed_zero2",
+            "deepspeed_zero3"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "multinode_deepspeed",
+            "pretrained_qwen"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "experiment-tracking",
+      "domain": "observability",
+      "name": "记录实验与训练日志",
+      "implementation_status": "implemented_adapters",
+      "implementation_files": [
+        "src/accelerate/tracking.py",
+        "src/accelerate/logging.py",
+        "src/accelerate/accelerator.py"
+      ],
+      "implemented_behavior": "Shared tracker lifecycle and lazy adapters for supported services, custom trackers, and rank-aware logging.",
+      "verified_scope": [
+        "TensorBoard event writing and custom tracker lifecycle",
+        "Tracker behavior in core persistence workflow",
+        "TensorBoard multiple-image logging workflow"
+      ],
+      "unverified_scope": [
+        "Online WandB/Trackio/Comet/Aim/MLflow/ClearML/DVCLive/Swanlab services",
+        "Every rank-specific logger/tracker option"
+      ],
+      "evidence": [
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "tensorboard",
+            "custom_tracker"
+          ]
+        },
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "persistence-hooks-trackers"
+          ]
+        },
+        {
+          "record": "results/support-validation.json",
+          "workflows": [
+            "tensorboard_images"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "cpu_workflow_samples_verified"
+    },
+    {
+      "id": "profiling-memory",
+      "domain": "observability",
+      "name": "观察性能与调整内存占用",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/utils/dataclasses.py",
+        "src/accelerate/utils/memory.py",
+        "src/accelerate/accelerator.py"
+      ],
+      "implemented_behavior": "Profiler contexts and trace export, reference release/device-cache clearing, and executable batch-size retry.",
+      "verified_scope": [
+        "Real CPU profiler emits valid trace events",
+        "Retry size sequence matches upstream for a controlled out-of-memory exception",
+        "Real CP CUDA attention/NCCL execution is observed through CPU-side PyTorch profiler operator events",
+        "CUDA peak allocated bytes are recorded for small-model memory workflows; this is observation rather than an efficiency or performance guarantee",
+        "Real TE FP8 CUDA kernels and Ulysses Flash Attention/all-to-all are profiled.",
+        "Qwen1.5B one/eight-GPU runs record synchronized training times and both allocated/reserved allocator peaks; reserved values retain earlier hash/warmup cache, so they are not isolated steady-state requirements."
+      ],
+      "unverified_scope": [
+        "Actual GPU OOM recovery and repeated allocator/cache stress",
+        "CUDA timeline profiling and performance or memory-efficiency improvements"
+      ],
+      "evidence": [
+        {
+          "record": "results/support-validation.json",
+          "workflows": [
+            "profiling"
+          ]
+        },
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "batch_search"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "parallel",
+          "cases": [
+            "cp"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "memory",
+          "cases": [
+            "cpu_offload",
+            "disk_offload",
+            "mixed_dispatch",
+            "multi_gpu_tied",
+            "auto_device_map",
+            "meta_bin",
+            "meta_safe_shards",
+            "cast_fp16",
+            "cast_bf16",
+            "cast_fp16_bf16",
+            "bnb4",
+            "bnb8",
+            "bnb8_disk"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "transformer_engine_fp8",
+            "ulysses",
+            "pretrained_qwen"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "ddp-training",
+      "domain": "distributed-backends",
+      "name": "多进程数据并行 · DDP",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/accelerator.py",
+        "src/accelerate/state.py",
+        "src/accelerate/utils/dataclasses.py"
+      ],
+      "implemented_behavior": "PyTorch DDP setup, optional communication hooks, no-sync and explicit synchronized backward.",
+      "verified_scope": [
+        "Two-rank CPU/Gloo parameter agreement, accumulation, metrics and checkpoint continuation",
+        "Real NCCL DDP on two GPUs in FP32/FP16/BF16 and four GPUs in BF16: accumulation, tail metrics, Adam/StepLR, checkpoint continuation and export exactly match reference comparison fields",
+        "Two-node/eight-rank FP16/BF16 DDP passes full recorded numerical comparisons."
+      ],
+      "unverified_scope": [
+        "All communication hooks",
+        "XCCL/vendor collectives and arbitrary network topologies",
+        "Every uneven-input join case"
+      ],
+      "evidence": [
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "ddp-dispatch-local-sgd-mesh-trigger"
+          ]
+        },
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "distributed-rank0",
+            "distributed-rank1"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "multinode_core"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "fsdp-training",
+      "domain": "distributed-backends",
+      "name": "参数分片训练 · FSDP / FSDP2",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/utils/fsdp_utils.py",
+        "src/accelerate/utils/dataclasses.py",
+        "src/accelerate/_backends.py",
+        "src/accelerate/accelerator.py"
+      ],
+      "implemented_behavior": "FSDP1/2 wrapping, optimizer parameter rebinding, mixed-precision policies, distributed checkpoint persistence, and merged export.",
+      "verified_scope": [
+        "FSDP1/FSDP2 real CPU single/two-rank training, clipping, accumulation and Adam checkpoint restoration",
+        "Adapter export workflow recorded by backend validation",
+        "Real PEFT LoRA adapter-only FSDP1/FSDP2 checkpoint restore with exact output equality",
+        "Real two-GPU FSDP1/FSDP2 FP32/FP16/BF16 and four-GPU FSDP2 BF16 train with Adam, accumulation, sharded model/optimizer checkpoints and native export; complete recorded numerical comparison fields match the reference exactly",
+        "FSDP2 composes with DP2 x TP2 on four GPUs and CP on two GPUs; full updates match independent dense baselines",
+        "Two-node/eight-rank FSDP2 BF16 and actual Qwen1.5B training/checkpoint continuation pass.",
+        "Two-node FSDP1 passes unchanged four-rank and wider-output eight-rank controls; 12 successful rank comparisons are exact."
+      ],
+      "unverified_scope": [
+        "FSDP parameter/optimizer offload and every nested wrapping policy",
+        "Original eight-rank four-row-output FSDP1 empty-shard checkpoint case remains failed on both variants",
+        "Untested topology/distributed-format combinations"
+      ],
+      "evidence": [
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "fsdp1-single",
+            "fsdp1-two-rank",
+            "fsdp2-single",
+            "fsdp2-two-rank"
+          ]
+        },
+        {
+          "record": "results/backend-validation.json",
+          "cases": [
+            "adapter_fsdp1",
+            "adapter_fsdp2"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "parallel",
+          "cases": [
+            "tp",
+            "cp"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "multinode_core",
+            "pretrained_qwen",
+            "fsdp1_boundary"
+          ]
+        }
+      ],
+      "known_differences": [
+        "Native DCP planner mishandles empty local optimizer shards in the original eight-rank fixture; a wider control does not repair or replace the failed configuration."
+      ],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "deepspeed-training",
+      "domain": "distributed-backends",
+      "name": "ZeRO 与引擎训练 · DeepSpeed",
+      "implementation_status": "implemented_adapters",
+      "implementation_files": [
+        "src/accelerate/utils/deepspeed.py",
+        "src/accelerate/utils/dataclasses.py",
+        "src/accelerate/_backends.py",
+        "src/accelerate/accelerator.py"
+      ],
+      "implemented_behavior": "DeepSpeed configuration, active plugin integration, engine preparation/backward, optimizer/scheduler adapters, checkpoint routing and sequence-parallel adapter.",
+      "verified_scope": [
+        "Initial CPU configuration-only checks: DeepSpeedPlugin/HfDeepSpeedConfig construction and auto-value resolution",
+        "Initial CPU integration checks: real Transformers ZeRO3 weak-reference registration/context/plugin switching",
+        "Native two-GPU NCCL ZeRO2/ZeRO3 BF16 training with AdamW and conventional accelerator.accumulate loops passes five configurations: ordinary Torch StepLR, engine-configured WarmupLR, and a five-microbatch ZeRO2 tail with accumulation=2",
+        "The standard matrix completes 20/20 save/resume process runs across both implementations; checkpoint weight restore and within-implementation continuation errors are zero",
+        "Engine-default training without an explicit accumulate context completes 8/8 save/resume runs across ZeRO2/ZeRO3 and both implementations; full checkpoint/final tensors, losses and learning rates match exactly for all four rank pairs",
+        "Standard-loop full checkpoint/final weight tensors, every recorded loss and learning rate match the reference exactly for all ten rank pairs (rtol=atol=0)",
+        "Two-node/eight-rank standard ZeRO2/3 save/resume passes; 16 full-model rank pairs match exactly.",
+        "CPUAdam CPU offload ZeRO2/3 with native scheduler passes on both variants; BF16 self-continuation is tolerance-based, separately from exact cross-implementation comparison.",
+        "Official DeepSpeed0.19.9 Ulysses SP4 and SP2xDP2 completes training and fresh checkpoint continuation; 8 full-model rank pairs exact.",
+        "Actual NVMe parameter/optimizer swap files and training/save verified; fully swappable subgroup restores all model weights exactly."
+      ],
+      "unverified_scope": [
+        "Complete NVMe optimizer metadata restoration and continuation",
+        "ZeRO1, native FusedAdam and all optimizer/scheduler configurations",
+        "Cross-node Ulysses and real large-model DeepSpeed performance"
+      ],
+      "evidence": [
+        {
+          "record": "results/backend-validation.json",
+          "cases": [
+            "configuration",
+            "deepspeed_transformers_registration"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_standard",
+          "cases": [
+            "zero2_torch",
+            "zero3_torch",
+            "zero2_deepspeed",
+            "zero3_deepspeed",
+            "zero2_torch_tail"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_defaults",
+          "cases": [
+            "deepspeed_zero2",
+            "deepspeed_zero3"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "multinode_deepspeed",
+            "cpu_offload",
+            "nvme_offload",
+            "ulysses"
+          ]
+        }
+      ],
+      "known_differences": [
+        "NVMe optimizer LR fails restore on both variants; small unswappable subgroup also has a preserved model-restore failure.",
+        "External Torch StepLR CPUAdam conversion is corrected in candidate; original fresh resume still fails LR.",
+        "DeepSpeed0.18.2 Ulysses checkpoint rank mapping fails; official0.19.9 passes in an isolated prefix."
+      ],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "megatron-training",
+      "domain": "distributed-backends",
+      "name": "大模型并行训练 · Megatron-LM",
+      "implementation_status": "implemented_adapters",
+      "implementation_files": [
+        "src/accelerate/utils/megatron_lm.py",
+        "src/accelerate/utils/dataclasses.py",
+        "src/accelerate/_backends.py"
+      ],
+      "implemented_behavior": "Megatron training initialization, model/data/optimizer/scheduler providers, GPT/BERT/T5 train-step adapters, pipeline engine calls and checkpoint routing.",
+      "verified_scope": [
+        "Native GPT two-node TP2 x PP2 x DP2 with SP: exact full parameters/native outputs/loss/LR, public default return contract, consumed samples and fresh-process checkpoints on every rank.",
+        "Default HF GPT causal-label/EOS contract observed with standard, arbitrary and ignored labels; historical mismatches retained.",
+        "Actual cross-host pipeline send/recv and CUDA13/NCCL topology audited."
+      ],
+      "unverified_scope": [
+        "Default native model provider, BERT/T5, return_logits and other custom/return_dict modes.",
+        "MoE, all native datasets, microbatch ramp-up and all larger-model/performance combinations."
+      ],
+      "evidence": [
+        {
+          "record": "results/backend-validation.json",
+          "cases": [
+            "configuration"
+          ],
+          "sections": [
+            "api_checks"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "megatron"
+          ]
+        }
+      ],
+      "known_differences": [
+        "Boolean causal masks differ in batch dimension but compare exactly after legal broadcasting.",
+        "Raw args.iteration, RerunStateMachine and global CUDA RNG observations differ; functional outputs and recorded sample/scheduler state match."
+      ],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "composable-parallelism",
+      "domain": "distributed-backends",
+      "name": "组合并行拓扑 · TP / CP / SP",
+      "implementation_status": "implemented_adapters",
+      "implementation_files": [
+        "src/accelerate/parallelism_config.py",
+        "src/accelerate/_backends.py",
+        "src/accelerate/data_loader.py",
+        "src/accelerate/utils/dataclasses.py"
+      ],
+      "implemented_behavior": "Named DP/TP/CP meshes, model tensor/context-parallel adapters, input replication/sharding, and DeepSpeed sequence-parallel routing.",
+      "verified_scope": [
+        "Actual CPU DP/TP meshes and dataloader distribution",
+        "Scheduler steps reflect DP size",
+        "Four-GPU DP2 x TP2 performs real sharded linear GEMMs, averaged DP gradients, optimizer/scheduler updates and checkpoint continuation, with independent dense full-weight checks for both implementations",
+        "Two-GPU FSDP2+CP executes sharded causal flash-attention forward/backward, restores input buffers and produces identical reconstructed model weights across ranks; profiler records actual all-to-all/all-gather dispatch",
+        "Reported TP/CP numerical metrics match across implementations; weight summaries are not claimed to establish full-parameter cross-implementation equality",
+        "Two-node TP2 x DP_shard4 and CP8 pass functional output checks; 16 rank pairs exact over functional JSON fields. TP groups remain node-local; CP has no checkpoint case.",
+        "Four-GPU Ulysses SP4/SP2xDP2 executes real all-to-all training and exact fresh checkpoint continuation with DeepSpeed0.19.9.",
+        "Native GPT TP2 x PP2 x DP2+SP across two hosts passes full model/native-output comparison and fresh checkpoint restoration; see the extended Megatron scope."
+      ],
+      "unverified_scope": [
+        "Complete TP/CP/SP and combined FSDP+TP+CP topologies",
+        "Cross-node Ulysses and untested attention/model architectures",
+        "Real large-model performance"
+      ],
+      "evidence": [
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "ddp-dispatch-local-sgd-mesh-trigger",
+            "scheduler-dp-vs-tp"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "parallel",
+          "cases": [
+            "tp",
+            "cp"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "multinode_parallel",
+            "ulysses"
+          ]
+        }
+      ],
+      "known_differences": [
+        "TP/CP full report fields differ in distributed-type string and CP all-gather event count; exported weight summaries do not prove cross-implementation full tensor equality."
+      ],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "xla-training",
+      "domain": "distributed-backends",
+      "name": "TPU 与 XLA 训练",
+      "implementation_status": "implemented_adapters",
+      "implementation_files": [
+        "src/accelerate/state.py",
+        "src/accelerate/optimizer.py",
+        "src/accelerate/utils/torch_xla.py",
+        "src/accelerate/utils/operations.py",
+        "src/accelerate/utils/random.py",
+        "src/accelerate/checkpointing.py"
+      ],
+      "implemented_behavior": "Lazy XLA device/runtime setup, collectives, RNG/checkpoint hooks, gradient reduction, device-loader helper and optimizer graph stepping.",
+      "verified_scope": [],
+      "unverified_scope": [
+        "TPU/XLA execution, numerical equivalence, data pipeline and checkpoint roundtrip"
+      ],
+      "evidence": [
+        {
+          "record": "results/backend-validation.json",
+          "sections": [
+            "unverified"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "runtime_unverified"
+    },
+    {
+      "id": "mixed-precision",
+      "domain": "precision",
+      "name": "自动混合精度 · FP16 / BF16",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/accelerator.py",
+        "src/accelerate/optimizer.py",
+        "src/accelerate/utils/operations.py",
+        "src/accelerate/utils/fsdp_utils.py"
+      ],
+      "implemented_behavior": "FP16/BF16 autocast, FP32 output conversion, gradient scaling/unscaling and FSDP precision policy.",
+      "verified_scope": [
+        "CPU BF16 forward behavior compared with upstream",
+        "Standard CPU training/backward flows",
+        "Native GPU FP16/BF16 training in single/DDP/FSDP1/FSDP2 workflows, including enabled GradScaler and exact scaler checkpoint continuation",
+        "Single/DDP FP16 deliberately overflows: optimizer update is skipped, loss scale decreases and scheduler does not advance",
+        "Native two-GPU ZeRO2/ZeRO3 BF16 training and checkpoint continuation execute with real CUDA kernels",
+        "Native TE delayed/MXFP8, two-node DDP FP16/BF16 and Qwen BF16 workflows execute on real GB200."
+      ],
+      "unverified_scope": [
+        "All vendor accelerator precisions",
+        "All mixed-precision optimizer, topology and custom-autocast combinations"
+      ],
+      "evidence": [
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "bf16"
+          ]
+        },
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "core-training"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "core",
+          "cases": [
+            "single_fp32",
+            "single_fp16",
+            "single_bf16",
+            "ddp_fp32",
+            "ddp_fp16",
+            "ddp_bf16",
+            "fsdp1_fp32",
+            "fsdp1_fp16",
+            "fsdp1_bf16",
+            "fsdp2_fp32",
+            "fsdp2_fp16",
+            "fsdp2_bf16"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_standard",
+          "cases": [
+            "zero2_torch",
+            "zero3_torch",
+            "zero2_deepspeed",
+            "zero3_deepspeed",
+            "zero2_torch_tail"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "deepspeed_defaults",
+          "cases": [
+            "deepspeed_zero2",
+            "deepspeed_zero3"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "transformer_engine_fp8",
+            "multinode_core",
+            "pretrained_qwen"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "fp8-training",
+      "domain": "precision",
+      "name": "FP8 训练 · TorchAO / Transformer Engine",
+      "implementation_status": "implemented_adapters",
+      "implementation_files": [
+        "src/accelerate/utils/ao.py",
+        "src/accelerate/utils/transformer_engine.py",
+        "src/accelerate/_backends.py",
+        "src/accelerate/utils/dataclasses.py"
+      ],
+      "implemented_behavior": "TorchAO/Transformer Engine layer conversion, parameter rebinding, recipe selection, FP8 autocast and FSDP float8 scale hooks.",
+      "verified_scope": [
+        "Native TorchAO Float8Linear with emulate=False and BF16 master weights trains on one/two GB200 GPUs; profiler records real aten::_scaled_mm execution",
+        "AdamW/StepLR/Dropout training and fresh-process checkpoint continuation pass; full saved weight tensors, losses and learning rates match the reference exactly for all tested ranks",
+        "Native Transformer Engine2.5 delayed scaling and MXFP8 train on two GB200 GPUs with real CUDA FP8 kernels; complete checkpoint/final model tensors, losses/LR match exactly and fresh restore/continuation full-weight error is zero."
+      ],
+      "unverified_scope": [
+        "FSDP float8 all-gather and all scaling/model recipes",
+        "Multi-node and large-model FP8 performance"
+      ],
+      "evidence": [
+        {
+          "record": "results/backend-validation.json",
+          "sections": [
+            "unverified"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "fp8_ao",
+          "cases": [
+            "fp8_ao"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "transformer_engine_fp8"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "empty-weight-loading",
+      "domain": "large-model-memory",
+      "name": "低内存构建与权重加载",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/big_modeling.py",
+        "src/accelerate/utils/modeling.py"
+      ],
+      "implemented_behavior": "Meta/device initialization, sharded checkpoint reads, dtype conversion, tied alias restoration, DTensor loading and load-plus-dispatch composition.",
+      "verified_scope": [
+        "17 large-model roundtrip scenarios including meta/bin/safetensors/tied state",
+        "Two-rank Gloo checkpoint broadcast and DTensor row sharding/dtype/custom extra state",
+        "All-meta construction loads bin checkpoints into CUDA/CPU/disk layouts and sharded safetensors onto two GPUs, with checked inference outputs"
+      ],
+      "unverified_scope": [
+        "All GPU device families, serialized distributed formats and topology combinations",
+        "Arbitrary large-model architectures and remote checkpoint layouts"
+      ],
+      "evidence": [
+        {
+          "record": "results/large-model-validation.json",
+          "workflows": [
+            "roundtrips",
+            "broadcast",
+            "dtensor"
+          ]
+        },
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "safe_shards",
+            "bin_shards"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "memory",
+          "cases": [
+            "meta_bin",
+            "meta_safe_shards"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "device-offloading",
+      "domain": "large-model-memory",
+      "name": "设备布局与 CPU / 磁盘卸载",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/big_modeling.py",
+        "src/accelerate/hooks.py",
+        "src/accelerate/utils/modeling.py",
+        "src/accelerate/utils/offload.py"
+      ],
+      "implemented_behavior": "Budget-based placement, tied/indivisible module handling, CPU/disk storage and forward-time load/evict hooks.",
+      "verified_scope": [
+        "Repeated CPU/disk offload, mixed CPU/disk dispatch, hook detachment/exception cleanup",
+        "Tied weights and memory-budget checks",
+        "Real CUDA inference verifies CPU/disk offload, mixed CUDA/CPU/disk dispatch and parameter eviction after forward",
+        "Two-GPU tied-weight inference preserves shared embedding/output storage; budget-constrained automatic maps place parameters within the tested per-device budgets",
+        "Repeated small-model runs record allocated-memory peaks without claiming identical maps, peaks or large-model memory efficiency",
+        "DeepSpeed CPU optimizer offload and actual NVMe parameter/optimizer swaps execute on real hardware; these training-offload results are separate from inference hook checks."
+      ],
+      "unverified_scope": [
+        "Every architecture/custom forward hook and arbitrary device-map layout",
+        "Large-model peak-memory/performance guarantees and non-CUDA transfers"
+      ],
+      "evidence": [
+        {
+          "record": "results/large-model-validation.json",
+          "workflows": [
+            "roundtrips",
+            "edges"
+          ]
+        },
+        {
+          "record": "results/comparison.json",
+          "cases": [
+            "cpu_offload",
+            "disk_offload",
+            "sizing"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "memory",
+          "cases": [
+            "cpu_offload",
+            "disk_offload",
+            "mixed_dispatch",
+            "multi_gpu_tied",
+            "auto_device_map"
+          ]
+        },
+        {
+          "record": "results/gpu-extended-validation.json",
+          "suites": [
+            "cpu_offload",
+            "nvme_offload"
+          ]
+        }
+      ],
+      "known_differences": [
+        "Independent allocator heuristic; identical upstream device maps and peak memory are not claimed.",
+        "NVMe model weights restore exactly in the fully swappable control, but optimizer LR restoration and subsequent continuation do not pass."
+      ],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "bnb-quantization",
+      "domain": "large-model-memory",
+      "name": "4-bit / 8-bit 量化加载",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/utils/bnb.py",
+        "src/accelerate/utils/modeling.py",
+        "src/accelerate/hooks.py",
+        "src/accelerate/utils/dataclasses.py"
+      ],
+      "implemented_behavior": "bitsandbytes 4/8-bit replacement, excluded dense modules, checkpoint conversion, quantized placement and int8 disk eviction.",
+      "verified_scope": [
+        "bitsandbytes 0.48.2 CPU parity for resident and meta-initialized 4/8-bit models",
+        "Repeated 8-bit disk offload native-bnb parity and eviction",
+        "Native bitsandbytes 0.48.2 CUDA uint8/int8 4/8-bit execution verifies resident and meta-loaded models against native bitsandbytes outputs across repeated inference",
+        "CUDA 8-bit disk offload restores real quantized execution and evicts weights to meta after each forward",
+        "GPU reference comparison passes all tested quantization paths; one resident 8-bit case uses explicit numerical tolerance rather than bitwise equality"
+      ],
+      "unverified_scope": [
+        "Every quantization recipe, model family and GPU architecture",
+        "Quantized 4-bit disk state"
+      ],
+      "evidence": [
+        {
+          "record": "results/large-model-validation.json",
+          "workflows": [
+            "quantization"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "memory",
+          "cases": [
+            "bnb4",
+            "bnb8",
+            "bnb8_disk"
+          ]
+        }
+      ],
+      "known_differences": [
+        "CPU/disk tiers in mixed 4-bit maps retain dense layers."
+      ],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "layerwise-casting",
+      "domain": "large-model-memory",
+      "name": "逐层存储与计算精度切换",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/hooks.py"
+      ],
+      "implemented_behavior": "Per-module storage/compute dtype transitions with type/name exclusions and post-forward restoration.",
+      "verified_scope": [
+        "CPU layerwise casting, exclusions and tensor-owning root/child hook behavior",
+        "Real CUDA hooks verify FP16 storage/FP32 compute, BF16 storage/FP32 compute and FP16 storage/BF16 compute with repeated inference"
+      ],
+      "unverified_scope": [
+        "GPU bandwidth/peak-memory benefit and all untested dtype/device combinations"
+      ],
+      "evidence": [
+        {
+          "record": "results/large-model-validation.json",
+          "workflows": [
+            "roundtrips",
+            "edges"
+          ]
+        },
+        {
+          "record": "results/gpu-validation.json",
+          "suite": "memory",
+          "cases": [
+            "cast_fp16",
+            "cast_bf16",
+            "cast_fp16_bf16"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "gpu_workflow_samples_verified"
+    },
+    {
+      "id": "cli-config",
+      "domain": "launch-and-tools",
+      "name": "生成与更新运行配置",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/commands/config/config.py",
+        "src/accelerate/commands/config/config_args.py",
+        "src/accelerate/commands/config/default.py",
+        "src/accelerate/commands/config/update.py"
+      ],
+      "implemented_behavior": "Interactive local/cloud configuration, basic defaults, YAML/JSON loading, and configuration migration.",
+      "verified_scope": [
+        "Default generation, update and configuration workflow"
+      ],
+      "unverified_scope": [
+        "Every interactive branch and invalid input",
+        "Cloud/device-specific configuration on native services"
+      ],
+      "evidence": [
+        {
+          "record": "results/backend-validation.json",
+          "cases": [
+            "config_default",
+            "config_update",
+            "configuration"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "cpu_workflow_samples_verified"
+    },
+    {
+      "id": "cli-launch",
+      "domain": "launch-and-tools",
+      "name": "从命令行启动训练",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/commands/launch.py",
+        "src/accelerate/commands/accelerate_cli.py",
+        "src/accelerate/utils/launch.py"
+      ],
+      "implemented_behavior": "Resolve CLI/config values and launch scripts/modules/native commands through local, torchrun, DeepSpeed, TPU or SageMaker paths.",
+      "verified_scope": [
+        "Script/module/no-python launches, nonzero exit propagation, real two-rank CPU launch"
+      ],
+      "unverified_scope": [
+        "DeepSpeed/TPU/SageMaker launches",
+        "Multi-node and accelerator runtime selection"
+      ],
+      "evidence": [
+        {
+          "record": "results/backend-validation.json",
+          "cases": [
+            "launch_script",
+            "launch_module",
+            "launch_failure_propagation",
+            "launch_no_python",
+            "launch_two_rank"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "cpu_workflow_samples_verified"
+    },
+    {
+      "id": "notebook-launch",
+      "domain": "launch-and-tools",
+      "name": "在 Notebook 中启动多进程",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/launchers.py"
+      ],
+      "implemented_behavior": "Notebook function launch and CPU debug multiprocess launch, with lazy XLA routing.",
+      "verified_scope": [
+        "Real CPU notebook and debug launcher workflows"
+      ],
+      "unverified_scope": [
+        "GPU initialization constraints and notebook-specific frontends",
+        "TPU launcher and elastic multi-node restart behavior"
+      ],
+      "evidence": [
+        {
+          "record": "results/backend-validation.json",
+          "cases": [
+            "notebook_launcher",
+            "debug_launcher"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "cpu_workflow_samples_verified"
+    },
+    {
+      "id": "cloud-tpu-launch",
+      "domain": "launch-and-tools",
+      "name": "提交云端与 TPU 集群任务",
+      "implementation_status": "implemented_adapters",
+      "implementation_files": [
+        "src/accelerate/commands/launch.py",
+        "src/accelerate/utils/launch.py"
+      ],
+      "implemented_behavior": "SageMaker estimator submission and TPU/XLA/TPU VM command construction.",
+      "verified_scope": [],
+      "unverified_scope": [
+        "Live SageMaker submission, AWS credentials/roles/data channels",
+        "TPU VM provisioning/remote commands and TPU Pod execution"
+      ],
+      "evidence": [
+        {
+          "record": "results/backend-validation.json",
+          "sections": [
+            "unverified"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "runtime_unverified"
+    },
+    {
+      "id": "cli-diagnostics",
+      "domain": "launch-and-tools",
+      "name": "诊断安装与运行环境",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/commands/env.py",
+        "src/accelerate/commands/test.py",
+        "src/accelerate/_selftest.py"
+      ],
+      "implemented_behavior": "Report environment/configuration and launch a built-in real tiny-training self-check.",
+      "verified_scope": [
+        "CLI help/environment/selftest succeed and propagate launch results"
+      ],
+      "unverified_scope": [
+        "Self-check under unavailable accelerator backends"
+      ],
+      "evidence": [
+        {
+          "record": "results/backend-validation.json",
+          "cases": [
+            "cli_help",
+            "environment",
+            "selftest"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "cpu_workflow_samples_verified"
+    },
+    {
+      "id": "cli-model-tools",
+      "domain": "launch-and-tools",
+      "name": "估算显存与迁移模型配置",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "src/accelerate/commands/estimate.py",
+        "src/accelerate/memory_utils.py",
+        "src/accelerate/commands/merge.py",
+        "src/accelerate/commands/to_fsdp2.py",
+        "src/accelerate/utils/fsdp_utils.py"
+      ],
+      "implemented_behavior": "Estimate model/largest-layer/Adam bytes, merge FSDP checkpoint weights, and convert FSDP1 configuration to FSDP2.",
+      "verified_scope": [
+        "Memory estimates account for parent parameters and FP32 Adam state",
+        "Actual CLI memory estimate, FSDP1-to-FSDP2 config conversion, and distributed-checkpoint merge"
+      ],
+      "unverified_scope": [
+        "Every migration strategy, large Hub model family and checkpoint topology",
+        "Actual allocated GPU memory versus estimates"
+      ],
+      "evidence": [
+        {
+          "record": "results/large-model-validation.json",
+          "workflows": [
+            "roundtrips"
+          ]
+        },
+        {
+          "record": "results/backend-validation.json",
+          "cases": [
+            "model_tools"
+          ]
+        }
+      ],
+      "known_differences": [],
+      "validation_status": "cpu_workflow_samples_verified"
+    },
+    {
+      "id": "training-recipes",
+      "domain": "recipes-and-development",
+      "name": "参考完整训练与特性示例",
+      "implementation_status": "consolidated_recipe",
+      "implementation_files": [
+        "examples/train.py"
+      ],
+      "implemented_behavior": "A shared text/vision classification loop composes preparation, accumulation, precision, metric gathering, logging and checkpoint/export.",
+      "verified_scope": [
+        "Real two-rank CPU example training and saved outputs"
+      ],
+      "unverified_scope": [
+        "Large pretrained-model/dataset recipes and full distributed precision combinations"
+      ],
+      "evidence": [
+        {
+          "record": "results/recipe-validation.json",
+          "checks": [
+            "existing_two_rank_text_training_recipe"
+          ]
+        }
+      ],
+      "known_differences": [
+        "Synthetic text/vision tasks express the graph workflows; the original model-specific scripts and datasets are not reproduced verbatim."
+      ],
+      "validation_status": "recipe_smoke_verified"
+    },
+    {
+      "id": "inference-recipes",
+      "domain": "recipes-and-development",
+      "name": "参考多进程推理示例",
+      "implementation_status": "consolidated_recipe",
+      "implementation_files": [
+        "examples/inference.py"
+      ],
+      "implemented_behavior": "Distribute structured text/speech/image/video requests, construct Transformers or Diffusers pipelines, apply shared/per-request options, save JSON/PNG/WAV/MP4 outputs, and collect rank-ordered result paths.",
+      "verified_scope": [
+        "Five offline requests are partitioned across two CPU ranks without loss or duplication",
+        "Real local tiny GPT2 text generation through a Transformers pipeline with structured request options",
+        "Real local tiny Diffusers DDPM generation writes valid PNG output",
+        "MP4 encode/read roundtrip with constructed frames validates serialization only, not a video-generation model",
+        "Real local tiny Vits speech generation writes a readable WAV output"
+      ],
+      "unverified_scope": [
+        "GPU and multi-device execution",
+        "Real video-generation models",
+        "Large pretrained models and all image/audio/video architectures"
+      ],
+      "evidence": [
+        {
+          "record": "results/recipe-validation.json",
+          "checks": [
+            "two_rank_offline_request_sharding",
+            "local_gpt2_text_pipeline",
+            "local_diffusers_ddpm_image_generation",
+            "local_vits_speech_pipeline",
+            "video_artifact_roundtrip"
+          ]
+        }
+      ],
+      "known_differences": [
+        "Original model-specific examples are consolidated into configurable Transformers/Diffusers pipeline execution. Small local-model checks do not establish large-workload performance or complete modality coverage."
+      ],
+      "validation_status": "recipe_smoke_verified"
+    },
+    {
+      "id": "performance-benchmarks",
+      "domain": "recipes-and-development",
+      "name": "测量后端性能与内存",
+      "implementation_status": "consolidated_recipe",
+      "implementation_files": [
+        "benchmarks/run.py"
+      ],
+      "implemented_behavior": "Benchmark training or inference with optional causal-LM checkpoint loading, automatic/device-budget placement and offload; report load time, per-request latency, sample/token throughput, device layout and host/device peak memory across ranks.",
+      "verified_scope": [
+        "Real offline CPU training and inference benchmark execution",
+        "Local tiny GPT2 checkpoint loading/generation with device_map=auto and measured inference results",
+        "Two-rank CPU inference benchmark aggregates rank results"
+      ],
+      "unverified_scope": [
+        "GPU/FSDP2/FP8/compiled performance and multi-device peak memory",
+        "Large-model performance and every checkpoint/offload layout"
+      ],
+      "evidence": [
+        {
+          "record": "results/recipe-validation.json",
+          "checks": [
+            "existing_cpu_training_benchmark",
+            "offline_training_benchmark",
+            "offline_inference_benchmark",
+            "two_rank_inference_benchmark",
+            "local_hf_device_map_inference_benchmark"
+          ]
+        }
+      ],
+      "known_differences": [
+        "Smoke output validates execution and measurement fields, not performance improvement or parity."
+      ],
+      "validation_status": "recipe_smoke_verified"
+    },
+    {
+      "id": "developer-support",
+      "domain": "recipes-and-development",
+      "name": "维护打包与测试支持",
+      "implementation_status": "implemented",
+      "implementation_files": [
+        "pyproject.toml",
+        "src/accelerate/test_utils/testing.py",
+        "tools/inspect_package.py",
+        "tools/compare_workflows.py",
+        "verification/run_core_validation.py"
+      ],
+      "implemented_behavior": "Package entry points, concurrent subprocess stream/exit/timeout handling, package inspection and independent workflow comparison tools.",
+      "verified_scope": [
+        "Captured stdout/stderr, nonzero exits, timeout handling",
+        "Import of all discovered package modules",
+        "Portable core runner executes from repository-relative paths"
+      ],
+      "unverified_scope": [
+        "Every Python/PyTorch/platform combination",
+        "Packaging/install proof is tracked separately by release verification"
+      ],
+      "evidence": [
+        {
+          "record": "results/support-validation.json",
+          "workflows": [
+            "subprocess",
+            "module_imports"
+          ]
+        },
+        {
+          "record": "results/core-validation.json",
+          "cases": [
+            "core-training",
+            "rng-recovery-stateful-True-workers-0"
+          ]
+        }
+      ],
+      "known_differences": [
+        "Original teaching animations and repository maintenance scripts are not recreated as training runtime features."
+      ],
+      "validation_status": "cpu_workflow_samples_verified"
+    }
+  ]
+}

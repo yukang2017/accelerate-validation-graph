@@ -1,0 +1,605 @@
+{
+  "schema_version": 1,
+  "audience": "public",
+  "description": "公开发布副本已将服务器绝对路径替换为稳定别名、GPU 主机名替换为编号，并移除调度分区。验证结果、数值、代码与模型哈希保留；这不是未经修改的原始报告。原始与公开文件哈希见 publication-manifest.json。",
+  "original_site_commit": "637be18539983e99543254e818e421fa1621c9c6",
+  "candidate_commit": "abec29c9bb4740c0af16ad43bc7114fde2435c54",
+  "redaction_counts": {
+    "machine_path_replacements": 791,
+    "host_replacements": 34,
+    "partition_fields_removed": 1
+  },
+  "aliased_hosts": 16,
+  "source_code_pages_modified": false,
+  "functional_results_modified": false,
+  "files": [
+    {
+      "path": "app.js",
+      "original_sha256": "8329d0dfce2d6a6e0874f16e5e4a69c37f1d6bceba23563547af06202546a75f",
+      "public_sha256": "8329d0dfce2d6a6e0874f16e5e4a69c37f1d6bceba23563547af06202546a75f",
+      "bytes": 34445,
+      "modified_for_publication": false
+    },
+    {
+      "path": "code-metrics.json",
+      "original_sha256": "11e7f1cca660745f1f1b6d1fa20ad9acc8a3fa90e76a35c79e350cc04b24e2b5",
+      "public_sha256": "9a371ac564a7db81bd83563d94f3d34ae0ca09d8726301a65207a3f2a3fd991b",
+      "bytes": 1598409,
+      "modified_for_publication": true
+    },
+    {
+      "path": "data.js",
+      "original_sha256": "a2b9561e62593f8c5ed0d68980a965e5aee2a869dea915baeb06800feeafcd24",
+      "public_sha256": "fb99eadfe624deb35608df76de0be9b5e47662645a69fdd52b315822b4eb8157",
+      "bytes": 706807,
+      "modified_for_publication": true
+    },
+    {
+      "path": "data.json",
+      "original_sha256": "65dbe4cf7a5d34c4c79dd00adcdb753b5c39d1178035b96b4df5979dac395b0c",
+      "public_sha256": "c0e7f12ae13cc95800a7ab68edc81f7bc19a3c7023aa209d37ce9a36a75c20c1",
+      "bytes": 1257188,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/graph-coverage.json",
+      "original_sha256": "755e0c5868e11b25fd4da14da40a1dd171692bb3a8748d5437fe62d42703f8bd",
+      "public_sha256": "755e0c5868e11b25fd4da14da40a1dd171692bb3a8748d5437fe62d42703f8bd",
+      "bytes": 83460,
+      "modified_for_publication": false
+    },
+    {
+      "path": "evidence/verification/results/backend-validation.json",
+      "original_sha256": "9406b996728e2cc023f8834b558ebbbcd2337f9cc8fff4f0c0acacaf0a8d06a4",
+      "public_sha256": "9406b996728e2cc023f8834b558ebbbcd2337f9cc8fff4f0c0acacaf0a8d06a4",
+      "bytes": 5775,
+      "modified_for_publication": false
+    },
+    {
+      "path": "evidence/verification/results/comparison.json",
+      "original_sha256": "c3aa3467a76583664423eb24dad1484a4d9086ef6a64c4ccf6996f13a7d2dd14",
+      "public_sha256": "2101b44aed3a614ea12a8228cfc20e1ae3cb22d24588fae9cbff12786af58940",
+      "bytes": 2909,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/core-validation.json",
+      "original_sha256": "a995779b44ec9b04b8a53d1ee230dcf22e932b7586976a382afa73e6c5cf62fb",
+      "public_sha256": "12d2e91757ca65c7e04cb2deb6bf813731bb32cd4f75434c90eb835305bce899",
+      "bytes": 9390,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended/extended-20261101/job-8527048/pretrained-single-parity-review.json",
+      "original_sha256": "57e5fcb684532baccad9620b09dedd4075da6a2ecf2a8026360dd7dae8b70941",
+      "public_sha256": "4fd67a8b7a7a3bda0e97bb1dc48837fe95d2fbc5d54401c0ca0ccea2cac4c953",
+      "bytes": 9648,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended/extended-20261101/job-8527254/matrix-summary.json",
+      "original_sha256": "e68fdff732bbf9e51735d30036f1bdd162b46929de8949694d59839c0e1e78b4",
+      "public_sha256": "bb2a507f3f000f607f6295ef40a3bdafcfed5fb2cb83b38b3a6ff3531af25375",
+      "bytes": 69526,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended/extended-20261101/job-8527341/native-nvme/failure-diagnosis.json",
+      "original_sha256": "317cafccb5ec7f84db4e949008536ecd3f6217b573a58939436ad88a7d240772",
+      "public_sha256": "332d17e4b797b6a77d2bc1ac7687d181bd204f9526eaf2bb9559bd45382580f9",
+      "bytes": 15083,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended/extended-20261101/job-8527341/torch-offload/external-scheduler-fix-evidence.json",
+      "original_sha256": "06fad42c87ddc8fa8fc20277dab17c6eb7cca24dfef5a18ad39be2338990fff8",
+      "public_sha256": "bd2810b32d77f5d132c06be7f9319f144ea87e3fefeb8ae3d5fba108baa3d552",
+      "bytes": 36066,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended/extended-20261101/job-8527499/pretrained-fsdp2-strict-parity.json",
+      "original_sha256": "c54ab21b08f54be9a5157ea79b9c046e537a5993642958a72caee317c5cd9b7a",
+      "public_sha256": "25da35f09e645c84d6da647f412f6afef74a05acfae3dc5f285319cb690a7d89",
+      "bytes": 14007,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended/extended-20261101/job-8527579/native-nvme/failure-diagnosis.json",
+      "original_sha256": "be812eb6efe780091a93afcbcb2d324ce9ea086bbfe978d8ee0333cc250dfa45",
+      "public_sha256": "1d751ecc52f7429e8b139a88178a91013057ad3da77c441cd7cb2cef59b3701e",
+      "bytes": 5956,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended/extended-20261101/job-8527579/ulysses/failure-diagnosis.json",
+      "original_sha256": "aacb01e89cea40771b4608d33ad97dba8074286a3cf0d6883314e3d259789b7b",
+      "public_sha256": "0686d5b9976c4973827ec15b0bc15ff4495f1eb50dd3df5d3d823b7a9a027479",
+      "bytes": 43714,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended/extended-20261101/job-8527658/fsdp1-followup-strict-summary.json",
+      "original_sha256": "4b09f1abeff46b83780611a8bd2851360043221f4353dde7820cdae243e87d65",
+      "public_sha256": "078f9dd2ed016960f132a2203880e77eb54284a1c62726c706947dc4d810c1a5",
+      "bytes": 56108,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended/extended-20261101/job-8527800/ulysses-full-tensor-parity.json",
+      "original_sha256": "1ff0b0c80ca5ca8dfe2688223d61218e589cc1cbc238606f258717a6aaefcdd9",
+      "public_sha256": "216a8e3925b3ab1c224e361e1e4f99387fe140c661973faca48ad6b27f7d5eff",
+      "bytes": 258082,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended/extended-20261101/job-8528065/megatron-full-tensor-parity.json",
+      "original_sha256": "940e3d6a4c533ad2b3b0b1fc74d89e080ce17420b25dcf8b1837ff5417842e73",
+      "public_sha256": "ddeef298c5cf0238645107d317131f4228803cc3e2410a54968059b8e886792e",
+      "bytes": 6444572,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended/extended-20261101/ngc-job-8527943/full-tensor-and-public-contract-review.json",
+      "original_sha256": "eba3c05fc3bd5575681f9a26472d1de65c15533fa730b1f175b9c8e16089a3e9",
+      "public_sha256": "a0512c71c56cc9c7cde7d8240bcdea65dd1eda025f7f17d8901e18cec82dcdac",
+      "bytes": 1713131,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended/extended-20261101/ngc-job-8528060/full-tensor-and-public-contract-review.json",
+      "original_sha256": "7bf728a11e2b0cf18bde9dfe07c2467313fea6584a29254d49e17533a67bc3e1",
+      "public_sha256": "822500cff5a87b9238e8cecd6fba7c66ca51853811a0a6df9337ef8040f99c95",
+      "bytes": 1715524,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/gpu-extended-validation.json",
+      "original_sha256": "09cb06ea0913cb75ab7251c5920f3f912d60ad3663841245273a6d24364347f0",
+      "public_sha256": "09cb06ea0913cb75ab7251c5920f3f912d60ad3663841245273a6d24364347f0",
+      "bytes": 24843,
+      "modified_for_publication": false
+    },
+    {
+      "path": "evidence/verification/results/gpu-validation.json",
+      "original_sha256": "266951743e0f51f39eada77293743bf1190e7bf6ac8f01b351b622414c8bee73",
+      "public_sha256": "41faaceb517039e87518d38f8e4bd5b178b2522a5078a417437b4d6ab3cb4ae7",
+      "bytes": 11308,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/large-model-validation.json",
+      "original_sha256": "2d6f1fdbfed6c362d4a65765654b7354cd0dae524c2c3914931d9b934bc20300",
+      "public_sha256": "9772ad6204bc4bfa6dd0c207a7896085da5970304f4225c24d562f0d7c5e9206",
+      "bytes": 6571,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/recipe-validation.json",
+      "original_sha256": "bb1670753e695c73fb17819969a8f0147e9d4ba09a50546474b64d3ad7b4242c",
+      "public_sha256": "d9fe0a8887428bf310497eef92b2eea034872b4e7b68fbf9497f8771b96b3352",
+      "bytes": 11299,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/support-validation.json",
+      "original_sha256": "53fcdf8e240b06dd46f3cc3c04e8f33c39aedb44d54bd73c9247919d03645c9c",
+      "public_sha256": "225a5da0ed01e316e2e6dd376c876ea751717e49e8876fa6b4412b30df5a8feb",
+      "bytes": 2731,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/transformers-comparison.json",
+      "original_sha256": "7689441b046b43a68b38e5cff1b58bce0a12c16a02c769ad99c2f5f7d5650da5",
+      "public_sha256": "a66f20312ecacbd098f572eb847f6241aa2edc706016e817568b31160226b3dd",
+      "bytes": 12143,
+      "modified_for_publication": true
+    },
+    {
+      "path": "evidence/verification/results/wheel-extended-validation.json",
+      "original_sha256": "e8064e1212f5bab0fc4151c573b1200a8f392ba81869f93afc3b7bd73dec7083",
+      "public_sha256": "a837810bafd813fa56481d496705d15601ebff58daa892b1fac3f8c00ee72a9c",
+      "bytes": 19053,
+      "modified_for_publication": true
+    },
+    {
+      "path": "index.html",
+      "original_sha256": "9d84daaadd8ca252158e0724c82752616ccbd1eb3f376a8b32195312962b972b",
+      "public_sha256": "1d68844a5f2214153e0d5f68e950689de556646877e5d464c4a546601c956c98",
+      "bytes": 6874,
+      "modified_for_publication": true
+    },
+    {
+      "path": "source/candidate/benchmarks/run.py.html",
+      "original_sha256": "2149b31292854c2fbe53bab4d23447fae796525744a22ab73f72edf6f7c4f689",
+      "public_sha256": "2149b31292854c2fbe53bab4d23447fae796525744a22ab73f72edf6f7c4f689",
+      "bytes": 21442,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/examples/inference.py.html",
+      "original_sha256": "96cb0edf3e61bb35638401d41cdfa8c3dbb7b3f13b65652042bcb5580af83f4c",
+      "public_sha256": "96cb0edf3e61bb35638401d41cdfa8c3dbb7b3f13b65652042bcb5580af83f4c",
+      "bytes": 19541,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/examples/train.py.html",
+      "original_sha256": "ebbd1e004dabe92da14150406c81e46a511f479dda10433dc952b130fa64e4f8",
+      "public_sha256": "ebbd1e004dabe92da14150406c81e46a511f479dda10433dc952b130fa64e4f8",
+      "bytes": 9903,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/_backends.py.html",
+      "original_sha256": "0e2b386f15711d570cf6a7ca29d750e2433573be965d3006ef9d1f14d9bfe2ce",
+      "public_sha256": "0e2b386f15711d570cf6a7ca29d750e2433573be965d3006ef9d1f14d9bfe2ce",
+      "bytes": 55133,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/_selftest.py.html",
+      "original_sha256": "8739367c7072059a9919dc0ee1bf9b436c930d8848c3ca7bfdfc55de0bdea247",
+      "public_sha256": "8739367c7072059a9919dc0ee1bf9b436c930d8848c3ca7bfdfc55de0bdea247",
+      "bytes": 4833,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/accelerator.py.html",
+      "original_sha256": "e13e3b82bbab05276eac1a0fa12e34abd5bb1a21b719e8fa306e68420617badb",
+      "public_sha256": "e13e3b82bbab05276eac1a0fa12e34abd5bb1a21b719e8fa306e68420617badb",
+      "bytes": 101542,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/big_modeling.py.html",
+      "original_sha256": "a1cc7a182b03d37e51b5ccfadf5fbba7b602a346902d5aaa356e061b53ad087f",
+      "public_sha256": "a1cc7a182b03d37e51b5ccfadf5fbba7b602a346902d5aaa356e061b53ad087f",
+      "bytes": 34169,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/checkpointing.py.html",
+      "original_sha256": "3010b35dcf25812defc388884a0c72a0b29566f918c59aea81d6d3d49f485d0a",
+      "public_sha256": "3010b35dcf25812defc388884a0c72a0b29566f918c59aea81d6d3d49f485d0a",
+      "bytes": 18927,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/commands/accelerate_cli.py.html",
+      "original_sha256": "8f33e4fc0e28358ff60067d9b515f5caa738b5881831633df745f123e6a1032b",
+      "public_sha256": "8f33e4fc0e28358ff60067d9b515f5caa738b5881831633df745f123e6a1032b",
+      "bytes": 9104,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/commands/config/config.py.html",
+      "original_sha256": "8e3e300c5aad03447ce04eb526287a4e32cec54d74cb3645c716ddab20e87769",
+      "public_sha256": "8e3e300c5aad03447ce04eb526287a4e32cec54d74cb3645c716ddab20e87769",
+      "bytes": 9173,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/commands/config/config_args.py.html",
+      "original_sha256": "baa28db0ec49a53e6112ab621f35e4c8822bd445753fb3195db5911c6882afc9",
+      "public_sha256": "baa28db0ec49a53e6112ab621f35e4c8822bd445753fb3195db5911c6882afc9",
+      "bytes": 18403,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/commands/config/default.py.html",
+      "original_sha256": "0fc474d70ec7b4a7f9d0a10299c8b4833906d71585eedcd60927846efd9e3f6e",
+      "public_sha256": "0fc474d70ec7b4a7f9d0a10299c8b4833906d71585eedcd60927846efd9e3f6e",
+      "bytes": 4963,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/commands/config/update.py.html",
+      "original_sha256": "3d451fe299eef00f88367252026d5125057f7c0a988aa3780f3c106f20b960fa",
+      "public_sha256": "3d451fe299eef00f88367252026d5125057f7c0a988aa3780f3c106f20b960fa",
+      "bytes": 2311,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/commands/env.py.html",
+      "original_sha256": "8e77e1d45f07767a8d6b742eeb5e0e9fa5ee49fc8f7281dc9a4ab1018e92c3a7",
+      "public_sha256": "8e77e1d45f07767a8d6b742eeb5e0e9fa5ee49fc8f7281dc9a4ab1018e92c3a7",
+      "bytes": 4140,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/commands/estimate.py.html",
+      "original_sha256": "56a7cb8f66eedeff9c0c58b27d6e04fcc814f3b71a2de355707802deca6c8f5f",
+      "public_sha256": "56a7cb8f66eedeff9c0c58b27d6e04fcc814f3b71a2de355707802deca6c8f5f",
+      "bytes": 5427,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/commands/launch.py.html",
+      "original_sha256": "c431bccf37c4aec73b93a48e66875bbd663a76dd8355d6c3097966dec1c296c9",
+      "public_sha256": "c431bccf37c4aec73b93a48e66875bbd663a76dd8355d6c3097966dec1c296c9",
+      "bytes": 34790,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/commands/merge.py.html",
+      "original_sha256": "482657b5d45b38b22f31560c28e0437d87f523c3876efcda429fadf9d1807dab",
+      "public_sha256": "482657b5d45b38b22f31560c28e0437d87f523c3876efcda429fadf9d1807dab",
+      "bytes": 2246,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/commands/test.py.html",
+      "original_sha256": "b2d5f2a95bd9e780c4b37eabc8e619c0aecbd5b2853753ded6be1e9c95026467",
+      "public_sha256": "b2d5f2a95bd9e780c4b37eabc8e619c0aecbd5b2853753ded6be1e9c95026467",
+      "bytes": 2187,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/commands/to_fsdp2.py.html",
+      "original_sha256": "ac6c342b24878966be270f0b9a635258a25e5fc185d7da15e97c1c089818baf6",
+      "public_sha256": "ac6c342b24878966be270f0b9a635258a25e5fc185d7da15e97c1c089818baf6",
+      "bytes": 6139,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/data_loader.py.html",
+      "original_sha256": "155315551982cc798ff7b5c577d5e6cbd2f2b6ee329e0096ce79d2aa9a5ad2de",
+      "public_sha256": "155315551982cc798ff7b5c577d5e6cbd2f2b6ee329e0096ce79d2aa9a5ad2de",
+      "bytes": 86285,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/hooks.py.html",
+      "original_sha256": "c1c855cf40a9cd04306f4d11a44407c04167616ad650b89309d78613761b1875",
+      "public_sha256": "c1c855cf40a9cd04306f4d11a44407c04167616ad650b89309d78613761b1875",
+      "bytes": 55580,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/launchers.py.html",
+      "original_sha256": "7779ce2e846f5516a442e64a96422549fe024a3980184a021630fb7799b57e33",
+      "public_sha256": "7779ce2e846f5516a442e64a96422549fe024a3980184a021630fb7799b57e33",
+      "bytes": 11128,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/local_sgd.py.html",
+      "original_sha256": "2be095f121071ab9b9d3c534fb00172ece440f65b1de2b6845ba89aab7765c03",
+      "public_sha256": "2be095f121071ab9b9d3c534fb00172ece440f65b1de2b6845ba89aab7765c03",
+      "bytes": 6425,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/logging.py.html",
+      "original_sha256": "bdab76718d7736af841e5db2cab97d2612ab9fa35450cd9b843298f49d7abad5",
+      "public_sha256": "bdab76718d7736af841e5db2cab97d2612ab9fa35450cd9b843298f49d7abad5",
+      "bytes": 3712,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/memory_utils.py.html",
+      "original_sha256": "52c5c07ab944bd34defb143fcc1cff8d9a5eaaff9abf0d739ebe87b8166b4a59",
+      "public_sha256": "52c5c07ab944bd34defb143fcc1cff8d9a5eaaff9abf0d739ebe87b8166b4a59",
+      "bytes": 7019,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/optimizer.py.html",
+      "original_sha256": "c6e3139a01f6750e52b38055c36eb65875c039cd8ca7bec233fe7e8537e5314d",
+      "public_sha256": "c6e3139a01f6750e52b38055c36eb65875c039cd8ca7bec233fe7e8537e5314d",
+      "bytes": 11854,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/parallelism_config.py.html",
+      "original_sha256": "34eb5b6cb756c2a51f209a3a9973ac9430173d3078422b9499f971507dca4223",
+      "public_sha256": "34eb5b6cb756c2a51f209a3a9973ac9430173d3078422b9499f971507dca4223",
+      "bytes": 11567,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/scheduler.py.html",
+      "original_sha256": "f3f3f0d7c3557e312b481b9ca0821471d549b1d0f76fe77a93b4ac7f01f385bc",
+      "public_sha256": "f3f3f0d7c3557e312b481b9ca0821471d549b1d0f76fe77a93b4ac7f01f385bc",
+      "bytes": 6543,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/state.py.html",
+      "original_sha256": "bd74b0ae0fa67a3b6f2dc1854ec316fa7ad256633967200e93011cd0f6b0dfc0",
+      "public_sha256": "bd74b0ae0fa67a3b6f2dc1854ec316fa7ad256633967200e93011cd0f6b0dfc0",
+      "bytes": 50021,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/test_utils/testing.py.html",
+      "original_sha256": "939d21a4e200064d09e4b2486edc751a1142d9be1ea782baa2f06b76eec19bfb",
+      "public_sha256": "939d21a4e200064d09e4b2486edc751a1142d9be1ea782baa2f06b76eec19bfb",
+      "bytes": 5662,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/tracking.py.html",
+      "original_sha256": "e6b5d07f49c461332e599cc9514f7cf1b5ea420ae1e67c02601afa83bf5069c4",
+      "public_sha256": "e6b5d07f49c461332e599cc9514f7cf1b5ea420ae1e67c02601afa83bf5069c4",
+      "bytes": 31598,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/ao.py.html",
+      "original_sha256": "1e1731185886881356bb7b947b4151078800f1f199dc8e6ec0e39756971c5ade",
+      "public_sha256": "1e1731185886881356bb7b947b4151078800f1f199dc8e6ec0e39756971c5ade",
+      "bytes": 5796,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/bnb.py.html",
+      "original_sha256": "ad4a0e5a750a393a156a193b9eead7f9cc66d9e2999893f4f75c6c3e5e07f542",
+      "public_sha256": "ad4a0e5a750a393a156a193b9eead7f9cc66d9e2999893f4f75c6c3e5e07f542",
+      "bytes": 23619,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/dataclasses.py.html",
+      "original_sha256": "e2b88dd69b4dd4b3a0ee24340a4229783a97a7e1bba210bf01c7e61d1e8e744c",
+      "public_sha256": "e2b88dd69b4dd4b3a0ee24340a4229783a97a7e1bba210bf01c7e61d1e8e744c",
+      "bytes": 90714,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/deepspeed.py.html",
+      "original_sha256": "e488cef754eb62540aa424310cf96348d81f15cde66acb394677894ff07de87b",
+      "public_sha256": "e488cef754eb62540aa424310cf96348d81f15cde66acb394677894ff07de87b",
+      "bytes": 21336,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/environment.py.html",
+      "original_sha256": "7e642ca2739cd84adc733e069a96ad8e301f7701def0a0a888be786f06cf7f14",
+      "public_sha256": "7e642ca2739cd84adc733e069a96ad8e301f7701def0a0a888be786f06cf7f14",
+      "bytes": 12147,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/fsdp_utils.py.html",
+      "original_sha256": "cc5af9d8dd4b2cdcf38a03bea5483ae3f6307b714c7297e99625c4336df9b337",
+      "public_sha256": "cc5af9d8dd4b2cdcf38a03bea5483ae3f6307b714c7297e99625c4336df9b337",
+      "bytes": 38731,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/imports.py.html",
+      "original_sha256": "ee2a5c326871cac27cbc675aba07fe02bdf67bf1a1dd977ce84b4b03e09eaf76",
+      "public_sha256": "ee2a5c326871cac27cbc675aba07fe02bdf67bf1a1dd977ce84b4b03e09eaf76",
+      "bytes": 14093,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/launch.py.html",
+      "original_sha256": "6dfb53778416da736771dd669ba2d6bc39b04a783c30e89f5978a396dadf9d0b",
+      "public_sha256": "6dfb53778416da736771dd669ba2d6bc39b04a783c30e89f5978a396dadf9d0b",
+      "bytes": 16802,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/megatron_lm.py.html",
+      "original_sha256": "45472dafa6e39e72e102b1b140a92f23fe37fecb3c95d412524a848ba7cd0ed0",
+      "public_sha256": "45472dafa6e39e72e102b1b140a92f23fe37fecb3c95d412524a848ba7cd0ed0",
+      "bytes": 63796,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/memory.py.html",
+      "original_sha256": "361e9db5dfb0191db16de9a819c487b017e510a13fbdb191afbeb6cabcd097d6",
+      "public_sha256": "361e9db5dfb0191db16de9a819c487b017e510a13fbdb191afbeb6cabcd097d6",
+      "bytes": 6783,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/modeling.py.html",
+      "original_sha256": "60a3dc417f8fd9ed894f9c8c5c77a715c065a3df08ce073f8cbcf8fcaf54bef2",
+      "public_sha256": "60a3dc417f8fd9ed894f9c8c5c77a715c065a3df08ce073f8cbcf8fcaf54bef2",
+      "bytes": 97124,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/offload.py.html",
+      "original_sha256": "648e91fee0b70580c470aea93c22162b5b57b3fb31ca59701fb53d12b5378266",
+      "public_sha256": "648e91fee0b70580c470aea93c22162b5b57b3fb31ca59701fb53d12b5378266",
+      "bytes": 20565,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/operations.py.html",
+      "original_sha256": "35797df4c3d3e759ce6715910d0cca6e8e43e8afd4ce218d1dcb4ec1f33bc47a",
+      "public_sha256": "35797df4c3d3e759ce6715910d0cca6e8e43e8afd4ce218d1dcb4ec1f33bc47a",
+      "bytes": 27254,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/other.py.html",
+      "original_sha256": "d0cd5b1a475c77e928d6155c25ac1f71f7d22267d17078e4a96b8829299f68c6",
+      "public_sha256": "d0cd5b1a475c77e928d6155c25ac1f71f7d22267d17078e4a96b8829299f68c6",
+      "bytes": 18400,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/random.py.html",
+      "original_sha256": "a26b48e181f289daaf0bc90eb966c4803c1cfce47be8ca132c70cf683dffbf12",
+      "public_sha256": "a26b48e181f289daaf0bc90eb966c4803c1cfce47be8ca132c70cf683dffbf12",
+      "bytes": 6438,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/rich.py.html",
+      "original_sha256": "e5f07c2f6d523e2d1180b6a65cd8543191b1be5b73d6c24b88168a7f1426cdc2",
+      "public_sha256": "e5f07c2f6d523e2d1180b6a65cd8543191b1be5b73d6c24b88168a7f1426cdc2",
+      "bytes": 1660,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/torch_xla.py.html",
+      "original_sha256": "ef129da0fd27c25f9b596df7d19bea68ca8fc550cb4f5114db34366dc753b325",
+      "public_sha256": "ef129da0fd27c25f9b596df7d19bea68ca8fc550cb4f5114db34366dc753b325",
+      "bytes": 5274,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/tqdm.py.html",
+      "original_sha256": "906a7c91de89862718e8a11ca5dd10fc0ab717cd277faf7e56eb05ee099c4ad3",
+      "public_sha256": "906a7c91de89862718e8a11ca5dd10fc0ab717cd277faf7e56eb05ee099c4ad3",
+      "bytes": 1667,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/transformer_engine.py.html",
+      "original_sha256": "d829f96faf46da5c19dfb67cc83fbf89d40c537557dffdc4b4c53fbf96c2bef4",
+      "public_sha256": "d829f96faf46da5c19dfb67cc83fbf89d40c537557dffdc4b4c53fbf96c2bef4",
+      "bytes": 12300,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/src/accelerate/utils/versions.py.html",
+      "original_sha256": "f51a1d31444450fc60b41a64b58f815d4b69d80fb8d4a0621e33a75d0bcdc34c",
+      "public_sha256": "f51a1d31444450fc60b41a64b58f815d4b69d80fb8d4a0621e33a75d0bcdc34c",
+      "bytes": 2736,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/tools/compare_workflows.py.html",
+      "original_sha256": "601a852fa7da4e887f5c71ff517d44e72526d4763cf6b9946e8b83d0a960be7c",
+      "public_sha256": "601a852fa7da4e887f5c71ff517d44e72526d4763cf6b9946e8b83d0a960be7c",
+      "bytes": 14515,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/tools/inspect_package.py.html",
+      "original_sha256": "72b39403a947244dc3e786b8d9158af90fa004436ebdffa4cfc75dbd22d23b00",
+      "public_sha256": "72b39403a947244dc3e786b8d9158af90fa004436ebdffa4cfc75dbd22d23b00",
+      "bytes": 2893,
+      "modified_for_publication": false
+    },
+    {
+      "path": "source/candidate/verification/run_core_validation.py.html",
+      "original_sha256": "d1c2f5c7b7a90da81b358fd629cfd20895c5a4426a389ebffe7a38b554d31ece",
+      "public_sha256": "d1c2f5c7b7a90da81b358fd629cfd20895c5a4426a389ebffe7a38b554d31ece",
+      "bytes": 13967,
+      "modified_for_publication": false
+    },
+    {
+      "path": "style.css",
+      "original_sha256": "bdf7cbb20be55d90743300f5c6cdc3973b42e1a2c6c6c66ffac51b5a6c7596a8",
+      "public_sha256": "bdf7cbb20be55d90743300f5c6cdc3973b42e1a2c6c6c66ffac51b5a6c7596a8",
+      "bytes": 25714,
+      "modified_for_publication": false
+    },
+    {
+      "path": "validation-nodes.json",
+      "original_sha256": "e9520cf28f7652be22bc601b21f3ddda8b7c625973398405349cc983b0094b71",
+      "public_sha256": "e9520cf28f7652be22bc601b21f3ddda8b7c625973398405349cc983b0094b71",
+      "bytes": 113112,
+      "modified_for_publication": false
+    }
+  ]
+}

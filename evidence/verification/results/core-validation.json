@@ -1,0 +1,266 @@
+{
+  "timestamp": "2026-11-01T07:53:47.215711+00:00",
+  "python": "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+  "hardware": "CPU; Torch 2.8.0+cpu; Gloo for distributed checks",
+  "torchdata": "0.11.0",
+  "passed": 16,
+  "total": 16,
+  "checks": [
+    {
+      "name": "mpi-environment",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/core_mpi_environment.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 2.121,
+      "log": "evidence/core-validation-mpi-environment.log"
+    },
+    {
+      "name": "core-training",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/accelerate_graph_core_smoke.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.074,
+      "log": "evidence/core-validation-core-training.log"
+    },
+    {
+      "name": "persistence-hooks-trackers",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/accelerate_graph_core_persistence.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.023,
+      "log": "evidence/core-validation-persistence-hooks-trackers.log"
+    },
+    {
+      "name": "fsdp1-single",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/accelerate_graph_fsdp_cpu_smoke.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.425,
+      "log": "evidence/core-validation-fsdp1-single.log"
+    },
+    {
+      "name": "ddp-dispatch-local-sgd-mesh-trigger",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "-m",
+        "torch.distributed.run",
+        "--standalone",
+        "--nproc_per_node",
+        "2",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/accelerate_graph_core_distributed.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.68,
+      "log": "evidence/core-validation-ddp-dispatch-local-sgd-mesh-trigger.log"
+    },
+    {
+      "name": "fsdp2-single",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/accelerate_graph_fsdp2_cpu_smoke.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.375,
+      "log": "evidence/core-validation-fsdp2-single.log"
+    },
+    {
+      "name": "fsdp1-two-rank",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "-m",
+        "torch.distributed.run",
+        "--standalone",
+        "--nproc_per_node",
+        "2",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/accelerate_graph_fsdp_distributed_smoke.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.836,
+      "log": "evidence/core-validation-fsdp1-two-rank.log"
+    },
+    {
+      "name": "fsdp2-two-rank",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "-m",
+        "torch.distributed.run",
+        "--standalone",
+        "--nproc_per_node",
+        "2",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/accelerate_graph_fsdp2_distributed_smoke.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.885,
+      "log": "evidence/core-validation-fsdp2-two-rank.log"
+    },
+    {
+      "name": "scheduler-dp-vs-tp",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "-m",
+        "torch.distributed.run",
+        "--standalone",
+        "--nproc_per_node",
+        "2",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/core_mesh_scheduler.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.629,
+      "log": "evidence/core-validation-scheduler-dp-vs-tp.log"
+    },
+    {
+      "name": "rng-recovery-stateful-False-workers-0",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/core_resume_rng.py",
+        "--random-data",
+        "--workers",
+        "0"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.124,
+      "log": "evidence/core-validation-rng-recovery-stateful-False-workers-0.log"
+    },
+    {
+      "name": "rng-recovery-stateful-False-workers-2",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/core_resume_rng.py",
+        "--random-data",
+        "--workers",
+        "2"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.224,
+      "log": "evidence/core-validation-rng-recovery-stateful-False-workers-2.log"
+    },
+    {
+      "name": "rng-recovery-stateful-True-workers-0",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/core_resume_rng.py",
+        "--stateful",
+        "--random-data",
+        "--workers",
+        "0"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.073,
+      "log": "evidence/core-validation-rng-recovery-stateful-True-workers-0.log"
+    },
+    {
+      "name": "rng-recovery-stateful-True-workers-2",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/core_resume_rng.py",
+        "--stateful",
+        "--random-data",
+        "--workers",
+        "2"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 3.324,
+      "log": "evidence/core-validation-rng-recovery-stateful-True-workers-2.log"
+    },
+    {
+      "name": "distributed-rng-recovery-shard",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "-m",
+        "torch.distributed.run",
+        "--standalone",
+        "--nproc_per_node",
+        "2",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/core_resume_rng.py",
+        "--stateful",
+        "--random-data"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.529,
+      "log": "evidence/core-validation-distributed-rng-recovery-shard.log"
+    },
+    {
+      "name": "distributed-rng-recovery-dispatch",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "-m",
+        "torch.distributed.run",
+        "--standalone",
+        "--nproc_per_node",
+        "2",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/core_resume_rng.py",
+        "--stateful",
+        "--random-data",
+        "--dispatch"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.38,
+      "log": "evidence/core-validation-distributed-rng-recovery-dispatch.log"
+    },
+    {
+      "name": "distributed-rng-recovery-dispatch-split",
+      "command": [
+        "[TMPDIR]/accelerate-graph-rewrite-env/bin/python",
+        "-m",
+        "torch.distributed.run",
+        "--standalone",
+        "--nproc_per_node",
+        "2",
+        "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/evidence/core_resume_rng.py",
+        "--stateful",
+        "--random-data",
+        "--dispatch",
+        "--split"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 5.578,
+      "log": "evidence/core-validation-distributed-rng-recovery-dispatch-split.log"
+    }
+  ],
+  "unverified": [
+    "GPU and accelerator-device execution",
+    "hardware AMP/fp8",
+    "multi-node networking",
+    "Native MPI backend; launcher-variable mapping was verified with real Gloo collectives",
+    "Full tensor-parallel model execution; the DP/TP check validates scheduler counting and existing mesh/data checks only"
+  ],
+  "sources": [
+    "https://meta-pytorch.org/data/0.9/stateful_dataloader_tutorial.html",
+    "https://huggingface.co/docs/accelerate/usage_guides/checkpoint",
+    "https://docs.pytorch.org/docs/2.8/distributed.html",
+    "https://github.com/Tecorigin/modelzoo/blob/main/PyTorch/doc/%E6%A8%A1%E5%9E%8B%E9%80%82%E9%85%8D%E6%8C%87%E5%8D%97.md"
+  ],
+  "runtime_sha256": {
+    "src/accelerate/state.py": "6ac3c9edaa21408fc2f010054e4cc7a419a071c521eb8be26aa7a171e6012430",
+    "src/accelerate/accelerator.py": "dbd3fee8822e4871239fa86310f4d927bc1d7d00e3008ee93d2410309048b53f",
+    "src/accelerate/data_loader.py": "7c9840a3c200e2103f7989883789e4a875d4fa9161433aadadfc72bd6e9835be",
+    "src/accelerate/optimizer.py": "18a90156f3abceca39bd31811c21ecbbe23c563145d43080032417376762be31",
+    "src/accelerate/scheduler.py": "d34afe34eafe13b35aa56728ace944c90d6df676deab30d75c10e197e0b89107",
+    "src/accelerate/local_sgd.py": "f42bc7913e03fd0771de16c70dc5cc20de87af375c30e8d25ad98c1836dd2f59"
+  },
+  "provenance_note": "Designed from the supplied semantic graph and public dependency/API documentation; did not open or copy upstream implementation files. During hardware/MPI documentation searches, search results unexpectedly displayed upstream state.py implementation snippets. This is not a formally isolated clean-room process."
+}

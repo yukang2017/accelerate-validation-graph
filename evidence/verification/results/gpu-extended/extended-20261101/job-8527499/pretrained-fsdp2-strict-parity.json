@@ -1,0 +1,345 @@
+{
+  "created_at": "2026-11-01T11:10:50.903900+00:00",
+  "status": "matched",
+  "rtol": 0,
+  "atol": 0,
+  "comparison_method": "Exact type and value equality over the entire comparison payload for all eight actual rank reports",
+  "comparisons": [
+    {
+      "rank": 0,
+      "status": "matched",
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/candidate/rank-0.json",
+        "sha256": "757fce1ad46bc4c3e178263e49e1d46477c023eb64c47fd515f48f80d09d5bc0"
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/reference/rank-0.json",
+        "sha256": "37e0a96e401b494154706468f2d13c8e230aee9001bb15e2ab9fd0fc21f4c850"
+      },
+      "compared_leaf_count": 45,
+      "differences": []
+    },
+    {
+      "rank": 1,
+      "status": "matched",
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/candidate/rank-1.json",
+        "sha256": "ed98a9a01168323c168ec453066c59f4c02298b662444274d48c7283e0412918"
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/reference/rank-1.json",
+        "sha256": "5e299d6b2705453fa2aff43043fa2d656ead3ae530f85e47461868a2d948fc77"
+      },
+      "compared_leaf_count": 45,
+      "differences": []
+    },
+    {
+      "rank": 2,
+      "status": "matched",
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/candidate/rank-2.json",
+        "sha256": "2308bb70d5325f79a266f7c8394516e06ffc1f7cb139dd842eeb01a6f20217b0"
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/reference/rank-2.json",
+        "sha256": "f71e73931f3a783f9c5bd8d7935ae891f04f452d431e449aec1fb3646bb5fc80"
+      },
+      "compared_leaf_count": 45,
+      "differences": []
+    },
+    {
+      "rank": 3,
+      "status": "matched",
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/candidate/rank-3.json",
+        "sha256": "e5e3ac8279b45f68b969d54b7e4da9d5165d863eda61d05fcc459d50d34fa652"
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/reference/rank-3.json",
+        "sha256": "51f666fb3aa59928bb4cfd88cd4cd8880293afe62efe18db875edbd07955cef3"
+      },
+      "compared_leaf_count": 45,
+      "differences": []
+    },
+    {
+      "rank": 4,
+      "status": "matched",
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/candidate/rank-4.json",
+        "sha256": "cb90c6fbd0b766733f8bde05be90d901e108446970534b8f5e804b6285fdc514"
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/reference/rank-4.json",
+        "sha256": "dd81453d8a8189b85db6d125675847abd27c09e72818b134ffaaad31f5c43610"
+      },
+      "compared_leaf_count": 45,
+      "differences": []
+    },
+    {
+      "rank": 5,
+      "status": "matched",
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/candidate/rank-5.json",
+        "sha256": "afee8ee77e4ce09e13c6aba8dbcd4059aab867ee6e8ba6f744ef7b5c1ff93b6f"
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/reference/rank-5.json",
+        "sha256": "367b9453204a235c423347b2dab01f090089e1bd40554e2be2a064a66ea5d16c"
+      },
+      "compared_leaf_count": 45,
+      "differences": []
+    },
+    {
+      "rank": 6,
+      "status": "matched",
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/candidate/rank-6.json",
+        "sha256": "2edc7e0eeeea81a7872f04f899fc907b9532e4433e219e0d8dff7fb19168209b"
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/reference/rank-6.json",
+        "sha256": "3261d8a1d19da27e8055aa2db4e26ceef6e446d6c644d928ae8a18f634f0a3cf"
+      },
+      "compared_leaf_count": 45,
+      "differences": []
+    },
+    {
+      "rank": 7,
+      "status": "matched",
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/candidate/rank-7.json",
+        "sha256": "3f1fb2d2a1d1c25d83b719323ea4ca00647323cefa1f39daaea076724e8558b5"
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527499/pretrained/fsdp2/world-8/reference/rank-7.json",
+        "sha256": "533ce21ec0ae843afdec6081689fcac0b3698472b1b978cb3b7b2bfe4ec71957"
+      },
+      "compared_leaf_count": 45,
+      "differences": []
+    }
+  ],
+  "compared_leaves_total": 360,
+  "comparison_rank0": {
+    "parameter_count": 1543714304,
+    "sequence_length": 128,
+    "initial_weights_sha256": "0bc117a0f3bf9f7c0f8c1a634266a3a4112fe5f0e5ddec5ca0e0059d4c8d628b",
+    "trained_weights_sha256": "98c4c87892a48fccf95ffa1871346987b1060b653612386024ec80b1c4d6dc5b",
+    "continued_weights_sha256": "4e7bbfd047e64b24edc54c024919129a1f7b501be7d54d66005ae869abddb8ff",
+    "warmup_loss": 1.0302698612213135,
+    "measured_losses": [
+      0.8056092858314514,
+      0.5183517336845398,
+      0.39673349261283875,
+      0.10987754911184311,
+      0.0750470906496048,
+      0.050293102860450745,
+      0.022216672077775,
+      0.014014321379363537,
+      0.010912952944636345,
+      0.006133380811661482,
+      0.0035151508636772633,
+      0.002078984398394823,
+      0.0011697893496602774,
+      0.0006878417916595936,
+      0.00039711978752166033,
+      0.00026309999520890415,
+      0.00024595315335318446,
+      0.00019853931735269725,
+      0.00016373037942685187,
+      0.00014622138405684382
+    ],
+    "continuation_loss": 0.00013193274207878858,
+    "continuation_lr": 9.847709021836117e-07,
+    "inference_top8_ids": [
+      [
+        4862,
+        151643,
+        7497,
+        53071,
+        30654,
+        5426,
+        16151,
+        32891
+      ]
+    ],
+    "inference_top8_logits": [
+      [
+        35.5,
+        21.25,
+        19.5,
+        19.0,
+        19.0,
+        18.75,
+        18.375,
+        17.875
+      ]
+    ],
+    "checkpoint_resume_exact": true
+  },
+  "performance": {
+    "candidate": {
+      "world_size": 8,
+      "warmup_steps": 1,
+      "measured_steps": 20,
+      "all_ranks_record_identical_max_rank_step_times": true,
+      "step_seconds": [
+        0.3735471200197935,
+        0.341980941593647,
+        0.3381349500268698,
+        0.3449059408158064,
+        0.3357836175709963,
+        0.3492813101038337,
+        0.3455697502940893,
+        0.34162423852831125,
+        0.3511474262923002,
+        0.3486806368455291,
+        0.3425066713243723,
+        0.3395883608609438,
+        0.34431221056729555,
+        0.35592029988765717,
+        0.34234660770744085,
+        0.3488570209592581,
+        0.34982131142169237,
+        0.3413583170622587,
+        0.3478196421638131,
+        0.3391233356669545
+      ],
+      "mean_step_seconds": 0.34611548548564314,
+      "median_step_seconds": 0.34460907569155097,
+      "min_step_seconds": 0.3357836175709963,
+      "max_step_seconds": 0.3735471200197935,
+      "tokens_per_second": 2958.5500878794846,
+      "max_rank_training_peak_allocated_GiB": 4.749058246612549,
+      "max_rank_training_peak_reserved_GiB": 9.458984375,
+      "rank_memory_samples": [
+        {
+          "training_peak_allocated_cuda_bytes": 5099262464,
+          "training_peak_reserved_cuda_bytes": 10156507136,
+          "workflow_peak_allocated_cuda_bytes": 5102080512
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5099262464,
+          "training_peak_reserved_cuda_bytes": 10156507136,
+          "workflow_peak_allocated_cuda_bytes": 5102080512
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5099262464,
+          "training_peak_reserved_cuda_bytes": 10156507136,
+          "workflow_peak_allocated_cuda_bytes": 5102080512
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5099262464,
+          "training_peak_reserved_cuda_bytes": 10156507136,
+          "workflow_peak_allocated_cuda_bytes": 5102080512
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5099262464,
+          "training_peak_reserved_cuda_bytes": 10156507136,
+          "workflow_peak_allocated_cuda_bytes": 5102080512
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5099262464,
+          "training_peak_reserved_cuda_bytes": 10156507136,
+          "workflow_peak_allocated_cuda_bytes": 5102080512
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5099262464,
+          "training_peak_reserved_cuda_bytes": 10156507136,
+          "workflow_peak_allocated_cuda_bytes": 5102080512
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5099262464,
+          "training_peak_reserved_cuda_bytes": 10156507136,
+          "workflow_peak_allocated_cuda_bytes": 5102080512
+        }
+      ]
+    },
+    "reference": {
+      "world_size": 8,
+      "warmup_steps": 1,
+      "measured_steps": 20,
+      "all_ranks_record_identical_max_rank_step_times": true,
+      "step_seconds": [
+        0.37905973941087723,
+        0.35513191297650337,
+        0.3618779117241502,
+        0.35019971150904894,
+        0.3499071979895234,
+        0.34935455676168203,
+        0.35853816103190184,
+        0.3616697834804654,
+        0.34822767321020365,
+        0.35237005073577166,
+        0.34999628737568855,
+        0.35346304532140493,
+        0.3454282768070698,
+        0.3490213407203555,
+        0.3582927845418453,
+        0.346101270057261,
+        0.3462029676884413,
+        0.35351693350821733,
+        0.3472246006131172,
+        0.356266250833869
+      ],
+      "mean_step_seconds": 0.35359252281486986,
+      "median_step_seconds": 0.3512848811224103,
+      "min_step_seconds": 0.3454282768070698,
+      "max_step_seconds": 0.37905973941087723,
+      "tokens_per_second": 2895.988840058518,
+      "max_rank_training_peak_allocated_GiB": 4.709751605987549,
+      "max_rank_training_peak_reserved_GiB": 6.193359375,
+      "rank_memory_samples": [
+        {
+          "training_peak_allocated_cuda_bytes": 5057057280,
+          "training_peak_reserved_cuda_bytes": 6650068992,
+          "workflow_peak_allocated_cuda_bytes": 5057057280
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5057057280,
+          "training_peak_reserved_cuda_bytes": 6650068992,
+          "workflow_peak_allocated_cuda_bytes": 5057057280
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5057057280,
+          "training_peak_reserved_cuda_bytes": 6650068992,
+          "workflow_peak_allocated_cuda_bytes": 5057057280
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5057057280,
+          "training_peak_reserved_cuda_bytes": 6650068992,
+          "workflow_peak_allocated_cuda_bytes": 5057057280
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5057057280,
+          "training_peak_reserved_cuda_bytes": 6650068992,
+          "workflow_peak_allocated_cuda_bytes": 5057057280
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5057057280,
+          "training_peak_reserved_cuda_bytes": 6650068992,
+          "workflow_peak_allocated_cuda_bytes": 5057057280
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5057057280,
+          "training_peak_reserved_cuda_bytes": 6650068992,
+          "workflow_peak_allocated_cuda_bytes": 5057057280
+        },
+        {
+          "training_peak_allocated_cuda_bytes": 5057057280,
+          "training_peak_reserved_cuda_bytes": 6650068992,
+          "workflow_peak_allocated_cuda_bytes": 5057057280
+        }
+      ]
+    }
+  },
+  "scope": [
+    "Real Qwen2.5-1.5B, 1543714304 parameters; BF16 autocast; FP32 AdamW state; batch 1 per rank; sequence 128; same fixed text repeated on all ranks and steps.",
+    "Full model state tensor bytes are hashed, including initial, trained and continued weights; weights restored exactly and one continuation step replayed exactly.",
+    "Optimizer/RNG are not independently full-byte hashed; the observed restore guarantee is the tested model/loss/LR continuation.",
+    "Step time is CUDA-synchronized and reduced to the maximum rank duration; excludes the outer barrier, reporting reduction, loading, hashing and checkpoint IO.",
+    "20 steps from a single ordered run per variant, no repeated trials, no general speedup/convergence/quality/scaling guarantee.",
+    "Allocator memory peaks are per rank after warmup; reported aggregate is maximum rank, not a sum or full device-memory measurement.",
+    "Two hosts share the nvl72058 prefix; no proof of cross-rack topology or RDMA transport.",
+    "reset_peak_memory_stats resets peak counters but does not free cached blocks: reserved memory during measured steps can include allocator cache retained from initial full-state hashing and warmup. It is not isolated steady-state training memory demand."
+  ]
+}

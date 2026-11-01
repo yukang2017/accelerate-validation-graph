@@ -1,0 +1,1290 @@
+{
+  "created_at": "2026-11-01T11:24:51.107084+00:00",
+  "job_id": "8527658",
+  "status": "shared_native_empty_shard_failure_isolated",
+  "rtol": 0,
+  "atol": 0,
+  "groups": [
+    {
+      "group": "world4-original",
+      "world_size": 4,
+      "output_features": 4,
+      "matrix_status": "passed",
+      "matrix": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/matrix-summary.json",
+        "sha256": "7fbfeb5e3697a9ab8c35f280986e68a605c3d451d6dfa355dfc707d160b7251d",
+        "exists": true
+      },
+      "runs": [
+        {
+          "case": "nccl",
+          "variant": "native",
+          "status": "passed",
+          "elapsed_seconds": 16.037
+        },
+        {
+          "case": "fsdp1_bf16",
+          "variant": "candidate",
+          "status": "passed",
+          "elapsed_seconds": 17.089
+        },
+        {
+          "case": "fsdp1_bf16",
+          "variant": "reference",
+          "status": "passed",
+          "elapsed_seconds": 14.184
+        }
+      ]
+    },
+    {
+      "group": "world8-original",
+      "world_size": 8,
+      "output_features": 4,
+      "matrix_status": "failed",
+      "matrix": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/matrix-summary.json",
+        "sha256": "62ec76aa3106fedfe01a6627f125667bc7b4e6b1a5093b9c07ed109250222dd5",
+        "exists": true
+      },
+      "runs": [
+        {
+          "case": "nccl",
+          "variant": "native",
+          "status": "passed",
+          "elapsed_seconds": 12.882
+        },
+        {
+          "case": "fsdp1_bf16",
+          "variant": "candidate",
+          "status": "failed",
+          "elapsed_seconds": 16.888
+        },
+        {
+          "case": "fsdp1_bf16",
+          "variant": "reference",
+          "status": "failed",
+          "elapsed_seconds": 16.537
+        }
+      ]
+    },
+    {
+      "group": "world8-output16",
+      "world_size": 8,
+      "output_features": 16,
+      "matrix_status": "passed",
+      "matrix": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/matrix-summary.json",
+        "sha256": "1fc4fadb7b92f2f6a38038c292c8306a1e66223c66bee967ce1abeb52d2ca55a",
+        "exists": true
+      },
+      "runs": [
+        {
+          "case": "nccl",
+          "variant": "native",
+          "status": "passed",
+          "elapsed_seconds": 12.882
+        },
+        {
+          "case": "fsdp1_bf16",
+          "variant": "candidate",
+          "status": "passed",
+          "elapsed_seconds": 15.886
+        },
+        {
+          "case": "fsdp1_bf16",
+          "variant": "reference",
+          "status": "passed",
+          "elapsed_seconds": 16.086
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "matched": 12,
+    "not_both_passed": 8
+  },
+  "compared_leaf_count": 5772,
+  "rank_comparisons": [
+    {
+      "group": "world4-original",
+      "world_size": 4,
+      "output_features": 4,
+      "rank": 0,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/candidate/rank-0.json",
+        "sha256": "0f118e8f9e08ba41b4f8ec60e0af4275a49dfcd20599013a83350650f285fa1d",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/reference/rank-0.json",
+        "sha256": "dee5f44e6b0b6b44679fe321f44d2b5ee90483dab2512f1174c2c1f22eb04d3e",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "passed",
+        "reference": "passed"
+      },
+      "status": "matched",
+      "compared_leaf_count": 667,
+      "differences": []
+    },
+    {
+      "group": "world4-original",
+      "world_size": 4,
+      "output_features": 4,
+      "rank": 1,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/candidate/rank-1.json",
+        "sha256": "f732e720a8d5498bbc3450d86858d0d15ff886e80097df52100feb805e41f8aa",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/reference/rank-1.json",
+        "sha256": "54ae8d28d0528cf462d8375e90ffc5f4d5a55f9e9d3958d6130937e93f92b3ce",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "passed",
+        "reference": "passed"
+      },
+      "status": "matched",
+      "compared_leaf_count": 243,
+      "differences": []
+    },
+    {
+      "group": "world4-original",
+      "world_size": 4,
+      "output_features": 4,
+      "rank": 2,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/candidate/rank-2.json",
+        "sha256": "19c902cca337eb84d0c3e29d922ea5835118b5c385624d486eaabd02df2705a6",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/reference/rank-2.json",
+        "sha256": "d66f199c319d0978cbd4f027999739f3bb54ef3c199082c51b16202608520c5b",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "passed",
+        "reference": "passed"
+      },
+      "status": "matched",
+      "compared_leaf_count": 243,
+      "differences": []
+    },
+    {
+      "group": "world4-original",
+      "world_size": 4,
+      "output_features": 4,
+      "rank": 3,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/candidate/rank-3.json",
+        "sha256": "457de42d262bc063615e5444b99974ee20eadef1984f5c2ab4934aaa656f6f67",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/reference/rank-3.json",
+        "sha256": "4c5fa723f27ed93137cda10ea406734ba71f69e9ed2bd5572c7187d7a3e6dd85",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "passed",
+        "reference": "passed"
+      },
+      "status": "matched",
+      "compared_leaf_count": 243,
+      "differences": []
+    },
+    {
+      "group": "world8-original",
+      "world_size": 8,
+      "output_features": 4,
+      "rank": 0,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/rank-0.json",
+        "sha256": null,
+        "exists": false
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/rank-0.json",
+        "sha256": null,
+        "exists": false
+      },
+      "source_statuses": {
+        "candidate": "missing_after_failed_step",
+        "reference": "missing_after_failed_step"
+      },
+      "status": "not_both_passed",
+      "reason": "Original world8 failure is preserved; peers terminated by torchrun may not write final workflow JSON and cannot count as completed parity"
+    },
+    {
+      "group": "world8-original",
+      "world_size": 8,
+      "output_features": 4,
+      "rank": 1,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/rank-1.json",
+        "sha256": null,
+        "exists": false
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/rank-1.json",
+        "sha256": null,
+        "exists": false
+      },
+      "source_statuses": {
+        "candidate": "missing_after_failed_step",
+        "reference": "missing_after_failed_step"
+      },
+      "status": "not_both_passed",
+      "reason": "Original world8 failure is preserved; peers terminated by torchrun may not write final workflow JSON and cannot count as completed parity"
+    },
+    {
+      "group": "world8-original",
+      "world_size": 8,
+      "output_features": 4,
+      "rank": 2,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/rank-2.json",
+        "sha256": null,
+        "exists": false
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/rank-2.json",
+        "sha256": null,
+        "exists": false
+      },
+      "source_statuses": {
+        "candidate": "missing_after_failed_step",
+        "reference": "missing_after_failed_step"
+      },
+      "status": "not_both_passed",
+      "reason": "Original world8 failure is preserved; peers terminated by torchrun may not write final workflow JSON and cannot count as completed parity"
+    },
+    {
+      "group": "world8-original",
+      "world_size": 8,
+      "output_features": 4,
+      "rank": 3,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/rank-3.json",
+        "sha256": null,
+        "exists": false
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/rank-3.json",
+        "sha256": null,
+        "exists": false
+      },
+      "source_statuses": {
+        "candidate": "missing_after_failed_step",
+        "reference": "missing_after_failed_step"
+      },
+      "status": "not_both_passed",
+      "reason": "Original world8 failure is preserved; peers terminated by torchrun may not write final workflow JSON and cannot count as completed parity"
+    },
+    {
+      "group": "world8-original",
+      "world_size": 8,
+      "output_features": 4,
+      "rank": 4,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/rank-4.json",
+        "sha256": "983fc04ec266413fc8798a62fc650c861b58dca04db4325eb3db436e2f26ee00",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/rank-4.json",
+        "sha256": "4b2c96b54f45f628c07284c1158d78008476ed3017c2bf33ac9a211248d28418",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "failed",
+        "reference": "failed"
+      },
+      "status": "not_both_passed",
+      "reason": "Original world8 failure is preserved; peers terminated by torchrun may not write final workflow JSON and cannot count as completed parity"
+    },
+    {
+      "group": "world8-original",
+      "world_size": 8,
+      "output_features": 4,
+      "rank": 5,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/rank-5.json",
+        "sha256": "ebcb10e7d034e22b4f70ec5ffcf48648d3c0849cdbea389ab5ca40c5584b1b2f",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/rank-5.json",
+        "sha256": "fb5767c957c283210c85a62a09d814b77b0e6a34e3a2ba0d38ea216fb54da56e",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "failed",
+        "reference": "failed"
+      },
+      "status": "not_both_passed",
+      "reason": "Original world8 failure is preserved; peers terminated by torchrun may not write final workflow JSON and cannot count as completed parity"
+    },
+    {
+      "group": "world8-original",
+      "world_size": 8,
+      "output_features": 4,
+      "rank": 6,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/rank-6.json",
+        "sha256": "8b6b15d08bf2630c7a5a6a96f66af892e0e10c80a324882023ef56559f2ff338",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/rank-6.json",
+        "sha256": "a3080dfd20e21d6d09645ea98ba614cf5f485a3a7ab0048c1a1860d3aa831541",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "failed",
+        "reference": "failed"
+      },
+      "status": "not_both_passed",
+      "reason": "Original world8 failure is preserved; peers terminated by torchrun may not write final workflow JSON and cannot count as completed parity"
+    },
+    {
+      "group": "world8-original",
+      "world_size": 8,
+      "output_features": 4,
+      "rank": 7,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/rank-7.json",
+        "sha256": "9c9079efb9422239b0329d03a6d73ae77b2889e2be598dcaef9a1b0855a114c5",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/rank-7.json",
+        "sha256": "ada656bd9f964597ed8a686f4e2383942b15c12d55c0ae8d904ec8ec9a240796",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "failed",
+        "reference": "failed"
+      },
+      "status": "not_both_passed",
+      "reason": "Original world8 failure is preserved; peers terminated by torchrun may not write final workflow JSON and cannot count as completed parity"
+    },
+    {
+      "group": "world8-output16",
+      "world_size": 8,
+      "output_features": 16,
+      "rank": 0,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/rank-0.json",
+        "sha256": "bc3a78779d0d5ca22e3e339a59b958e280d5ecc628f0ce37ed12e4243e1a7526",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/rank-0.json",
+        "sha256": "09dd59ef2c034c887079b57cff85d11a167b9daa59cdc18d9bd86ff8eab27a44",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "passed",
+        "reference": "passed"
+      },
+      "status": "matched",
+      "compared_leaf_count": 1275,
+      "differences": []
+    },
+    {
+      "group": "world8-output16",
+      "world_size": 8,
+      "output_features": 16,
+      "rank": 1,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/rank-1.json",
+        "sha256": "4ff3bf8edde8898993bd72ba476cc3c0c807c5f21b75a94b0bebc32dc157290a",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/rank-1.json",
+        "sha256": "5bf3f47d506345450f284bbdad68f982ecf6bffac8bb66ac7aae967d7b7a5b89",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "passed",
+        "reference": "passed"
+      },
+      "status": "matched",
+      "compared_leaf_count": 443,
+      "differences": []
+    },
+    {
+      "group": "world8-output16",
+      "world_size": 8,
+      "output_features": 16,
+      "rank": 2,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/rank-2.json",
+        "sha256": "f8720a59b03c2be624cacd1e31628ebe816db1ca211513ecae772d390d72fb7f",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/rank-2.json",
+        "sha256": "95fd0ecc8e25730f42e59f53824f3ce4ed2c08c8f76a9fcdbe686f28277d7634",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "passed",
+        "reference": "passed"
+      },
+      "status": "matched",
+      "compared_leaf_count": 443,
+      "differences": []
+    },
+    {
+      "group": "world8-output16",
+      "world_size": 8,
+      "output_features": 16,
+      "rank": 3,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/rank-3.json",
+        "sha256": "a830edc41edbce66b3e69a8c44c38397b36fd7c95948651c7c7395ceb9c33baa",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/rank-3.json",
+        "sha256": "2ab39557d048f883323af82594d72eb27b0434f7f4c8da7652c87d74428119ad",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "passed",
+        "reference": "passed"
+      },
+      "status": "matched",
+      "compared_leaf_count": 443,
+      "differences": []
+    },
+    {
+      "group": "world8-output16",
+      "world_size": 8,
+      "output_features": 16,
+      "rank": 4,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/rank-4.json",
+        "sha256": "882300233c964fe517e5c8423823596d42f31eb171ac0696abdc782bf133b4f8",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/rank-4.json",
+        "sha256": "64793f7ac116c43509eea6337d68f80db5c86f0e593615eea1cd1463d84312d2",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "passed",
+        "reference": "passed"
+      },
+      "status": "matched",
+      "compared_leaf_count": 443,
+      "differences": []
+    },
+    {
+      "group": "world8-output16",
+      "world_size": 8,
+      "output_features": 16,
+      "rank": 5,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/rank-5.json",
+        "sha256": "8fb0be9de85dccb33bc847992f503556d5344f6694c183dc26ddba9145000c5b",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/rank-5.json",
+        "sha256": "20e50b7aaf4e897879161bb6216cbca11afed01199bc45c75db2b3767dcfd67d",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "passed",
+        "reference": "passed"
+      },
+      "status": "matched",
+      "compared_leaf_count": 443,
+      "differences": []
+    },
+    {
+      "group": "world8-output16",
+      "world_size": 8,
+      "output_features": 16,
+      "rank": 6,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/rank-6.json",
+        "sha256": "63049bb3bc497d6e4091ef3c6debf914bf5714b993df163e27f8a4b311278383",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/rank-6.json",
+        "sha256": "7c75f5c7372fbffb7cc2f06b513b56b356b59cd9a18619319bf61cfcba785ef1",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "passed",
+        "reference": "passed"
+      },
+      "status": "matched",
+      "compared_leaf_count": 443,
+      "differences": []
+    },
+    {
+      "group": "world8-output16",
+      "world_size": 8,
+      "output_features": 16,
+      "rank": 7,
+      "candidate": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/rank-7.json",
+        "sha256": "04d54e7cc63c1e1045f4a10bf2fbf9b254f15865ac69249f5adb4a8e2410910b",
+        "exists": true
+      },
+      "reference": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/rank-7.json",
+        "sha256": "bad48c8dbdf3c91b4b443b11bf0266e21bdaf32cb9ee742fc0e59c2474b8b71e",
+        "exists": true
+      },
+      "source_statuses": {
+        "candidate": "passed",
+        "reference": "passed"
+      },
+      "status": "matched",
+      "compared_leaf_count": 443,
+      "differences": []
+    }
+  ],
+  "topology": {
+    "status": "passed",
+    "worker_reports": 60,
+    "steps": [
+      {
+        "group": "world4-original",
+        "case": "nccl",
+        "variant": "native",
+        "workflow_status": "passed",
+        "structural_topology_passed": true,
+        "world_size": 4,
+        "hosts": [
+          "GPU_NODE_02",
+          "GPU_NODE_03"
+        ],
+        "ranks": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "worker_source_hash_matches_snapshot": true,
+        "worker_reports": [
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/communication/nccl/world-4/native/run-topology-rank0.json",
+            "sha256": "535153f16503e9d1c1f1d52c66187f052ba3e409fccc7a105ba644ff363b1b75",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/communication/nccl/world-4/native/run-topology-rank1.json",
+            "sha256": "317a1caccb4c662b832b35e042200172f27fd3c735fea7d3b4f33d01ad3a6149",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/communication/nccl/world-4/native/run-topology-rank2.json",
+            "sha256": "e48eb9665f0d2cd8550952e92c8ab70032f99bb61fc8970140f862db4b0e8426",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/communication/nccl/world-4/native/run-topology-rank3.json",
+            "sha256": "d532db9813e996789b156253980cfa34b24a8fd9d1f69419cf9951d5aaa972b2",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "group": "world4-original",
+        "case": "fsdp1_bf16",
+        "variant": "candidate",
+        "workflow_status": "passed",
+        "structural_topology_passed": true,
+        "world_size": 4,
+        "hosts": [
+          "GPU_NODE_02",
+          "GPU_NODE_03"
+        ],
+        "ranks": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "worker_source_hash_matches_snapshot": true,
+        "worker_reports": [
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/candidate/run-topology-rank0.json",
+            "sha256": "a20c05c9378b5a6baedf85f6356b70c37e8046be6893626e459615e7fc59981f",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/candidate/run-topology-rank1.json",
+            "sha256": "a661081a58311673b1c33fcb6691602ff456a2abcd2e906091198847e0cade9b",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/candidate/run-topology-rank2.json",
+            "sha256": "1952cec2e6fcd8f6ec0680c863b3e599d2b33c0afe4a6845298cd52e3e600fcc",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/candidate/run-topology-rank3.json",
+            "sha256": "760df1ed4d71c69942c40d27d17cabc935ae80e93a541939aa43ab498a6b7322",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "group": "world4-original",
+        "case": "fsdp1_bf16",
+        "variant": "reference",
+        "workflow_status": "passed",
+        "structural_topology_passed": true,
+        "world_size": 4,
+        "hosts": [
+          "GPU_NODE_02",
+          "GPU_NODE_03"
+        ],
+        "ranks": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "worker_source_hash_matches_snapshot": true,
+        "worker_reports": [
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/reference/run-topology-rank0.json",
+            "sha256": "2e97c06fab62d0521d310850ac1c7335a09826dfdd1acec8526582b8a1bb1056",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/reference/run-topology-rank1.json",
+            "sha256": "38e30497f5bea9ab5cd3683a85132dfd532d878f1711f99ce3f3c61c8d63649f",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/reference/run-topology-rank2.json",
+            "sha256": "0892c8d433ef32a321530dba44d36304dc6d30ebb496312bbcfd9d1437b95f89",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world4-original/core/fsdp1_bf16/world-4/reference/run-topology-rank3.json",
+            "sha256": "59679e4ec43f5a2ab010830a2d3af9cd58c55b5e59c109dc383488d58804a658",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "group": "world8-original",
+        "case": "nccl",
+        "variant": "native",
+        "workflow_status": "passed",
+        "structural_topology_passed": true,
+        "world_size": 8,
+        "hosts": [
+          "GPU_NODE_02",
+          "GPU_NODE_03"
+        ],
+        "ranks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "worker_source_hash_matches_snapshot": true,
+        "worker_reports": [
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/communication/nccl/world-8/native/run-topology-rank0.json",
+            "sha256": "3d5b0fc6409185e700d5ac2a6a2cb23a3f382f138041d7f403d2ec8f55383af2",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/communication/nccl/world-8/native/run-topology-rank1.json",
+            "sha256": "22f91a51a176ee972fa15b4f46282e9ddb0396465bf3df80c45bb7e05af28a8b",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/communication/nccl/world-8/native/run-topology-rank2.json",
+            "sha256": "4892bd13f241186521386b06e1c034168835b665e834b0a3d131b2768209568d",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/communication/nccl/world-8/native/run-topology-rank3.json",
+            "sha256": "64441b153c1432a39be88bd27dc80649dc7bbe021be9e4b5da3fa091f6d6e3f4",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/communication/nccl/world-8/native/run-topology-rank4.json",
+            "sha256": "8cfa39041db3bf3a921995e0eae6509c1227d7005c59f29bb2a42218862d3f43",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/communication/nccl/world-8/native/run-topology-rank5.json",
+            "sha256": "2ab504b9987eaf09d8e40ed3622bcc19184163c748f79279505a288e93bf9672",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/communication/nccl/world-8/native/run-topology-rank6.json",
+            "sha256": "21b44d8510831cc53820bdc9c9c822f197882b58778fa685d6a3fa707348ac50",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/communication/nccl/world-8/native/run-topology-rank7.json",
+            "sha256": "4b4195086ea7952809eb359af97869ecaa0b22245304b3aaf4e89ad32a215eee",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "group": "world8-original",
+        "case": "fsdp1_bf16",
+        "variant": "candidate",
+        "workflow_status": "failed",
+        "structural_topology_passed": true,
+        "world_size": 8,
+        "hosts": [
+          "GPU_NODE_02",
+          "GPU_NODE_03"
+        ],
+        "ranks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "worker_source_hash_matches_snapshot": true,
+        "worker_reports": [
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/run-topology-rank0.json",
+            "sha256": "be6a808838fb9e7b6e5ca54ac720881d3226085806ccb5896f76978c55c3ea49",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/run-topology-rank1.json",
+            "sha256": "05b571c53626421e35191377830738713e06db0576f5ee8f29c2f27fe4c1df1b",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/run-topology-rank2.json",
+            "sha256": "e50b4bbc4129bb4329cecfc84b5a19e4075791d7fd795571e15c40dcad8708f7",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/run-topology-rank3.json",
+            "sha256": "1fff7f20e476e9fa5d4cacef682ba32f0bee141d0cc00af307af50465cf6ee82",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/run-topology-rank4.json",
+            "sha256": "31753e2a017b064e03745abc80719978fd9c9e4593de7171fa820e4c6b22863f",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/run-topology-rank5.json",
+            "sha256": "052690e8c5fd63221b9a954e7bca987ef6a5050060687f433eb9094de2902608",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/run-topology-rank6.json",
+            "sha256": "acb3eb1b53a4e84d04f7a185182967593e7e41b82792dd3d19bf2e37e51081e1",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/run-topology-rank7.json",
+            "sha256": "264b9c3d9ae07a592471d1045cba2393df67a84f8516897b1d786bf1b42dc1ef",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "group": "world8-original",
+        "case": "fsdp1_bf16",
+        "variant": "reference",
+        "workflow_status": "failed",
+        "structural_topology_passed": true,
+        "world_size": 8,
+        "hosts": [
+          "GPU_NODE_02",
+          "GPU_NODE_03"
+        ],
+        "ranks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "worker_source_hash_matches_snapshot": true,
+        "worker_reports": [
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/run-topology-rank0.json",
+            "sha256": "eb08cdcfb5c5f580f912677d542de455e86cc60b7549b390002f81635ccd2820",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/run-topology-rank1.json",
+            "sha256": "511a03a9dd74e4b5209d401e44c158051510e2c7878c983ea7843819f0606e0c",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/run-topology-rank2.json",
+            "sha256": "3e631458250a3c53a56b4a74b77b3f23c4e0ea77f22b948fe5e0a077997cd8dd",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/run-topology-rank3.json",
+            "sha256": "84a7d36f6e7bb095e77ae5d0f030cc0c86257dd951051d6dd3bac1f7d5d6c31d",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/run-topology-rank4.json",
+            "sha256": "344e932c23b5d5901c55c7f078cef48cf01fd86333ea5b3daac0322ea0cfa281",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/run-topology-rank5.json",
+            "sha256": "823e0cfa9e3dd9de58f0fbcf346cf8f96008bf9606f94da98b1d50d99711cab0",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/run-topology-rank6.json",
+            "sha256": "8d33596d5f9946b23b370f16885db9af0adcd14759967dd3b7e9519df9ad18df",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/run-topology-rank7.json",
+            "sha256": "a36fb1448461f9abc116e048b60429ab5bc0132d773e84f9ec1f3a7d587c09c0",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "group": "world8-output16",
+        "case": "nccl",
+        "variant": "native",
+        "workflow_status": "passed",
+        "structural_topology_passed": true,
+        "world_size": 8,
+        "hosts": [
+          "GPU_NODE_02",
+          "GPU_NODE_03"
+        ],
+        "ranks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "worker_source_hash_matches_snapshot": true,
+        "worker_reports": [
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/communication/nccl/world-8/native/run-topology-rank0.json",
+            "sha256": "11064c1b20f172318e3b976575b2ae37ee9856708a1154552dd1042368840204",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/communication/nccl/world-8/native/run-topology-rank1.json",
+            "sha256": "72a3e95fd6e5649c2b9860e343102071a784676701eed3fb204d46afda98d901",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/communication/nccl/world-8/native/run-topology-rank2.json",
+            "sha256": "93e0b87014a84aa4d0ca5afc4f38c93f468e4d59f6ee7708d5065f8cfe1589bc",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/communication/nccl/world-8/native/run-topology-rank3.json",
+            "sha256": "02e2c9257f0081137efd8b49ae5880944d59a889467cfd24bf1c3d2c78e8d81c",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/communication/nccl/world-8/native/run-topology-rank4.json",
+            "sha256": "dc871275b4cb4a2b3b60e4b76d4914a9173b93eaf4833c318623aa40f19817a1",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/communication/nccl/world-8/native/run-topology-rank5.json",
+            "sha256": "37e9bbcdb33f24861a9fbf5d7e97262a079a7db2f7c1f0a9957a639f4c56faaf",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/communication/nccl/world-8/native/run-topology-rank6.json",
+            "sha256": "e70a7532bf689e49821ce402f921c4d6b879886a6c98b3dddcbdde944f609c92",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/communication/nccl/world-8/native/run-topology-rank7.json",
+            "sha256": "f772095e15159334efb67473f8508328012e0247f3cc105e47647a090d1de7ea",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "group": "world8-output16",
+        "case": "fsdp1_bf16",
+        "variant": "candidate",
+        "workflow_status": "passed",
+        "structural_topology_passed": true,
+        "world_size": 8,
+        "hosts": [
+          "GPU_NODE_02",
+          "GPU_NODE_03"
+        ],
+        "ranks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "worker_source_hash_matches_snapshot": true,
+        "worker_reports": [
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/run-topology-rank0.json",
+            "sha256": "0d1090b46c393f2ad6bb73dd8501d2951caa0a3929f3805e61a8b5d440f48456",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/run-topology-rank1.json",
+            "sha256": "d8f0a80700f8c497d030602584fcbc7d1541e1632016180965817c9bffbb5b7f",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/run-topology-rank2.json",
+            "sha256": "4082ea82838ec0a8c01253279d8912402e788d4b0297acd02f215e68b105cb3f",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/run-topology-rank3.json",
+            "sha256": "36d1b66db795af23156418b45a06e00cff3db608f21909f5dc1d2d3237fa1ad4",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/run-topology-rank4.json",
+            "sha256": "7e5765ff440aaf7ae6aafda5bdac281eed1e3fd88df2335dbb4ca972e3a7f80a",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/run-topology-rank5.json",
+            "sha256": "48b49d4ed364b67d1699ace47f4977199ac1b98848b471dd530d38248af27cc1",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/run-topology-rank6.json",
+            "sha256": "d76f38a715f1bc0900f6d18863c9b62fc59a06de40c2109043fc2b17a47031c2",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/candidate/run-topology-rank7.json",
+            "sha256": "a2d05e16a56a002bf0cf6548dd89ef1067e1c223fb177a35b2d838bba034d85f",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "group": "world8-output16",
+        "case": "fsdp1_bf16",
+        "variant": "reference",
+        "workflow_status": "passed",
+        "structural_topology_passed": true,
+        "world_size": 8,
+        "hosts": [
+          "GPU_NODE_02",
+          "GPU_NODE_03"
+        ],
+        "ranks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "worker_source_hash_matches_snapshot": true,
+        "worker_reports": [
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/run-topology-rank0.json",
+            "sha256": "b88544cddabb4fb9fb5151cb444aeffeeb4ed6a4259ab167eaeff3baf5ebb42c",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/run-topology-rank1.json",
+            "sha256": "257a2b96e3a9e04980843ea720c25de5e2994d7d63f3f384e571a9b98655ae5f",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/run-topology-rank2.json",
+            "sha256": "350514f971667497693400fcb3c201c76eb17c319011165b1340a0f747ab815d",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/run-topology-rank3.json",
+            "sha256": "8191be2f09e01f42c313c3c23b072fadcfc66607498b48fe71ffa544ad81334b",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/run-topology-rank4.json",
+            "sha256": "7adb0f3c6206757e155d61f862c8cf85029d427b4865a7cb6c314f736c99760a",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/run-topology-rank5.json",
+            "sha256": "78efa5cc1b5487ede30d2a953dccc7a0a904a5bfed10272bb4e284ca06863d73",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/run-topology-rank6.json",
+            "sha256": "d66ec13e88dcabd0bf9175cd6ebcc13aab44ecd459d2819de478087b6643b8e9",
+            "exists": true
+          },
+          {
+            "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-output16/core/fsdp1_bf16/world-8/reference/run-topology-rank7.json",
+            "sha256": "cfb2c3aa8f2430c806a9ab678bef48ca69ed4416d028a348c13c6517bdc86f81",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  "actual_gpu_dcp_diagnostics": [
+    {
+      "source": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/dcp-diagnostic-rank4.json",
+        "sha256": "c4f716afba60c7b85ba77bcb1ff9aa1352a2026380a85c6cfec70c487f53a767",
+        "exists": true
+      },
+      "variant": "candidate",
+      "rank": 4,
+      "original_error": "Missing key in checkpoint state_dict: optimizer.param_groups.",
+      "empty_local_shard_keys": [
+        "optimizer.state.3.bias.exp_avg",
+        "optimizer.state.3.bias.exp_avg_sq",
+        "optimizer.state.3.weight.exp_avg",
+        "optimizer.state.3.weight.exp_avg_sq"
+      ],
+      "original_group_count": 1,
+      "original_group_parameter_names": [
+        "0.weight",
+        "0.bias",
+        "3.weight",
+        "3.bias"
+      ],
+      "original_flat_keys_equal_checkpoint_metadata": true,
+      "planner_switched_to_legacy_param_groups_key": true
+    },
+    {
+      "source": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/dcp-diagnostic-rank5.json",
+        "sha256": "ae6d31a210eb1e1f9a749369e0b84dc2de46738e79ffee22ff73138d41124457",
+        "exists": true
+      },
+      "variant": "candidate",
+      "rank": 5,
+      "original_error": "Missing key in checkpoint state_dict: optimizer.param_groups.",
+      "empty_local_shard_keys": [
+        "optimizer.state.3.bias.exp_avg",
+        "optimizer.state.3.bias.exp_avg_sq",
+        "optimizer.state.3.weight.exp_avg",
+        "optimizer.state.3.weight.exp_avg_sq"
+      ],
+      "original_group_count": 1,
+      "original_group_parameter_names": [
+        "0.weight",
+        "0.bias",
+        "3.weight",
+        "3.bias"
+      ],
+      "original_flat_keys_equal_checkpoint_metadata": true,
+      "planner_switched_to_legacy_param_groups_key": true
+    },
+    {
+      "source": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/dcp-diagnostic-rank6.json",
+        "sha256": "c79b92c7232fb045ef1db0e7b8501821c9a1d9d0da2f665e2f339d1ad93e6138",
+        "exists": true
+      },
+      "variant": "candidate",
+      "rank": 6,
+      "original_error": "Missing key in checkpoint state_dict: optimizer.param_groups.",
+      "empty_local_shard_keys": [
+        "optimizer.state.3.bias.exp_avg",
+        "optimizer.state.3.bias.exp_avg_sq",
+        "optimizer.state.3.weight.exp_avg",
+        "optimizer.state.3.weight.exp_avg_sq"
+      ],
+      "original_group_count": 1,
+      "original_group_parameter_names": [
+        "0.weight",
+        "0.bias",
+        "3.weight",
+        "3.bias"
+      ],
+      "original_flat_keys_equal_checkpoint_metadata": true,
+      "planner_switched_to_legacy_param_groups_key": true
+    },
+    {
+      "source": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/candidate/dcp-diagnostic-rank7.json",
+        "sha256": "6caafa5d35a2c8062b7fcd42f5438a4ba5a65f7653310806b72c687a0e65da1a",
+        "exists": true
+      },
+      "variant": "candidate",
+      "rank": 7,
+      "original_error": "Missing key in checkpoint state_dict: optimizer.param_groups.",
+      "empty_local_shard_keys": [
+        "optimizer.state.3.bias.exp_avg",
+        "optimizer.state.3.bias.exp_avg_sq",
+        "optimizer.state.3.weight.exp_avg",
+        "optimizer.state.3.weight.exp_avg_sq"
+      ],
+      "original_group_count": 1,
+      "original_group_parameter_names": [
+        "0.weight",
+        "0.bias",
+        "3.weight",
+        "3.bias"
+      ],
+      "original_flat_keys_equal_checkpoint_metadata": true,
+      "planner_switched_to_legacy_param_groups_key": true
+    },
+    {
+      "source": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/dcp-diagnostic-rank4.json",
+        "sha256": "c4f716afba60c7b85ba77bcb1ff9aa1352a2026380a85c6cfec70c487f53a767",
+        "exists": true
+      },
+      "variant": "reference",
+      "rank": 4,
+      "original_error": "Missing key in checkpoint state_dict: optimizer.param_groups.",
+      "empty_local_shard_keys": [
+        "optimizer.state.3.bias.exp_avg",
+        "optimizer.state.3.bias.exp_avg_sq",
+        "optimizer.state.3.weight.exp_avg",
+        "optimizer.state.3.weight.exp_avg_sq"
+      ],
+      "original_group_count": 1,
+      "original_group_parameter_names": [
+        "0.weight",
+        "0.bias",
+        "3.weight",
+        "3.bias"
+      ],
+      "original_flat_keys_equal_checkpoint_metadata": true,
+      "planner_switched_to_legacy_param_groups_key": true
+    },
+    {
+      "source": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/dcp-diagnostic-rank5.json",
+        "sha256": "ae6d31a210eb1e1f9a749369e0b84dc2de46738e79ffee22ff73138d41124457",
+        "exists": true
+      },
+      "variant": "reference",
+      "rank": 5,
+      "original_error": "Missing key in checkpoint state_dict: optimizer.param_groups.",
+      "empty_local_shard_keys": [
+        "optimizer.state.3.bias.exp_avg",
+        "optimizer.state.3.bias.exp_avg_sq",
+        "optimizer.state.3.weight.exp_avg",
+        "optimizer.state.3.weight.exp_avg_sq"
+      ],
+      "original_group_count": 1,
+      "original_group_parameter_names": [
+        "0.weight",
+        "0.bias",
+        "3.weight",
+        "3.bias"
+      ],
+      "original_flat_keys_equal_checkpoint_metadata": true,
+      "planner_switched_to_legacy_param_groups_key": true
+    },
+    {
+      "source": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/dcp-diagnostic-rank6.json",
+        "sha256": "c79b92c7232fb045ef1db0e7b8501821c9a1d9d0da2f665e2f339d1ad93e6138",
+        "exists": true
+      },
+      "variant": "reference",
+      "rank": 6,
+      "original_error": "Missing key in checkpoint state_dict: optimizer.param_groups.",
+      "empty_local_shard_keys": [
+        "optimizer.state.3.bias.exp_avg",
+        "optimizer.state.3.bias.exp_avg_sq",
+        "optimizer.state.3.weight.exp_avg",
+        "optimizer.state.3.weight.exp_avg_sq"
+      ],
+      "original_group_count": 1,
+      "original_group_parameter_names": [
+        "0.weight",
+        "0.bias",
+        "3.weight",
+        "3.bias"
+      ],
+      "original_flat_keys_equal_checkpoint_metadata": true,
+      "planner_switched_to_legacy_param_groups_key": true
+    },
+    {
+      "source": {
+        "path": "[WORKSPACE]/LMA-reviews/accelerate-graph-rewrite-20261031/gpu-evidence/extended-20261101/job-8527658/world8-original/core/fsdp1_bf16/world-8/reference/dcp-diagnostic-rank7.json",
+        "sha256": "6caafa5d35a2c8062b7fcd42f5438a4ba5a65f7653310806b72c687a0e65da1a",
+        "exists": true
+      },
+      "variant": "reference",
+      "rank": 7,
+      "original_error": "Missing key in checkpoint state_dict: optimizer.param_groups.",
+      "empty_local_shard_keys": [
+        "optimizer.state.3.bias.exp_avg",
+        "optimizer.state.3.bias.exp_avg_sq",
+        "optimizer.state.3.weight.exp_avg",
+        "optimizer.state.3.weight.exp_avg_sq"
+      ],
+      "original_group_count": 1,
+      "original_group_parameter_names": [
+        "0.weight",
+        "0.bias",
+        "3.weight",
+        "3.bias"
+      ],
+      "original_flat_keys_equal_checkpoint_metadata": true,
+      "planner_switched_to_legacy_param_groups_key": true
+    }
+  ],
+  "candidate_runtime_source_unchanged_across_groups": true,
+  "finding": "The shared PyTorch DCP FSDP1 restore failure is triggered by empty local shards of four-row last-layer optimizer tensors at world size eight. Actual planner diagnostics show complete original param_groups and metadata keys, then a legacy-format planner representation that mismatches the saved format. Both distributions pass the unchanged world-four fixture and the world-eight output-sixteen control.",
+  "scope": [
+    "All three groups ran on the same two allocated hosts in sequence. No runtime implementation, checkpoint acceptance checks, or tolerance was changed.",
+    "The output-sixteen fixture is an explicit additional diagnostic control, not a replacement or repair of the original world-eight failure.",
+    "No claim that all FSDP1 checkpoint shapes/versions or all network topologies are verified."
+  ],
+  "original_world8_failure_retained": true
+}

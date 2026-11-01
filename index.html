@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Accelerate 结构重写的功能地图、关联代码规模与实际验证证据。">
+  <title>Accelerate · 功能与验证图谱</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="data.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#map-heading">跳到功能图谱</a>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Accelerate 图谱首页"><span class="brand-icon" aria-hidden="true">a</span>accelerate<span class="brand-divider"></span><span class="brand-caption">VALIDATION ATLAS</span></a>
+    <div class="header-actions"><span class="local-tag"><i></i>独立证据 · 可离线浏览</span><a id="source-link" class="quiet-link" target="_blank" rel="noopener noreferrer" hidden>原版源码 ↗</a></div>
+  </header>
+
+  <main class="workspace">
+    <section class="hero" aria-labelledby="page-title">
+      <div><p class="eyebrow">LESS CODE. VISIBLE EVIDENCE.</p><h1 id="page-title"><span class="title-project">Accelerate</span> <span class="title-subject">功能与验证图谱<span class="title-dot">.</span></span></h1><p class="subtitle">从功能关系到实际运行结果，让结构简化的变化与边界清晰可见。</p></div>
+      <div class="export-controls"><button id="export-json" class="button">导出 JSON <span aria-hidden="true">↓</span></button><button id="export-csv" class="button secondary">CSV</button></div>
+    </section>
+
+    <section class="overview" aria-label="项目总览">
+      <div class="stat code-stat"><span class="stat-label">运行时 Python 代码 <span class="micro-label">LOC</span></span><div class="code-numbers"><span id="total-before">—</span><span class="metric-arrow">→</span><strong id="total-after">—</strong></div><p>排除 test_utils、示例与验证脚本</p></div>
+      <div class="stat"><span class="stat-label">代码减少</span><strong id="total-reduction" class="stat-value">—</strong><div class="reduction-track" aria-hidden="true"><i id="reduction-bar"></i></div></div>
+      <div class="stat"><span class="stat-label">功能工作流</span><strong class="stat-value"><span id="total-flows">—</span><span class="stat-denominator"> / <span id="total-domains">—</span> 个功能域</span></strong><p>按公开功能组织</p></div>
+      <div class="stat coverage-stat"><span class="stat-label">验证执行层</span><div id="level-overview" class="level-overview"></div><p>覆盖已记录的配置与样例</p></div>
+    </section>
+
+    <div class="scope-strip"><span class="scope-symbol" aria-hidden="true">◈</span><p><strong>通过 ≠ 全功能等价。</strong>“已测配置通过”只描述已运行的样例；失败、依赖边界与未测项保留在每个节点中。</p><button id="methodology-open" class="inline-button">统计口径 ↗</button></div>
+
+    <section class="atlas" aria-labelledby="map-heading">
+      <div class="atlas-topline"><div><p class="eyebrow small">EXPLORE THE SYSTEM</p><h2 id="map-heading" tabindex="-1">功能地图</h2></div><div class="view-switch" role="group" aria-label="视图"><button id="view-graph" data-view="graph" aria-pressed="true"><span aria-hidden="true">⌘</span> 关系图</button><button id="view-tree" data-view="tree" aria-pressed="false"><span aria-hidden="true">☷</span> 功能树</button></div></div>
+      <div class="toolbar">
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" autocomplete="off" placeholder="搜索功能、文件或验证内容…" aria-label="搜索功能、文件或验证内容"><kbd>/</kbd></label>
+        <label class="select-control"><span class="sr-only">验证结果</span><select id="status-filter"><option value="all">全部结果</option><option value="sample_pass">已测配置通过</option><option value="partial">部分通过</option><option value="not_run">未验证</option></select></label>
+        <label class="select-control"><span class="sr-only">执行层</span><select id="level-filter"><option value="all">全部执行层</option><option value="gpu">GPU</option><option value="cpu">CPU</option><option value="recipe">示例 / Recipe</option><option value="not_run">未运行</option></select></label>
+        <button id="reset-filters" class="reset-button" title="清除所有筛选">重置</button>
+      </div>
+      <div class="atlas-body">
+        <nav class="domain-nav" aria-label="功能域"><div class="nav-kicker">功能域 <span id="domain-count"></span></div><div id="domain-list"></div></nav>
+        <div class="map-column">
+          <div class="map-toolbar"><span id="map-summary" aria-live="polite">正在读取数据…</span><div id="graph-actions" class="map-actions"><button id="zoom-out" aria-label="缩小">−</button><output id="zoom-value" aria-label="缩放比例">100%</output><button id="zoom-in" aria-label="放大">+</button><span class="control-separator"></span><button id="fit-map" class="fit-button" title="适应画布宽度，保持节点文字可读">适应宽度</button></div></div>
+          <div id="graph-viewport" class="graph-viewport" tabindex="0" role="region" aria-label="可拖动的关系图；Tab选择节点，方向键移动画布，加减号缩放"><div id="graph-surface"><div id="graph-stage"></div></div><div id="graph-empty" class="empty-state" hidden><span>⌕</span><h3>没有匹配的功能</h3><p>换一个关键词，或清除筛选条件。</p><button class="button" data-reset>清除筛选</button></div></div>
+          <div id="tree-view" class="tree-view" hidden></div>
+          <div class="map-footer"><span><i class="edge-swatch"></i>功能关系 <i class="edge-swatch selected"></i>当前节点关联</span><span>节点行数含共享，不可相加</span><span id="map-hint">拖动画布 · 点击节点查看证据</span></div>
+        </div>
+        <aside id="detail-panel" class="detail-panel" aria-label="节点详情"><div id="detail-content"></div></aside>
+      </div>
+    </section>
+
+    <details id="methodology" class="methodology"><summary><span><span class="eyebrow small">READ THE NUMBERS</span><strong>统计方法与验证边界</strong></span><span aria-hidden="true">+</span></summary><div id="methodology-content"></div></details>
+    <footer><span>ACCELERATE · STRUCTURE & VALIDATION</span><div id="provenance"></div></footer>
+  </main>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <div id="a11y-status" class="sr-only" aria-live="polite"></div>
+  <noscript><div class="noscript">请启用 JavaScript 以浏览图谱。数据保存在同目录的 data.js 中。</div></noscript>
+</body>
+</html>
