@@ -14,10 +14,31 @@
   "functional_results_modified": false,
   "files": [
     {
-      "path": "app.js",
-      "original_sha256": "8329d0dfce2d6a6e0874f16e5e4a69c37f1d6bceba23563547af06202546a75f",
-      "public_sha256": "8329d0dfce2d6a6e0874f16e5e4a69c37f1d6bceba23563547af06202546a75f",
-      "bytes": 34445,
+      "path": "audit-ids.js",
+      "original_sha256": "2100f2b250f8f419eea7694319d44b7a0cd4fb26743150ed938011e5b019b81d",
+      "public_sha256": "2100f2b250f8f419eea7694319d44b7a0cd4fb26743150ed938011e5b019b81d",
+      "bytes": 15843,
+      "modified_for_publication": false
+    },
+    {
+      "path": "audit-map.css",
+      "original_sha256": "d7bb652e46a85c8800b029b655fa8b98fabfc57bac4f4ca6d87a9971ad3fe8f4",
+      "public_sha256": "d7bb652e46a85c8800b029b655fa8b98fabfc57bac4f4ca6d87a9971ad3fe8f4",
+      "bytes": 7850,
+      "modified_for_publication": false
+    },
+    {
+      "path": "audit-map.js",
+      "original_sha256": "9a17ebe67eae7618c90fe8e46c31131654a4b3f76fc5edd5ac9ab6bcb2d68165",
+      "public_sha256": "9a17ebe67eae7618c90fe8e46c31131654a4b3f76fc5edd5ac9ab6bcb2d68165",
+      "bytes": 25305,
+      "modified_for_publication": false
+    },
+    {
+      "path": "audit-metrics.js",
+      "original_sha256": "8f8723ad0ed58b7413669571d4b28f3daecdb15f08ad15f5374e40513922cf15",
+      "public_sha256": "8f8723ad0ed58b7413669571d4b28f3daecdb15f08ad15f5374e40513922cf15",
+      "bytes": 701575,
       "modified_for_publication": false
     },
     {
@@ -204,10 +225,24 @@
     },
     {
       "path": "index.html",
-      "original_sha256": "9d84daaadd8ca252158e0724c82752616ccbd1eb3f376a8b32195312962b972b",
-      "public_sha256": "1d68844a5f2214153e0d5f68e950689de556646877e5d464c4a546601c956c98",
-      "bytes": 6874,
-      "modified_for_publication": true
+      "original_sha256": "6764e39e655706aad39bf68c0fa6cccf5028ed0e365429c5c7c869b7077980f1",
+      "public_sha256": "6764e39e655706aad39bf68c0fa6cccf5028ed0e365429c5c7c869b7077980f1",
+      "bytes": 545329,
+      "modified_for_publication": false
+    },
+    {
+      "path": "map.css",
+      "original_sha256": "a72b49d17e9d6c14f8f4e524dc56f5913e673c56edb23b14b2edc49c529ea544",
+      "public_sha256": "a72b49d17e9d6c14f8f4e524dc56f5913e673c56edb23b14b2edc49c529ea544",
+      "bytes": 5050,
+      "modified_for_publication": false
+    },
+    {
+      "path": "map.js",
+      "original_sha256": "f10744972ef63d97384bc6e01c96ad77d50515d8293ad0e793ebbbca3101a4b3",
+      "public_sha256": "f10744972ef63d97384bc6e01c96ad77d50515d8293ad0e793ebbbca3101a4b3",
+      "bytes": 12569,
+      "modified_for_publication": false
     },
     {
       "path": "source/candidate/benchmarks/run.py.html",
@@ -585,13 +620,6 @@
       "original_sha256": "d1c2f5c7b7a90da81b358fd629cfd20895c5a4426a389ebffe7a38b554d31ece",
       "public_sha256": "d1c2f5c7b7a90da81b358fd629cfd20895c5a4426a389ebffe7a38b554d31ece",
       "bytes": 13967,
-      "modified_for_publication": false
-    },
-    {
-      "path": "style.css",
-      "original_sha256": "bdf7cbb20be55d90743300f5c6cdc3973b42e1a2c6c6c66ffac51b5a6c7596a8",
-      "public_sha256": "bdf7cbb20be55d90743300f5c6cdc3973b42e1a2c6c6c66ffac51b5a6c7596a8",
-      "bytes": 25714,
       "modified_for_publication": false
     },
     {
